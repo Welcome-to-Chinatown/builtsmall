@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Build 101 facilitator run sheet — timeline, cues, and exercises, built to read on a phone.">
+<title>Build 101 · Run Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111f75; --navy-deep:#0a134a; --yellow:#e5e138; --off:#f4f4ef;
+  --ink:#0a134a; --muted:#5b6494; --line:rgba(10,19,74,.12); --card:#ffffff;
+  --serif:'Mulish',system-ui,sans-serif; --body:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:1.5;font-size:18px;-webkit-font-smoothing:antialiased;padding-bottom:22vh;}
+.awning{height:12px;background:var(--yellow);position:sticky;top:0;z-index:30;}
+
+/* header */
+header{background:var(--navy);color:var(--off);padding:16px 18px 18px;}
+header h1{font-family:var(--serif);font-weight:900;font-size:26px;line-height:1.05;letter-spacing:-.01em;}
+header .meta{font-family:var(--mono);font-size:13px;color:var(--yellow);margin-top:6px;letter-spacing:.04em;}
+header .sub{font-size:14.5px;opacity:.85;margin-top:8px;}
+
+/* jump nav */
+nav{position:sticky;top:12px;z-index:20;background:rgba(244,244,239,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:9px 12px;display:flex;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+nav a{flex:0 0 auto;font-family:var(--body);font-weight:700;font-size:13.5px;text-decoration:none;color:var(--navy);background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;white-space:nowrap;}
+nav a:active{background:var(--yellow);}
+
+main{max-width:640px;margin:0 auto;padding:16px 14px;}
+
+/* cue strip */
+.cues{background:var(--navy-deep);color:var(--off);border-radius:14px;padding:16px 16px 6px;margin-bottom:18px;}
+.cues h2{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;}
+.cues ul{list-style:none;}
+.cues li{position:relative;padding-left:20px;margin-bottom:11px;font-size:15.5px;line-height:1.45;}
+.cues li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--yellow);}
+.cues b{color:var(--yellow);}
+
+/* section */
+.sec{margin:26px 0 6px;}
+.sec-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;border-bottom:3px solid var(--yellow);padding-bottom:7px;margin-bottom:14px;}
+.sec-h h2{font-family:var(--serif);font-weight:900;font-size:22px;color:var(--navy);}
+.sec-h .win{font-family:var(--mono);font-size:13px;color:var(--muted);}
+
+/* block card */
+.b{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 15px;margin-bottom:12px;box-shadow:0 4px 14px rgba(10,19,74,.05);}
+.b.ex{border-left:6px solid var(--yellow);}
+.b-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;}
+.clock{font-family:var(--mono);font-weight:500;font-size:14px;background:var(--navy);color:#fff;border-radius:7px;padding:3px 9px;}
+.mins{font-family:var(--mono);font-size:13px;color:var(--muted);}
+.slref{font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:auto;}
+.b h3{font-family:var(--serif);font-weight:800;font-size:19px;color:var(--navy);line-height:1.15;}
+.b ul{list-style:none;margin-top:9px;}
+.b li{position:relative;padding-left:18px;margin-bottom:7px;font-size:16px;line-height:1.45;}
+.b li::before{content:'';position:absolute;left:0;top:10px;width:9px;height:2px;background:var(--navy);}
+.b b{color:var(--navy);}
+.say{color:var(--muted);font-style:italic;}
+
+/* timer badge + steps */
+.tbadge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-weight:500;font-size:13px;background:var(--yellow);color:var(--navy);border-radius:7px;padding:3px 10px;}
+.steps{list-style:none;counter-reset:s;margin-top:10px;}
+.steps li{counter-increment:s;position:relative;padding-left:30px;margin-bottom:8px;font-size:15.5px;line-height:1.4;}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-family:var(--serif);font-weight:900;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.share{background:rgba(229,225,56,.18);border-radius:9px;padding:10px 12px;margin-top:11px;font-size:15px;}
+.share b{color:var(--navy);}
+.nums{background:var(--navy);color:var(--off);border-radius:9px;padding:11px 12px;margin-top:11px;font-size:14.5px;line-height:1.5;}
+.nums b{color:var(--yellow);}
+.tip{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.45;border-top:1px dashed var(--line);padding-top:9px;}
+.tip b{color:var(--navy);}
+
+.foot{text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:26px;}
+.foot a{color:var(--navy);}
+</style>
+</head>
+<body>
+<div class="awning"></div>
+<header>
+  <h1>Build 101 — Run Sheet</h1>
+  <div class="meta">9:30 – 10:50 &middot; 80 min &middot; 35 slides</div>
+  <div class="sub">Partner remarks happen before 9:30. Your teaching starts at 9:30.</div>
+</header>
+
+<nav>
+  <a href="#cues">Cues</a>
+  <a href="#open">Open</a>
+  <a href="#p1">Part 1</a>
+  <a href="#p2">Part 2</a>
+  <a href="#p3">Part 3</a>
+  <a href="#wrap">Wrap</a>
+</nav>
+
+<main>
+
+<section class="cues" id="cues">
+  <h2>Keep these in your head</h2>
+  <ul>
+    <li><b>Hard start the dashboard at 10:10.</b> If you're behind, trim Part two — never the main exercise.</li>
+    <li><b>Start each timer on screen</b> and honor the hard stop. "Now write your own" can finish at home if tight.</li>
+    <li><b>Don't hand over the dashboard Steps.</b> Tell them to look at the mess first — the numbers check reveals what they missed.</li>
+    <li><b>Make → share, every time.</b> PITA out loud, dashboard numbers compared, full show-and-tell.</li>
+    <li><b>Privacy:</b> never paste passwords or account numbers. Use sample data.</li>
+    <li>Behind? Cut in this order: <b>show-and-tell → Part two → send "write your own" home.</b></li>
+  </ul>
+</section>
+
+<!-- OPENING -->
+<section class="sec" id="open">
+  <div class="sec-h"><h2>Opening</h2><span class="win">9:30 – 9:37 &middot; 7 min</span></div>
+  <div class="b">
+    <div class="b-top"><span class="clock">9:30</span><span class="mins">7 min</span><span class="slref">Slides 1–7</span></div>
+    <h3>Welcome → vocab, briskly</h3>
+    <ul>
+      <li>Partners already spoke — keep the welcome short.</li>
+      <li><b>Who we are:</b> Welcome to Chinatown, the AI Specialist EAC. BuiltSmall is our free AI program.</li>
+      <li><b>Promise:</b> by the end you'll have found a PITA, shaped a prompt, and saved it as a project.</li>
+      <li><b>Vocabulary (slide 7):</b> name the 6 words, don't dwell — you'll use them today.</li>
+      <li class="say">Pace: about one minute a slide.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PART ONE -->
+<section class="sec" id="p1">
+  <div class="sec-h"><h2>Part 1 · Find your PITA</h2><span class="win">9:37 – 9:58 &middot; 21 min</span></div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">9:37</span><span class="mins">4 min</span><span class="slref">Slides 8–9</span></div>
+    <h3>The audit + the sandwich</h3>
+    <ul>
+      <li>"Before you prompt, you find the task worth prompting."</li>
+      <li><b>Sandwich (live):</b> you're a robot that's never seen food. Pairs write 5 steps for a PB sandwich; you follow them <i>literally</i>. The point is specificity. Keep it to ~3 min and funny.</li>
+    </ul>
+  </div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">9:41</span><span class="mins">4 min</span><span class="slref">Slides 10–13</span></div>
+    <h3>PITA + Jason</h3>
+    <ul>
+      <li><b>PITA</b> = Pain In The Ass: the small task you repeat every week.</li>
+      <li><b>Jason (Soft Swerve):</b> vague "I want a tool for all my sales data" → too big → reframed to "6 hours a month reconciling tips across 6 stores."</li>
+      <li><b>What he got (slide 13):</b> the real dashboard. That's the payoff of a clear PITA.</li>
+    </ul>
+  </div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">9:45</span><span class="mins">3 min</span><span class="slref">Slides 14–16</span></div>
+    <h3>Filters → audit steps → the one-liner</h3>
+    <ul>
+      <li><b>Three filters:</b> repetitive, text or data, describable.</li>
+      <li><b>Audit:</b> pick a task → describe it step by step → time it → name the PITA.</li>
+      <li><b>Problem statement:</b> "My pain point is that ___. If I had ___, I would ___."</li>
+    </ul>
+  </div>
+
+  <div class="b ex">
+    <div class="b-top"><span class="clock">9:48</span><span class="tbadge">⏱ 10 min</span><span class="slref">Slide 16</span></div>
+    <h3>Exercise · Find your PITA (pairs)</h3>
+    <ol class="steps">
+      <li>2 min — on your own, fill the first steps on the PITA Canvas.</li>
+      <li>3 min — pair up. One is the owner, one is the detective (asks, doesn't solve).</li>
+      <li>2 min — switch roles.</li>
+      <li>1 min — write the one-liner.</li>
+      <li>2 min — a few say their PITA out loud.</li>
+    </ol>
+    <div class="share"><b>Share:</b> "Two or three of you — what's your PITA?" Pick voices from different corners.</div>
+    <div class="tip">Hard stop at <b>9:58</b>. They keep the sentence for "write your own" later.</div>
+  </div>
+</section>
+
+<!-- PART TWO -->
+<section class="sec" id="p2">
+  <div class="sec-h"><h2>Part 2 · Shape the ask</h2><span class="win">9:58 – 10:07 &middot; 9 min</span></div>
+  <div class="b">
+    <div class="b-top"><span class="clock">9:58</span><span class="mins">9 min</span><span class="slref">Slides 17–20</span></div>
+    <h3>The framework + the reveal</h3>
+    <ul>
+      <li><b>Prompt vs prompt engineering:</b> you already do it; today it's deliberate.</li>
+      <li><b>Prompt Framework (slide 19):</b> Role &amp; Goal · Steps · Output · Eval. This is the one they use all day.</li>
+      <li><b>The reveal (slide 20):</b> low vs high prompt. Land the line — "the quality of your input sets the quality of your output."</li>
+      <li class="say">No exercise here. Keep it tight, ~2 min a slide.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- PART THREE -->
+<section class="sec" id="p3">
+  <div class="sec-h"><h2>Part 3 · Practice</h2><span class="win">10:07 – 10:32 &middot; 25 min</span></div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">10:07</span><span class="mins">3 min</span><span class="slref">Slides 21–22</span></div>
+    <h3>Set up the messy file</h3>
+    <ul>
+      <li>100 orders, mixed dates, category names that don't match, refunds in their own column.</li>
+      <li>Everyone works the <b>same file</b> so you can compare in the room.</li>
+    </ul>
+  </div>
+
+  <div class="b ex">
+    <div class="b-top"><span class="clock">10:10</span><span class="tbadge">⏱ 12 min</span><span class="slref">Slide 23</span></div>
+    <h3>Exercise · Build the dashboard</h3>
+    <ul>
+      <li>Open the handout, download the sample file, attach to a new chat.</li>
+      <li>Fill the four-part template — <b>they write the Steps.</b></li>
+      <li>Then <b>make one change</b>: add a feature, change a color, add a filter.</li>
+    </ul>
+    <div class="nums"><b>Check:</b> revenue ~$3,825 &middot; 100 orders &middot; avg ~$38 &middot; refunds $321.52 &middot; 6 categories.</div>
+    <div class="share"><b>Share:</b> "Who got 6 categories? Who got more?" Wrong numbers = a cleaning step got skipped.</div>
+    <div class="tip"><b>How to teach the Steps without giving them away:</b> tell them to <b>look at the file first</b> — the dates, the category names, the refunds. Each mess they spot becomes a step. Model <i>one</i> ("dates are inconsistent → Step 1: read all the date styles"), then let them find the rest.</div>
+  </div>
+
+  <div class="b ex">
+    <div class="b-top"><span class="clock">10:22</span><span class="tbadge">⏱ 10 min</span><span class="slref">Slide 24</span></div>
+    <h3>Exercise · Now write your own</h3>
+    <ul>
+      <li>Pick a task — your PITA, or anything.</li>
+      <li><b>The hack:</b> in a new chat, paste the four-part framework and say "interview me about this task, then write the prompt for me."</li>
+      <li>Answer its questions → it hands back a finished prompt → paste into a fresh chat and run.</li>
+    </ul>
+    <div class="tip">If tight: "You've got the hack — start it here, finish tonight." Then move on.</div>
+  </div>
+</section>
+
+<!-- WRAP -->
+<section class="sec" id="wrap">
+  <div class="sec-h"><h2>Share &amp; Wrap</h2><span class="win">10:32 – 10:50 &middot; 18 min</span></div>
+
+  <div class="b ex">
+    <div class="b-top"><span class="clock">10:32</span><span class="tbadge">🎤 10 min</span><span class="slref">Slide 25</span></div>
+    <h3>Show and tell</h3>
+    <ul>
+      <li>A few of you share what you made — your PITA, the prompt you wrote, what the AI gave back.</li>
+      <li class="say">This is the energy moment. Give it room; it's the first thing to trim only if you must.</li>
+    </ul>
+  </div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">10:42</span><span class="mins">3 min</span><span class="slref">Slides 26–27</span></div>
+    <h3>Keep it: save as a project</h3>
+    <ul>
+      <li>Save the prompt as the project's <b>instructions</b>, add your file (that's RAG), reuse it.</li>
+      <li>Every tool has a home for it — Claude, ChatGPT, Gemini.</li>
+    </ul>
+  </div>
+
+  <div class="b">
+    <div class="b-top"><span class="clock">10:45</span><span class="mins">5 min</span><span class="slref">Slides 28–32</span></div>
+    <h3>Close out</h3>
+    <ul>
+      <li>What you accomplished → where to go from here (prompt library, Build 102, take-home guide).</li>
+      <li><b>How did we do? (slide 30)</b> — point them to the survey QR.</li>
+      <li>Programs + stay in touch → thank-you.</li>
+      <li class="say">If the exercises ran over, this is your shock absorber — do it in 2–3 min.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="foot">Build 101 &middot; BuiltSmall, for All</div>
+
+</main>
+</body>
+</html>
