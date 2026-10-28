@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="BuiltSmall Build 101 — your first AI build. Slides, handouts, and practice files. Originally for the Next Era — AI training for small businesses from Welcome to Chinatown. Slides, handouts, and demo files for the Foundations and Advanced sessions, in one place.">
+<title>BuiltSmall · Build 101</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111f75; --navy-deep:#0a134a; --yellow:#e5e138; --yellow-soft:#f0ec7a;
+  --off:#ededed; --ink:#0a134a; --muted:rgba(10,19,74,.62); --line:rgba(10,19,74,.12);
+  --serif:'Mulish', system-ui, sans-serif; --body:'DM Sans', system-ui, sans-serif; --mono:'DM Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+
+/* awning + scallop */
+.awning{height:14px;background:var(--yellow);position:relative;}
+.awning::after{content:'';position:absolute;left:0;right:0;top:100%;height:14px;background:var(--yellow);
+  -webkit-mask-image:radial-gradient(circle 10px at 10px 0,#000 9px,transparent 10px);mask-image:radial-gradient(circle 10px at 10px 0,#000 9px,transparent 10px);
+  -webkit-mask-size:20px 14px;mask-size:20px 14px;-webkit-mask-repeat:repeat-x;mask-repeat:repeat-x;}
+
+.wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+
+/* hero */
+.hero{background:var(--navy);color:var(--off);padding:6vh 0 7vh;position:relative;}
+.hero .wrap{text-align:center;}
+.lockup-link{display:inline-block;}
+.hero .lockup{height:118px;width:auto;margin:0 auto 3.2vh;display:block;transition:transform .12s ease;}
+.lockup-link:hover .lockup{transform:scale(1.04);}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,8vw,72px);line-height:1;letter-spacing:-.02em;margin-bottom:16px;}
+.hero h1 em{font-style:normal;background:var(--yellow);color:var(--navy);padding:0 .22em;border-radius:4px;}
+.hero .sub{font-size:clamp(17px,2.4vw,21px);opacity:.88;max-width:34ch;margin:0 auto;}
+
+/* sessions */
+.sessions{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:22px;margin:-5vh auto 0;position:relative;z-index:2;}
+@media(max-width:720px){.sessions{grid-template-columns:1fr;}}
+.card{background:#fff;border-radius:16px;padding:30px 28px 28px;box-shadow:0 18px 50px rgba(10,19,74,.16);border:1px solid var(--line);display:flex;flex-direction:column;}
+.card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:10px;}
+.card h2{font-family:var(--serif);font-weight:900;font-size:27px;line-height:1.08;margin-bottom:10px;color:var(--navy);}
+.card p{color:var(--muted);font-size:15.5px;margin-bottom:22px;flex:1;}
+.btns{display:flex;flex-wrap:wrap;gap:10px;}
+.btn{font-family:var(--body);font-weight:700;font-size:15px;text-decoration:none;padding:12px 20px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:transform .08s ease,background .15s ease;}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--navy);color:var(--off);}
+.btn-primary:hover{background:var(--navy-deep);}
+.btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--navy);padding:10px 18px;}
+.btn-ghost:hover{background:rgba(17,31,117,.07);}
+
+/* resources */
+.section{padding:7vh 0 2vh;}
+.section h3{font-family:var(--serif);font-weight:900;font-size:24px;color:var(--navy);margin-bottom:6px;}
+.section .lead{color:var(--muted);font-size:15.5px;margin-bottom:22px;}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:720px){.res{grid-template-columns:1fr;}}
+.res a{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .15s ease,transform .08s ease;}
+.res a:hover{border-color:var(--navy);}
+.res a:active{transform:translateY(1px);}
+.res .ic{width:40px;height:40px;border-radius:9px;background:var(--yellow);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.04em;flex-shrink:0;}
+.res .rt{font-weight:700;font-size:15.5px;}
+.res .rd{color:var(--muted);font-size:13.5px;}
+
+/* per-session file list */
+.card .files{list-style:none;margin-top:20px;border-top:1px solid var(--line);padding-top:8px;}
+.card .files a{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);padding:10px 0;font-size:15px;font-weight:500;border-bottom:1px solid var(--line);}
+.card .files li:last-child a{border-bottom:none;}
+.card .files a:hover{color:var(--navy);}
+.card .files .tag{font-family:var(--mono);font-size:10px;letter-spacing:.05em;background:var(--yellow);color:var(--navy);padding:3px 7px;border-radius:5px;font-weight:500;flex-shrink:0;min-width:42px;text-align:center;}
+.card .files .arw{margin-left:auto;color:var(--muted);font-size:15px;}
+.card .btn-primary{align-self:flex-start;}
+
+/* practice (expandable, self-explanatory) */
+.practice{margin-top:14px;border-top:1px solid var(--line);}
+.practice summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:11px;padding:15px 0 6px;font-size:15px;font-weight:700;color:var(--navy);}
+.practice summary::-webkit-details-marker{display:none;}
+.practice summary .chev{margin-left:auto;font-size:18px;color:var(--muted);transition:transform .15s ease;}
+.practice[open] summary .chev{transform:rotate(90deg);}
+.practice-body{padding:6px 0 8px;}
+.practice-what{color:var(--muted);font-size:14.5px;line-height:1.5;margin-bottom:12px;}
+.practice-steps{margin:0 0 12px 18px;font-size:14.5px;color:var(--ink);line-height:1.5;}
+.practice-steps li{margin-bottom:5px;}
+.practice-steps a{color:var(--navy);font-weight:700;}
+.prompt-box{position:relative;background:var(--navy-deep);border-radius:11px;padding:14px;}
+.prompt-box pre{white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12.5px;line-height:1.55;color:#e9ebff;max-height:230px;overflow:auto;margin:0;padding-top:4px;}
+.copy-btn{position:absolute;top:10px;right:10px;background:var(--yellow);color:var(--navy);border:none;border-radius:7px;padding:7px 13px;font-family:var(--body);font-weight:700;font-size:12.5px;cursor:pointer;z-index:1;}
+.copy-btn:hover{background:var(--yellow-soft);}
+.copy-btn.done{background:#bfe3b6;}
+.practice-expect{color:var(--muted);font-size:13.5px;line-height:1.5;margin-top:12px;}
+.practice-expect strong{color:var(--navy);}
+
+/* presented by */
+.presented{text-align:center;}
+.spk-row{display:flex;flex-wrap:wrap;justify-content:center;gap:22px 30px;margin-top:24px;}
+.spk{width:150px;text-align:center;}
+.spk .face{width:108px;height:108px;border-radius:50%;object-fit:cover;object-position:top center;border:3px solid var(--yellow);box-shadow:0 4px 12px rgba(10,19,74,.15);}
+.spk .n{font-weight:700;font-size:15px;margin-top:12px;color:var(--navy);line-height:1.2;}
+.spk .org-link{display:block;margin:11px auto 0;width:fit-content;}
+.spk .org{height:30px;width:auto;max-width:132px;object-fit:contain;display:block;transition:transform .12s ease;}
+.spk .org-link:hover .org{transform:scale(1.06);}
+@media(max-width:720px){.spk{width:44%;max-width:160px;}.spk .face{width:96px;height:96px;}}
+
+/* footer */
+footer{margin-top:7vh;background:var(--navy);color:var(--off);padding:5vh 0 6vh;text-align:center;}
+footer .links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-bottom:26px;}
+footer a{color:var(--yellow);text-decoration:none;font-weight:700;font-size:15px;}
+footer a:hover{text-decoration:underline;}
+.powered{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;}
+.powered img{height:30px;width:auto;}
+</style>
+</head>
+
+<body>
+<div class="awning"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="lockup-link" href="https://www.builtsmall.ai" target="_blank" rel="noopener" aria-label="BuiltSmall website"><img class="lockup" src="lockup_lite.png" alt="BuiltSmall"></a>
+    <div class="eyebrow">Build 101</div>
+    <h1>Your first <em>build</em></h1>
+    <p class="sub">One messy spreadsheet, one prompt, one dashboard. Everything from today's session, in one place.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <p style="margin:26px 0 0;"><a href="../" style="color:var(--navy);font-weight:700;text-decoration:none;">&larr; All BuiltSmall sessions</a></p>
+  <section class="sessions" style="grid-template-columns:1fr;margin-top:18px;">
+    <article class="card">
+      <div class="card-tag">Today's session</div>
+      <h2>Slides &amp; handouts</h2>
+      <p>The deck we walked through, plus the two handouts. Open them on any device.</p>
+      <a class="btn btn-primary" href="deck/BuiltSmall_Build101_Deck.html" target="_blank" rel="noopener">Open the slides</a>
+      <ul class="files">
+        <li><a href="handouts/NextEra_Finance_Dashboard_Handout.html" target="_blank" rel="noopener"><span class="tag">GUIDE</span> Finance dashboard handout <span class="arw">&rarr;</span></a></li>
+        <li><a href="handouts/PITA_Canvas.html" target="_blank" rel="noopener"><span class="tag">CANVAS</span> PITA prompt canvas <span class="arw">&rarr;</span></a></li>
+        <li><a href="handouts/retail_store_data.csv" download><span class="tag">DATA</span> retail_store_data.csv <span class="arw">&rarr;</span></a></li>
+      </ul>
+
+      <details class="practice" open>
+        <summary><span class="tag">TRY IT</span> Practice: the finance dashboard <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">A home-goods shop has 100 orders in a messy spreadsheet (mixed date styles, mismatched category names, refunds). Your job is to write the prompt that turns it into a clear dashboard. Works in any AI chat tool that can read a file (ChatGPT, Claude, Gemini).</p>
+          <ol class="practice-steps">
+            <li><strong>Download the data:</strong> <a href="handouts/retail_store_data.csv" download>retail_store_data.csv</a> &mdash; 100 sample orders, messy on purpose (not a real business).</li>
+            <li><strong>Start a new chat, attach that file, then paste this prompt and write your own Steps</strong> (the Role and Output are done; you fill in the numbered steps):</li>
+          </ol>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" onclick="copyPrompt(this)">Copy</button>
+            <pre>Role &amp; goal: You are my business analyst. I run [type of shop] and I want a dashboard that shows how my shop is doing.
+
+Steps: (write the steps you want it to follow &mdash; what to clean, what to add up, what to show)
+1. ______
+2. ______
+3. ______
+
+Output: A simple dashboard with number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
+Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre>
+          </div>
+          <p class="practice-expect"><strong>Check your numbers:</strong> revenue about $3,825, 100 orders, average order about $38, refunds $321.52, 6 categories after merging. Stuck on the steps? The <a href="handouts/NextEra_Finance_Dashboard_Handout.html" target="_blank" rel="noopener">finance dashboard handout</a> has a full version.</p>
+        </div>
+      </details>
+
+      <details class="practice">
+        <summary><span class="tag">YOUR TURN</span> Practice: your own PITA prompt <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">Now write a prompt for your own business. PITA is the recipe: <strong>P</strong>ersona (who the AI is), <strong>I</strong>nstructions (the steps), <strong>T</strong>ask (what you want back), <strong>A</strong>sk for a check. Use the canvas to draft it.</p>
+          <ol class="practice-steps">
+            <li><strong>Open the canvas:</strong> <a href="handouts/PITA_Canvas.html" target="_blank" rel="noopener">PITA prompt canvas</a>. Fill in each box for a real task you do.</li>
+            <li><strong>Paste what you wrote into a new chat.</strong> Attach a file if the task needs one.</li>
+            <li><strong>Read the result, then fix one thing</strong> in your prompt and run it again.</li>
+          </ol>
+          <p class="practice-expect"><strong>Good sign:</strong> the second run is noticeably closer to what you actually wanted.</p>
+        </div>
+      </details>
+
+      <details class="practice">
+        <summary><span class="tag">KEEP IT</span> Save your prompt as a project <span class="chev">&rsaquo;</span></summary>
+        <div class="practice-body">
+          <p class="practice-what">A prompt you like is worth keeping. Every major tool lets you save a prompt and a file as a reusable "project" so you do not start from scratch next time.</p>
+          <ol class="practice-steps">
+            <li><strong>Claude:</strong> make a <em>Project</em>, paste your prompt into the project instructions, and add your file as project knowledge.</li>
+            <li><strong>ChatGPT:</strong> make a <em>Project</em> (or a custom GPT), set the instructions to your prompt, and attach your file.</li>
+            <li><strong>Gemini:</strong> make a <em>Gem</em>, put your prompt in the instructions, and upload your file.</li>
+          </ol>
+          <p class="practice-expect"><strong>Why it matters:</strong> next month, you open the project, drop in a fresh spreadsheet, and the dashboard builds itself &mdash; same prompt, new data.</p>
+        </div>
+      </details>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://www.builtsmall.ai/programs" target="_blank" rel="noopener">Programs &amp; build sessions</a>
+      <a href="https://www.builtsmall.ai/contact" target="_blank" rel="noopener">Sign up for updates</a>
+    </div>
+    <div class="powered">
+      <span>Powered by</span>
+      <img src="wtc_lite.png" alt="Welcome to Chinatown">
+    </div>
+  </div>
+</footer>
+<script>
+function copyPrompt(btn){
+  var pre=btn.parentElement.querySelector('pre');
+  var text=pre.innerText;
+  function done(){var o=btn.textContent;btn.textContent='Copied';btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(select);
+  }else{select();}
+  function select(){try{var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);document.execCommand&&document.execCommand('copy');done();}catch(e){}}
+}
+</script>
+</body>
+</html>
