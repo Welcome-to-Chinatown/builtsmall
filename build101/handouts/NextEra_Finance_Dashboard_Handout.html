@@ -30,15 +30,20 @@ label{display:block;font-weight:800;color:var(--navy);margin-top:.6rem}.foot{mar
 <div class="box facts"><h2>The sample file</h2>
 <p>Home-goods shop, 100 orders. Messy on purpose: mixed date styles, category names that do not match, extra spaces, refunds in their own column. Sample data, not a real business.</p>
 <a class="btn" href="retail_store_data.csv" download>Download retail_store_data.csv</a></div>
-<div class="box"><h2><span>1</span>Ask for the dashboard with four parts</h2><p>Fill in the [brackets], attach the file, and run it in a <b>new chat.</b></p>
+<div class="box"><h2><span>1</span>Write the prompt &mdash; you fill the Steps</h2><p>Fill in the [brackets] <b>and write Steps 2&ndash;4.</b> Step 1 is done for you &mdash; it is the one people forget. Attach the file and run it in a <b>new chat.</b></p>
 <pre id="p2">Role & goal: You are my business analyst. I run [type of shop] and I want a dashboard that shows how my shop is doing.
 Steps:
 1. Clean the data: read all the date styles, merge category names that mean the same thing, trim extra spaces.
-2. Calculate total revenue (use the Total column), number of orders, average order value, and total refunds. Do not subtract refunds from revenue.
+2. ______
+3. ______
+4. ______
+Output: A simple dashboard with number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
+Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre><button onclick="cp('p2',this)">Copy</button>
+<p style="margin-top:.6rem;color:#5b6494;font-size:.92rem;">Stuck on 2&ndash;4? They are the numbers and views you want: revenue, orders, categories, top sellers.</p>
+<details style="margin-top:.6rem;"><summary style="cursor:pointer;font-weight:700;color:#111f75;">One good version &mdash; peek after you try</summary>
+<pre>2. Calculate total revenue (use the Total column), number of orders, average order value, and total refunds. Do not subtract refunds from revenue.
 3. Show sales by category and sales by month.
-4. List the top 10 items by revenue.
-Output: A simple dashboard with four number cards, a bar chart, a line chart, and a table. Plain English labels, no jargon.
-Eval: Before you answer, check your totals against the file and tell me which cleaning choices you made.</pre><button onclick="cp('p2',this)">Copy</button></div>
+4. List the top 10 items by revenue.</pre></details></div>
 <div class="box"><h2><span>2</span>Check the numbers</h2>
 <table><tr><th>What to check</th><th class="n">Should be about</th></tr>
 <tr><td>Total revenue</td><td class="n">$3,825 ($3,824.56)</td></tr>
