@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="BuiltSmall partner events — where Welcome to Chinatown has brought free AI build sessions to small businesses, and where we are headed next.">
+<title>BuiltSmall · Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#111f75; --navy-deep:#0a134a; --yellow:#e5e138; --yellow-soft:#f0ec7a;
+  --off:#ededed; --ink:#0a134a; --muted:rgba(10,19,74,.62); --line:rgba(10,19,74,.12);
+  --serif:'Mulish', system-ui, sans-serif; --body:'DM Sans', system-ui, sans-serif; --mono:'DM Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{font-family:var(--body);background:var(--off);color:var(--ink);line-height:1.55;font-size:17px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.awning{height:14px;background:var(--yellow);position:relative;}
+.awning::after{content:'';position:absolute;left:0;right:0;top:100%;height:14px;background:var(--yellow);
+  -webkit-mask-image:radial-gradient(circle 10px at 10px 0,#000 9px,transparent 10px);mask-image:radial-gradient(circle 10px at 10px 0,#000 9px,transparent 10px);
+  -webkit-mask-size:20px 14px;mask-size:20px 14px;-webkit-mask-repeat:repeat-x;mask-repeat:repeat-x;}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+.hero{background:var(--navy);color:var(--off);padding:6vh 0 7vh;position:relative;}
+.hero .wrap{text-align:center;}
+.lockup-link{display:inline-block;}
+.hero .lockup{height:92px;width:auto;margin:0 auto 2.6vh;display:block;transition:transform .12s ease;}
+.lockup-link:hover .lockup{transform:scale(1.04);}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;}
+.hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(38px,7vw,64px);line-height:1;letter-spacing:-.02em;margin-bottom:16px;}
+.hero h1 em{font-style:normal;background:var(--yellow);color:var(--navy);padding:0 .22em;border-radius:4px;}
+.hero .sub{font-size:clamp(17px,2.4vw,21px);opacity:.88;max-width:40ch;margin:0 auto;}
+.back{display:inline-block;margin-bottom:18px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);text-decoration:none;opacity:.85;}
+.back:hover{opacity:1;text-decoration:underline;}
+.sessions{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:22px;margin:-5vh auto 0;position:relative;z-index:2;}
+@media(max-width:720px){.sessions{grid-template-columns:1fr;}}
+.card{background:#fff;border-radius:16px;padding:30px 28px 28px;box-shadow:0 18px 50px rgba(10,19,74,.16);border:1px solid var(--line);display:flex;flex-direction:column;}
+.card-tag{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:10px;}
+.card h2{font-family:var(--serif);font-weight:900;font-size:27px;line-height:1.08;margin-bottom:10px;color:var(--navy);}
+.card p{color:var(--muted);font-size:15.5px;margin-bottom:22px;flex:1;}
+.card .meta{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--navy);opacity:.8;margin-bottom:16px;}
+.btns{display:flex;flex-wrap:wrap;gap:10px;}
+.btn{font-family:var(--body);font-weight:700;font-size:15px;text-decoration:none;padding:12px 20px;border-radius:10px;display:inline-flex;align-items:center;gap:8px;transition:transform .08s ease,background .15s ease;align-self:flex-start;}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--navy);color:var(--off);}
+.btn-primary:hover{background:var(--navy-deep);}
+.btn-ghost{background:transparent;color:var(--navy);border:2px solid var(--navy);padding:10px 18px;}
+.btn-ghost:hover{background:rgba(17,31,117,.07);}
+footer{margin-top:7vh;background:var(--navy);color:var(--off);padding:5vh 0 6vh;text-align:center;}
+footer .links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-bottom:26px;}
+footer a{color:var(--yellow);text-decoration:none;font-weight:700;font-size:15px;}
+footer a:hover{text-decoration:underline;}
+.powered{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;}
+.powered img{height:30px;width:auto;}
+</style>
+</head>
+<body>
+<div class="awning"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <a class="back" href="../">&larr; All resources</a>
+    <a class="lockup-link" href="https://www.builtsmall.ai" target="_blank" rel="noopener" aria-label="BuiltSmall website"><img class="lockup" src="../lockup_lite.png" alt="BuiltSmall"></a>
+    <div class="eyebrow">Partner events</div>
+    <h1>Where we've <em>built</em></h1>
+    <p class="sub">We bring these sessions to small businesses across the city with our partners. Here is where we have been, and where we are headed next.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="sessions">
+    <article class="card">
+      <div class="card-tag">Build 101</div>
+      <h2>Welcome to Chinatown</h2>
+      <div class="meta">With Council Member Virginia Maloney &middot; Manhattan Chamber of Commerce</div>
+      <p>A hands-on Build 101 session for neighborhood small businesses: turn one messy spreadsheet into a finance dashboard, then save the prompt as a reusable project.</p>
+      <a class="btn btn-primary" href="welcome-to-chinatown/" target="_blank" rel="noopener">Open session page</a>
+    </article>
+
+    <article class="card">
+      <div class="card-tag">What's next</div>
+      <h2>More events</h2>
+      <p>We are always adding new sessions and partners. See the full schedule, including our tour across the five boroughs, on the BuiltSmall site.</p>
+      <a class="btn btn-ghost" href="https://www.builtsmall.ai/programs" target="_blank" rel="noopener">See all events &rarr;</a>
+    </article>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://www.builtsmall.ai/programs" target="_blank" rel="noopener">Programs &amp; build sessions</a>
+      <a href="https://www.builtsmall.ai/contact" target="_blank" rel="noopener">Sign up for updates</a>
+    </div>
+    <div class="powered">
+      <span>Powered by</span>
+      <img src="../wtc_lite.png" alt="Welcome to Chinatown">
+    </div>
+  </div>
+</footer>
+</body>
+</html>
