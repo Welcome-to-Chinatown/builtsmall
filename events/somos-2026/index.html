@@ -100,6 +100,13 @@ footer a{color:var(--yellow);text-decoration:none;font-weight:700;font-size:15px
 footer a:hover{text-decoration:underline;}
 .powered{display:flex;align-items:center;justify-content:center;gap:12px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;}
 .powered img{height:30px;width:auto;}
+.supported{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:30px;padding-bottom:28px;border-bottom:1px solid rgba(237,237,237,.14);}
+.supported .lbl{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,237,237,.5);}
+.supported .logos{display:flex;align-items:center;gap:26px;flex-wrap:wrap;justify-content:center;}
+.supported .logos img{filter:brightness(0) invert(1);display:block;}
+.supported .logos .esd{height:34px;width:auto;}
+.supported .logos .goog{height:23px;width:auto;opacity:.95;}
+.supported .divv{width:1px;height:30px;background:rgba(237,237,237,.22);}
 </style>
 </head>
 
@@ -186,6 +193,14 @@ Eval: Before you answer, check your totals against the file and tell me which cl
     <div class="links">
       <a href="https://www.builtsmall.ai/programs" target="_blank" rel="noopener">Programs &amp; build sessions</a>
       <a href="https://www.builtsmall.ai/contact" target="_blank" rel="noopener">Sign up for updates</a>
+    </div>
+    <div class="supported">
+      <div class="lbl">Supported by</div>
+      <div class="logos">
+        <img src="esd_logo.png" alt="Empire State Development" class="esd">
+        <span class="divv"></span>
+        <img src="google_org_logo.svg" alt="Google.org" class="goog">
+      </div>
     </div>
     <div class="powered">
       <span>Powered by</span>
