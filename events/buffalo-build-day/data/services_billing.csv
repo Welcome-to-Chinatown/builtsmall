@@ -1,0 +1,37 @@
+Date,Client,Service,Hours,Rate,Amount,Invoice Status
+2026-01-08,Lakeview Realty,Branding,8,150,1200,Sent
+2026-01-18,Northside Dental,Consulting,12,175,2100,Paid
+2026-01-21,Bloom Florist,Web Design,4,135,540,Draft
+2026-01-13,Lakeview Realty,Branding,6,150,900,Paid
+2026-01-25,Lakeview Realty,Web Design,8,135,1080,Paid
+2026-02-21,Lakeview Realty,Consulting,10,175,1750,Draft
+2026-02-05,Lakeview Realty,Consulting,8,175,1400,Paid
+2026-02-21,Northside Dental,Branding,4,150,600,Overdue
+2026-02-19,Lakeview Realty,Monthly Retainer,6,120,720,Paid
+2026-02-20,Harbor Light,Monthly Retainer,16,120,1920,Overdue
+2026-03-11,Bloom Florist,Consulting,16,175,2800,Paid
+2026-03-25,Terra Coffee Roasters,Web Design,20,135,2700,Paid
+2026-03-09,Oxbow Law,Consulting,4,175,700,Paid
+2026-03-10,Northside Dental,Consulting,10,175,1750,Paid
+2026-04-21,Harbor Light,Monthly Retainer,20,120,2400,Draft
+2026-04-14,Terra Coffee Roasters,Web Design,16,135,2160,Paid
+2026-04-13,Oxbow Law,Web Design,6,135,810,Sent
+2026-05-22,Terra Coffee Roasters,Consulting,8,175,1400,Paid
+2026-05-11,Lakeview Realty,Branding,8,150,1200,Paid
+2026-05-17,Lakeview Realty,Branding,8,150,1200,Paid
+2026-06-21,Terra Coffee Roasters,Web Design,6,135,810,Paid
+2026-06-07,Northside Dental,Consulting,20,175,3500,Paid
+2026-06-05,Oxbow Law,Branding,10,150,1500,Paid
+2026-06-23,Terra Coffee Roasters,Web Design,4,135,540,Overdue
+2026-07-15,Harbor Light,Monthly Retainer,20,120,2400,Draft
+2026-07-24,Oxbow Law,Web Design,8,135,1080,Draft
+2026-07-21,Lakeview Realty,Branding,20,150,3000,Draft
+2026-08-21,Harbor Light,Web Design,12,135,1620,Overdue
+2026-08-05,Northside Dental,Web Design,4,135,540,Paid
+2026-08-17,Lakeview Realty,Consulting,4,175,700,Sent
+2026-08-05,Bloom Florist,Branding,16,150,2400,Draft
+2026-09-13,Harbor Light,Web Design,10,135,1350,Paid
+2026-09-21,Oxbow Law,Branding,16,150,2400,Overdue
+2026-09-20,Northside Dental,Branding,16,150,2400,Paid
+2026-09-11,Northside Dental,Consulting,6,175,1050,Paid
+2026-09-17,Harbor Light,Monthly Retainer,10,120,1200,Paid

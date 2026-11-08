@@ -1,0 +1,101 @@
+Date,Item,Category,Units Sold,Unit Price,Revenue
+2026-09-01,Caprese Salad,Lunch,22,10.0,220.0
+2026-09-01,Blueberry Muffin,Pastry,29,3.75,108.75
+2026-09-01,Cold Brew,Coffee,61,5.75,350.75
+2026-09-01,Soup of the Day,Lunch,24,7.5,180.0
+2026-09-01,Bagel & Cream Cheese,Pastry,21,4.5,94.5
+2026-09-01,Drip Coffee,Coffee,41,3.0,123.0
+2026-09-01,Croissant,Pastry,25,4.0,100.0
+2026-09-01,Logo Mug,Merch,4,14.0,56.0
+2026-09-02,Caprese Salad,Lunch,16,10.0,160.0
+2026-09-02,Turkey Sandwich,Lunch,23,11.5,264.5
+2026-09-02,Blueberry Muffin,Pastry,36,3.75,135.0
+2026-09-02,Latte,Coffee,48,5.25,252.0
+2026-09-02,Soup of the Day,Lunch,26,7.5,195.0
+2026-09-02,Cold Brew,Coffee,68,5.75,391.0
+2026-09-02,Cappuccino,Coffee,67,4.75,318.25
+2026-09-03,Drip Coffee,Coffee,50,3.0,150.0
+2026-09-03,Cappuccino,Coffee,68,4.75,323.0
+2026-09-03,Logo Mug,Merch,3,14.0,42.0
+2026-09-03,Soup of the Day,Lunch,13,7.5,97.5
+2026-09-03,Turkey Sandwich,Lunch,26,11.5,299.0
+2026-09-03,Caprese Salad,Lunch,18,10.0,180.0
+2026-09-03,Cold Brew,Coffee,55,5.75,316.25
+2026-09-03,Blueberry Muffin,Pastry,34,3.75,127.5
+2026-09-04,Bagel & Cream Cheese,Pastry,24,4.5,108.0
+2026-09-04,Cappuccino,Coffee,61,4.75,289.75
+2026-09-04,Turkey Sandwich,Lunch,27,11.5,310.5
+2026-09-04,Cold Brew,Coffee,47,5.75,270.25
+2026-09-04,Soup of the Day,Lunch,18,7.5,135.0
+2026-09-04,Blueberry Muffin,Pastry,36,3.75,135.0
+2026-09-05,Cold Brew,Coffee,54,5.75,310.5
+2026-09-05,Logo Mug,Merch,3,14.0,42.0
+2026-09-05,Latte,Coffee,49,5.25,257.25
+2026-09-05,Soup of the Day,Lunch,26,7.5,195.0
+2026-09-05,Croissant,Pastry,21,4.0,84.0
+2026-09-05,Cappuccino,Coffee,52,4.75,247.0
+2026-09-05,Drip Coffee,Coffee,33,3.0,99.0
+2026-09-06,Caprese Salad,Lunch,17,10.0,170.0
+2026-09-06,Cold Brew,Coffee,52,5.75,299.0
+2026-09-06,Bagel & Cream Cheese,Pastry,36,4.5,162.0
+2026-09-06,Cappuccino,Coffee,78,4.75,370.5
+2026-09-06,Logo Mug,Merch,4,14.0,56.0
+2026-09-06,Drip Coffee,Coffee,68,3.0,204.0
+2026-09-07,Latte,Coffee,67,5.25,351.75
+2026-09-07,Blueberry Muffin,Pastry,36,3.75,135.0
+2026-09-07,Turkey Sandwich,Lunch,17,11.5,195.5
+2026-09-07,Bagel & Cream Cheese,Pastry,34,4.5,153.0
+2026-09-07,Caprese Salad,Lunch,20,10.0,200.0
+2026-09-07,Croissant,Pastry,23,4.0,92.0
+2026-09-07,Drip Coffee,Coffee,80,3.0,240.0
+2026-09-08,Cold Brew,Coffee,51,5.75,293.25
+2026-09-08,Turkey Sandwich,Lunch,20,11.5,230.0
+2026-09-08,Drip Coffee,Coffee,60,3.0,180.0
+2026-09-08,Latte,Coffee,64,5.25,336.0
+2026-09-08,Logo Mug,Merch,2,14.0,28.0
+2026-09-08,Blueberry Muffin,Pastry,21,3.75,78.75
+2026-09-08,Croissant,Pastry,18,4.0,72.0
+2026-09-09,Caprese Salad,Lunch,19,10.0,190.0
+2026-09-09,Turkey Sandwich,Lunch,21,11.5,241.5
+2026-09-09,Logo Mug,Merch,3,14.0,42.0
+2026-09-09,Latte,Coffee,51,5.25,267.75
+2026-09-09,Bagel & Cream Cheese,Pastry,31,4.5,139.5
+2026-09-09,Soup of the Day,Lunch,19,7.5,142.5
+2026-09-10,Caprese Salad,Lunch,14,10.0,140.0
+2026-09-10,Cappuccino,Coffee,48,4.75,228.0
+2026-09-10,Logo Mug,Merch,2,14.0,28.0
+2026-09-10,Croissant,Pastry,22,4.0,88.0
+2026-09-10,Turkey Sandwich,Lunch,14,11.5,161.0
+2026-09-10,Drip Coffee,Coffee,56,3.0,168.0
+2026-09-10,Soup of the Day,Lunch,24,7.5,180.0
+2026-09-10,Blueberry Muffin,Pastry,35,3.75,131.25
+2026-09-10,Bagel & Cream Cheese,Pastry,21,4.5,94.5
+2026-09-11,Cold Brew,Coffee,64,5.75,368.0
+2026-09-11,Croissant,Pastry,21,4.0,84.0
+2026-09-11,Logo Mug,Merch,4,14.0,56.0
+2026-09-11,Turkey Sandwich,Lunch,16,11.5,184.0
+2026-09-11,Drip Coffee,Coffee,58,3.0,174.0
+2026-09-11,Blueberry Muffin,Pastry,37,3.75,138.75
+2026-09-11,Latte,Coffee,47,5.25,246.75
+2026-09-11,Cappuccino,Coffee,48,4.75,228.0
+2026-09-12,Blueberry Muffin,Pastry,31,3.75,116.25
+2026-09-12,Drip Coffee,Coffee,46,3.0,138.0
+2026-09-12,Logo Mug,Merch,3,14.0,42.0
+2026-09-12,Latte,Coffee,43,5.25,225.75
+2026-09-12,Cold Brew,Coffee,67,5.75,385.25
+2026-09-12,Croissant,Pastry,20,4.0,80.0
+2026-09-12,Cappuccino,Coffee,65,4.75,308.75
+2026-09-12,Caprese Salad,Lunch,16,10.0,160.0
+2026-09-13,Drip Coffee,Coffee,55,3.0,165.0
+2026-09-13,Croissant,Pastry,26,4.0,104.0
+2026-09-13,Soup of the Day,Lunch,25,7.5,187.5
+2026-09-13,Latte,Coffee,85,5.25,446.25
+2026-09-13,Bagel & Cream Cheese,Pastry,44,4.5,198.0
+2026-09-13,Logo Mug,Merch,3,14.0,42.0
+2026-09-14,Caprese Salad,Lunch,32,10.0,320.0
+2026-09-14,Logo Mug,Merch,3,14.0,42.0
+2026-09-14,Turkey Sandwich,Lunch,33,11.5,379.5
+2026-09-14,Blueberry Muffin,Pastry,30,3.75,112.5
+2026-09-14,Latte,Coffee,43,5.25,225.75
+2026-09-14,Cold Brew,Coffee,47,5.75,270.25
+2026-09-14,Bagel & Cream Cheese,Pastry,30,4.5,135.0
