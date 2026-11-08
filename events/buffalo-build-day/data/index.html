@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Day — Get your data</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf9f2;--paper:#fff;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);
+  --serif:'Mulish',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.5;padding:3.4rem 1.2rem 5rem}
+.wrap{max-width:60rem;margin:0 auto}
+.eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.5rem}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin-bottom:.7rem}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:44rem;margin-bottom:2.4rem}
+.lead b{color:var(--ink)}
+.grid{display:grid;gap:1.3rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.6rem 1.6rem 1.7rem;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(22,32,91,.06)}
+.tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.5rem}
+.card h2{font-family:var(--serif);font-weight:900;font-size:1.45rem;margin-bottom:.3rem}
+.card .who{font-size:1rem;color:var(--ink-soft);margin-bottom:1rem}
+.stats{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+.stat{background:var(--wash);border-radius:.6rem;padding:.5rem .7rem;font-size:.9rem;flex:1;min-width:7rem}
+.stat b{display:block;font-family:var(--serif);font-weight:900;font-size:1.15rem}
+.dl{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--ink);color:var(--cream);text-decoration:none;font-family:var(--serif);font-weight:800;font-size:1.05rem;padding:.8rem 1.2rem;border-radius:.7rem}
+.dl:hover{opacity:.92}
+.goal{font-size:.95rem;color:var(--ink-soft);margin:0 0 1.1rem;padding-left:.8rem;border-left:3px solid var(--line)}
+.how{margin-top:2.6rem;background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.6rem 1.8rem}
+.how h3{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin-bottom:.8rem}
+.how ol{margin-left:1.2rem;font-size:1.05rem}
+.how li{margin-bottom:.5rem}
+code{font-family:var(--mono);background:var(--ink);color:#fdfdf7;padding:.08em .4em;border-radius:.3em;font-size:.86em}
+.foot{margin-top:2.4rem;font-size:.9rem;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Build Day &middot; Buffalo</div>
+  <h1>Get your data</h1>
+  <p class="lead">Pick the sample data closest to <b>your world</b>, download it, then hand it to your AI tool and build your dashboard. It's made-up data &mdash; safe to use freely.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="tag">Nonprofit</div>
+      <h2>Harbor Light Center</h2>
+      <div class="who">Grants, donations, and spending by program.</div>
+      <p class="goal">Goal: a one-page view your board could read in 30 seconds &mdash; funding in, spending by program, what's left.</p>
+      <div class="stats">
+        <div class="stat"><b>$347K</b> funding in</div>
+        <div class="stat"><b>$208K</b> spent</div>
+        <div class="stat"><b>83</b> rows</div>
+      </div>
+      <a class="dl" href="nonprofit_budget.csv" download>&#8681; Download CSV</a>
+    </div>
+
+    <div class="card">
+      <div class="tag">Retail</div>
+      <h2>Bay Street Cafe</h2>
+      <div class="who">Two weeks of sales, by item and category.</div>
+      <p class="goal">Goal: best sellers, revenue by category, and your busiest days and hours.</p>
+      <div class="stats">
+        <div class="stat"><b>$18.6K</b> revenue</div>
+        <div class="stat"><b>11</b> items</div>
+        <div class="stat"><b>100</b> rows</div>
+      </div>
+      <a class="dl" href="cafe_sales.csv" download>&#8681; Download CSV</a>
+    </div>
+
+    <div class="card">
+      <div class="tag">Professional services</div>
+      <h2>Meridian Design Studio</h2>
+      <div class="who">Billable hours by client, plus invoice status.</div>
+      <p class="goal">Goal: revenue by client, hours by service, and what's still unpaid.</p>
+      <div class="stats">
+        <div class="stat"><b>$55.8K</b> billed</div>
+        <div class="stat"><b>$9.8K</b> unpaid</div>
+        <div class="stat"><b>36</b> rows</div>
+      </div>
+      <a class="dl" href="services_billing.csv" download>&#8681; Download CSV</a>
+    </div>
+  </div>
+
+  <div class="how">
+    <h3>What to do with it</h3>
+    <ol>
+      <li>Open <b>Gemini, ChatGPT, or Claude.</b></li>
+      <li>Start a new chat and <b>attach your CSV</b> (the paperclip button).</li>
+      <li>Use the four-part prompt from the session. Tell it: <b>&ldquo;Build an interactive dashboard as an HTML artifact I can open in my browser &mdash; charts and totals, not a spreadsheet.&rdquo;</b></li>
+      <li>Open what it builds. Change one thing, run it again.</li>
+    </ol>
+  </div>
+
+  <p class="foot">Sample data only. Never upload real customer, client, or financial records into a public AI tool.</p>
+</div>
+</body>
+</html>

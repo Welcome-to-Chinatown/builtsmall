@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Day — Coding Handout: build &amp; host a dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf9f2;--paper:#fff;--deep:#101a4a;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);
+  --gold:#f1cd69;--sky:#a7e4ff;--ok:#1d7a46;
+  --serif:'Mulish',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:clamp(16px,1.15vw,20px);scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.55}
+a{color:var(--ink);font-weight:700}
+code{font-family:var(--mono);background:var(--deep);color:var(--gold);padding:.08em .4em;border-radius:.3em;font-size:.86em;white-space:nowrap}
+.top{position:sticky;top:0;z-index:5;background:var(--cream);border-bottom:3px solid var(--ink);display:flex;align-items:center;gap:1rem;padding:.8rem 1.4rem}
+.top img{height:2.6rem}
+.top .ttl{flex:1}
+.top .ttl small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.top .ttl b{font-family:var(--serif);font-weight:900;font-size:1.15rem}
+.os{display:inline-flex;border:2px solid var(--ink);border-radius:.6rem;overflow:hidden}
+.os button{border:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-weight:900;font-size:.9rem;padding:.4rem 1rem;cursor:pointer}
+.os button.on{background:var(--ink);color:var(--cream)}
+body[data-os="mac"] .win, body[data-os="win"] .mac{display:none!important}
+.wrap{max-width:60rem;margin:0 auto;padding:2.4rem 1.3rem 6rem}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.4rem}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5vw,2.9rem);line-height:1.05;margin-bottom:.6rem}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:48rem;margin-bottom:1.6rem}
+.lead b{color:var(--ink)}
+section{margin-top:2.8rem;scroll-margin-top:5rem}
+section>.eyebrow{border-top:2px solid var(--line);padding-top:1.4rem}
+h2{font-family:var(--serif);font-weight:900;font-size:1.7rem;line-height:1.1;margin-bottom:.6rem}
+p{font-size:1.08rem;margin-bottom:.8rem}
+.big-idea{background:var(--paper);border:2px solid var(--ink);border-radius:1.1rem;padding:1.6rem 1.8rem;box-shadow:0 0 0 4px var(--wash)}
+.cards{display:grid;gap:1rem;grid-template-columns:1fr 1fr;margin:1rem 0}
+.cards.one{grid-template-columns:1fr}
+.cards.three{grid-template-columns:1fr 1fr 1fr}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:.9rem;padding:1.1rem 1.3rem}
+.card.key{border-color:var(--ink);box-shadow:0 0 0 3px var(--wash)}
+.card h3{font-family:var(--serif);font-weight:900;font-size:1.2rem;margin-bottom:.35rem;display:flex;gap:.55rem;align-items:center}
+.card h3 .n{flex:0 0 1.8rem;height:1.8rem;border-radius:50%;background:var(--ink);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:.95rem}
+.card p,.card li{font-size:1rem}
+.card ul{margin-left:1.1rem}
+.check{display:block;margin-top:.6rem;padding:.55rem .8rem;border-left:5px solid var(--ok);background:#eaf5ee;border-radius:0 .5rem .5rem 0;font-size:.95rem}
+.check b{color:var(--ok)}
+.note{margin:1.1rem 0;padding:.9rem 1.2rem;border-left:6px solid var(--ink);background:var(--wash);border-radius:0 .7rem .7rem 0;font-size:1.02rem}
+.note.warn{border-left-color:#c93535;background:#fbeaea}
+ol.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:.85rem;margin:1rem 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:3rem;font-size:1.08rem;min-height:2.1rem}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-.05rem;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--ink);color:var(--cream);font-family:var(--serif);font-weight:900;display:flex;align-items:center;justify-content:center}
+.prompt{position:relative;background:var(--deep);border-radius:1rem;margin:1rem 0 1.2rem;padding:2.8rem 1.3rem 1.2rem}
+.prompt .lbl{position:absolute;left:1.3rem;top:.8rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.prompt pre{font-family:var(--mono);font-size:.92rem;line-height:1.55;color:#f1f0ea;white-space:pre-wrap;word-break:break-word}
+.prompt .copy{position:absolute;right:.9rem;top:.6rem;background:var(--gold);color:var(--deep);border:0;border-radius:.5rem;font-family:var(--serif);font-weight:900;font-size:.88rem;padding:.45rem 1rem;cursor:pointer}
+.prompt .copy.ok{background:#7be0a2}
+.ph{background:rgba(241,205,105,.2);color:var(--gold);padding:0 .25em;border-radius:.25em}
+table{width:100%;border-collapse:collapse;margin:1rem 0;background:var(--paper);border-radius:.8rem;overflow:hidden;border:1px solid var(--line)}
+th{background:var(--ink);color:#fff;text-align:left;font-family:var(--serif);font-size:.92rem;padding:.6rem .9rem}
+td{padding:.65rem .9rem;border-top:1px solid var(--line);font-size:.98rem;vertical-align:top}
+td:first-child{font-weight:800}
+.dl{display:inline-flex;align-items:center;gap:.5rem;background:var(--ink);color:var(--cream);text-decoration:none;font-family:var(--serif);font-weight:800;padding:.7rem 1.1rem;border-radius:.7rem;margin-top:.3rem}
+@media (max-width:760px){.cards,.cards.three{grid-template-columns:1fr}h1{font-size:2rem}.top .os{display:none}}
+@media print{.top{position:static}.prompt .copy,.os{display:none}.prompt{border:1px solid #000}body[data-os] .mac,body[data-os] .win{display:block!important}section{break-inside:avoid}}
+</style>
+</head>
+<body data-os="mac">
+
+<header class="top">
+  <img src="lockup_lite.png" alt="BuiltSmall">
+  <div class="ttl"><small>Build Day &middot; Advanced track</small><b>Coding Handout</b></div>
+  <div class="os" role="group" aria-label="Your computer"><button id="osmac" class="on" onclick="setOS('mac')">Mac</button><button id="oswin" onclick="setOS('win')">Windows</button></div>
+</header>
+
+<div class="wrap">
+  <div class="eyebrow">Choose your own adventure</div>
+  <h1>Build a dashboard, then put it on the internet</h1>
+  <p class="lead">This is for you if you move fast and want to go further than today's session. You'll turn one of the sample datasets into a <b>real, live dashboard</b> with its own web link. <b>No one will walk you through this</b> &mdash; work at your own pace, and wave a technologist over if you get stuck. Most of the room should focus on their prototype; this is the bonus round.</p>
+
+  <section id="idea">
+    <div class="eyebrow">The one idea</div>
+    <h2>What a markdown (<code>.md</code>) file is</h2>
+    <div class="big-idea">
+      <p>A <b>markdown file</b> is a plain-text instruction sheet &mdash; just words, no formatting menus. The <code>.md</code> on the end is all that makes it special.</p>
+      <p>When you build software with an AI coding tool, that tool reads <b>one special <code>.md</code> file first</b>, every time, to understand your project. It's the project's <b>brain</b>:</p>
+      <ul style="margin:.4rem 0 .8rem 1.2rem;font-size:1.05rem">
+        <li><code>CLAUDE.md</code> &mdash; for Claude Code</li>
+        <li><code>AGENTS.md</code> &mdash; for Codex, Cursor, Copilot, and most others</li>
+        <li><code>GEMINI.md</code> &mdash; for Gemini</li>
+      </ul>
+      <p style="margin-bottom:0">You don't write it by hand. <b>You get an AI to write it for you</b> &mdash; that's step 3 below. Think of it as the four-part prompt from this morning, saved to a file so your coding tool never forgets it.</p>
+    </div>
+  </section>
+
+  <section id="setup">
+    <div class="eyebrow">Setup &middot; about 10 minutes</div>
+    <h2>Two accounts, four tools</h2>
+    <p>One account stores your code, one puts it online. They share <b>one login.</b></p>
+    <div class="cards">
+      <div class="card"><h3><span class="n">1</span>GitHub</h3><p>Sign up free at <code>github.com/signup</code>. Use an email you can open right now; it sends a verification code.</p></div>
+      <div class="card"><h3><span class="n">2</span>Vercel</h3><p>At <code>vercel.com/signup</code> click <b>Continue with GitHub</b>, pick the free <b>Hobby</b> plan.</p></div>
+      <div class="card key"><h3><span class="n">!</span>Same email everywhere</h3><p>Your GitHub email and your computer's git email must match, or your live site won't update. If it ever "does nothing" later, <b>check this first.</b></p></div>
+    </div>
+    <p style="margin-top:.6rem"><b>Terminal</b> is the app where you type commands.
+      <span class="mac">Press <code>Cmd + Space</code>, type <code>Terminal</code>, Enter.</span>
+      <span class="win">Press <code>Win + X</code>, choose <b>Terminal</b> (or PowerShell, not the x86 one).</span></p>
+    <div class="cards">
+      <div class="card"><h3><span class="n">1</span>A coding tool</h3><p><b>Claude:</b> <code>claude.ai/download</code>, then the <b>Code</b> tab (needs a paid plan). <b>ChatGPT:</b> the desktop app includes Codex.</p></div>
+      <div class="card"><h3><span class="n">2</span>Node.js</h3><p><code>nodejs.org</code> &rarr; the <b>LTS</b> download. <span class="check"><b>Check:</b> <code>node --version</code> shows a number.</span></p></div>
+      <div class="card"><h3><span class="n">3</span>Git</h3><p class="mac"><b>Mac:</b> usually installed; if it offers developer tools, click Install.</p><p class="win"><b>Windows:</b> <code>git-scm.com</code>, install with defaults.</p><span class="check"><b>Check:</b> <code>git --version</code>.</span></p></div>
+      <div class="card"><h3><span class="n">4</span>GitHub CLI</h3><p><code>cli.github.com</code> &rarr; download. Reopen Terminal, run <code>gh auth login</code> &rarr; GitHub.com, HTTPS, Yes, login with a browser.</p><span class="check"><b>Check:</b> <code>gh auth status</code>.</span></div>
+    </div>
+    <div class="note">After installing anything, <b>close and reopen Terminal and your coding app.</b></div>
+  </section>
+
+  <section id="data">
+    <div class="eyebrow">Step 1 &middot; your project folder</div>
+    <h2>Set up the folder</h2>
+    <ol class="steps">
+      <li>Make a folder called <b>my-dashboard</b> on your Desktop.</li>
+      <li>Download one of the sample datasets and drop it inside.</li>
+    </ol>
+    <a class="dl" href="../data/" target="_blank" rel="noopener">&#8681; Get your data</a>
+    <span class="check" style="margin-top:.8rem"><b>Worked when</b> you open <code>my-dashboard</code> and see your <code>.csv</code> inside. (We'll use the cafe file below; any works.)</span>
+  </section>
+
+  <section id="md">
+    <div class="eyebrow">Step 2 &middot; write your md file &middot; 5 minutes</div>
+    <h2>Have an AI write your <code>.md</code></h2>
+    <ol class="steps">
+      <li>Open a <b>regular AI chat</b> (not the coding tab). <b>Attach</b> your CSV with the paperclip.</li>
+      <li>Paste the prompt below. <b>Your only job: edit the Features list</b> &mdash; keep what you want, cut the rest, add your own.</li>
+      <li>It replies with the file in one code block. Save it as <code>CLAUDE.md</code> (or <code>AGENTS.md</code> for Codex / <code>GEMINI.md</code> for Gemini) in your <code>my-dashboard</code> folder.</li>
+    </ol>
+    <div class="prompt"><span class="lbl">Prompt &middot; paste into an AI chat, attach the CSV</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+<pre>I need a CLAUDE.md file (or AGENTS.md / GEMINI.md) for a new project.
+
+Project: Finance Dashboard
+Purpose: A dashboard for a small organization. I upload my data (CSV, attached) and it shows my key numbers and charts at a glance.
+Tech stack: Next.js, React, Chart.js, no database. Everything runs in the browser. No login. Nothing is stored.
+Rules: Must run locally and be ready to publish on Vercel. Use the latest versions.
+
+Features:
+- Upload a CSV file (my sample file is attached)
+- Auto-clean messy data (mixed dates, inconsistent category names, blanks)
+- Summary cards for the totals that matter
+- A bar chart and a line chart
+- A table of the top items
+- A couple of filters (for example by category or date)
+- Use a navy and cream color scheme
+
+Keep it 40-60 lines. Confirm it covers every feature when done.</pre></div>
+    <table>
+      <thead><tr><th>If your data is...</th><th>Good summary cards</th><th>Good charts</th></tr></thead>
+      <tbody>
+        <tr><td>Cafe sales</td><td>total revenue, orders, best seller</td><td>revenue by category, by day</td></tr>
+        <tr><td>Nonprofit budget</td><td>funding in, spending, net, by program</td><td>spending by program, funding by source</td></tr>
+        <tr><td>Services billing</td><td>total billed, unpaid, by client</td><td>hours by service, revenue by client</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>Saving as .md:</b> easiest is to ask your coding agent to create the file and paste the text. Or a plain-text editor &mdash; <span class="mac">TextEdit: Format &rarr; Make Plain Text, save as <code>.md</code> not <code>.txt</code>.</span><span class="win">Notepad: "Save as type" &rarr; All Files, name it <code>CLAUDE.md</code>.</span></div>
+  </section>
+
+  <section id="build">
+    <div class="eyebrow">Step 3 &middot; build it &middot; about 20 minutes</div>
+    <h2>Hand it to your coding agent</h2>
+    <ol class="steps">
+      <li>Open your coding tool and choose your <code>my-dashboard</code> folder. <span>In Claude: <b>Code</b> tab &rarr; <b>Local</b> &rarr; the folder &rarr; a mode that accepts edits.</span></li>
+      <li>Paste this and press Enter. It may ask to run commands &mdash; <b>say yes.</b></li>
+    </ol>
+    <div class="prompt"><span class="lbl">Coding agent &middot; build</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+<pre>Build the dashboard described in my CLAUDE.md / AGENTS.md / GEMINI.md file. Use the latest Next.js. This folder already has my md file and sample CSV, so do not overwrite them. Ask me any questions first. When ready, run it locally so I can open it at localhost:3000.</pre></div>
+    <ol class="steps" style="counter-reset:s 2">
+      <li><b>Open it.</b> Type <code>localhost:3000</code> in any browser. It only exists on your computer.</li>
+      <li><b>Test it.</b> Upload your CSV. The cafe file should total about <b>$18,600 revenue</b> across <b>100 rows</b> (nonprofit: ~$347K funding in; services: ~$55.8K billed).</li>
+    </ol>
+    <div class="note"><b>Good signs:</b> messy category names group into one, and the filters change the numbers. If anything looks off, tell your agent what you see in plain words.</div>
+  </section>
+
+  <section id="yours">
+    <div class="eyebrow">Step 4 &middot; make it yours &middot; 8 minutes</div>
+    <h2>One change at a time</h2>
+    <p>Pick any one, run it, check it, then do another. Put <code>logo.png</code> in the folder first if you want a logo.</p>
+    <div class="cards">
+      <div class="card"><p><code>Add [a new chart or filter].</code></p></div>
+      <div class="card"><p><code>Change the colors to [colors].</code></p></div>
+      <div class="card"><p><code>Add my logo from logo.png to the header.</code></p></div>
+      <div class="card"><p><code>Add a button that downloads the filtered data as a CSV.</code></p></div>
+    </div>
+  </section>
+
+  <section id="ship">
+    <div class="eyebrow">Step 5 &middot; ship it</div>
+    <h2>GitHub, then Vercel</h2>
+    <p><b>GitHub</b> stores your code and every past version. Your agent does it for you:</p>
+    <div class="prompt"><span class="lbl">Coding agent &middot; GitHub</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+<pre>Create a new private GitHub repository called my-dashboard under my GitHub account and push this project. Make sure my commits use my GitHub account's email. Make sure node_modules is not uploaded.</pre></div>
+    <p><b>Vercel</b> turns that code into a real website &mdash; all clicks, in the browser:</p>
+    <ol class="steps">
+      <li>Go to <code>vercel.com/new</code>, sign in with GitHub.</li>
+      <li>Find <b>my-dashboard</b>, click <b>Import.</b> Not listed? Adjust GitHub permissions to allow it, come back.</li>
+      <li><b>Leave every setting as-is</b> (it should detect <b>Next.js</b>). Click <b>Deploy</b>, wait ~1 minute.</li>
+      <li>Copy your <b>short link</b> &mdash; the one like <code>something.vercel.app</code>.</li>
+    </ol>
+    <span class="check"><b>Worked when</b> the short link opens in a private window or on your phone, no login. It's live.</span>
+  </section>
+
+  <section id="fix">
+    <div class="eyebrow">Step 6 &middot; fix it live</div>
+    <h2>Change it, push it, watch it update</h2>
+    <div class="prompt"><span class="lbl">Coding agent &middot; fix it live</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+<pre><span class="ph">[Make one small change, e.g. show the date range next to the title.]</span> Check it still runs locally, then commit and push.</pre></div>
+    <p>Your agent commits and pushes; Vercel rebuilds in about a minute; refresh your live link and your change is on the internet.</p>
+    <div class="note warn"><b>Nothing new in Vercel after two minutes?</b> Your git email probably doesn't match your GitHub email. Ask your agent: <code>Check my git email against my GitHub account, fix it, and push again.</code></div>
+  </section>
+
+  <section id="honest">
+    <div class="eyebrow">Three honest things</div>
+    <h2>Before you share it</h2>
+    <div class="cards three">
+      <div class="card"><h3>It's public</h3><p>Anyone with the link can open it. <b>Never upload real customer or financial data.</b></p></div>
+      <div class="card"><h3>Free is for practice</h3><p>Vercel's free plan is non-commercial. For a real business site, use a paid plan or another host.</p></div>
+      <div class="card"><h3>Nothing is stored</h3><p>Each visitor uploads a file; it stays in their browser. The site keeps nothing.</p></div>
+    </div>
+    <div class="note">Hit an error? Don't retype it &mdash; copy the exact message, paste it to your agent, and ask it to fix it. That's the whole loop.</div>
+  </section>
+</div>
+
+<script>
+function setOS(o){document.body.dataset.os=o;document.getElementById('osmac').classList.toggle('on',o==='mac');document.getElementById('oswin').classList.toggle('on',o==='win');try{localStorage.setItem('bd_os',o);}catch(e){}}
+(function(){let o='';try{o=localStorage.getItem('bd_os')||'';}catch(e){}if(!o)o=/win/i.test(navigator.platform||navigator.userAgent)?'win':'mac';setOS(o);})();
+function copyBlock(btn){var pre=btn.parentElement.querySelector('pre');var text=pre.textContent.replace(/\s+$/,'');var done=function(){btn.textContent='Copied!';btn.classList.add('ok');setTimeout(function(){btn.textContent='Copy';btn.classList.remove('ok');},1600);};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(done,function(){fb(text,done);});}else fb(text,done);}
+function fb(text,done){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}ta.remove();done();}
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Day — Buffalo — Resources</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbf9f2;--paper:#fff;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);
+  --serif:'Mulish',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.5;padding:3.4rem 1.2rem 5rem}
+.wrap{max-width:58rem;margin:0 auto}
+.logos{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.logos img{height:2.3rem;width:auto}
+.logos .div{width:1px;height:2rem;background:var(--line)}
+.eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.5rem}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.03;margin-bottom:.6rem}
+h1 em{font-style:normal;background:var(--ink);color:var(--cream);padding:0 .18em;border-radius:6px}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:42rem;margin-bottom:2.4rem}
+.grid{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+a.card{background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.5rem 1.6rem;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:.4rem;box-shadow:0 10px 30px rgba(22,32,91,.06);transition:transform .12s,border-color .12s}
+a.card:hover{transform:translateY(-3px);border-color:var(--ink)}
+a.card .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+a.card h2{font-family:var(--serif);font-weight:900;font-size:1.4rem}
+a.card p{font-size:1rem;color:var(--ink-soft)}
+a.card .go{margin-top:.6rem;font-family:var(--serif);font-weight:800}
+.foot{margin-top:2.6rem;font-size:.9rem;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logos">
+    <img src="lockup_lite.png" alt="BuiltSmall">
+    <span class="div"></span><img src="df_logo.png" alt="Decoded Futures">
+    <span class="div"></span><img src="tb_logo.png" alt="TechBuffalo">
+  </div>
+  <div class="eyebrow">Buffalo &middot; Nov 10, 2026 &middot; Golisano Institute</div>
+  <h1>Build Day <em>resources</em></h1>
+  <p class="lead">Everything from today in one place. Grab what you need.</p>
+
+  <div class="grid">
+    <a class="card" href="deck/Buffalo_BuildDay_Deck.html">
+      <span class="tag">The session</span><h2>Today's slides</h2>
+      <p>The full deck, start to finish.</p><span class="go">Open &rarr;</span>
+    </a>
+    <a class="card" href="data/">
+      <span class="tag">Exercise</span><h2>Get your data</h2>
+      <p>Sample finance data to build your dashboard &mdash; nonprofit, retail, or services.</p><span class="go">Download &rarr;</span>
+    </a>
+    <a class="card" href="handout/">
+      <span class="tag">Advanced track</span><h2>Coding handout</h2>
+      <p>Go further: build a live dashboard and put it on the internet.</p><span class="go">Open &rarr;</span>
+    </a>
+    <a class="card" href="https://www.decodedfutures.nyc/prompt-cookbook-v2" target="_blank" rel="noopener">
+      <span class="tag">Keep going</span><h2>Prompt Cookbook v2</h2>
+      <p>Decoded Futures' library of prompts to try next.</p><span class="go">Open &rarr;</span>
+    </a>
+    <a class="card" href="https://technyc.typeform.com/to/yzFnbHaC" target="_blank" rel="noopener">
+      <span class="tag">2 minutes</span><h2>Feedback survey</h2>
+      <p>Tell us how it went. It shapes the next one.</p><span class="go">Open &rarr;</span>
+    </a>
+    <a class="card" href="https://builtsmall.ai" target="_blank" rel="noopener">
+      <span class="tag">Free, ongoing</span><h2>BuiltSmall</h2>
+      <p>Free AI training and tools for small businesses across New York.</p><span class="go">Open &rarr;</span>
+    </a>
+  </div>
+
+  <p class="foot">Hosted by BuiltSmall (Welcome to Chinatown), Decoded Futures (Tech:NYC), and TechBuffalo. Supported by Google.org.</p>
+</div>
+</body>
+</html>
