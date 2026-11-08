@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Day: Decoded Futures x BuiltSmall</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+
+:root{
+  --navy:#111f75;
+  --navy2:#1a2a8a;
+  --navy-deep:#0a134a;
+  --yellow:#e5e138;--gold:#e5e138;--goldl:#f0ec7a;
+  --yellow-soft:#f0ec7a;
+  --off:#ededed;
+  --muted:rgba(237,237,237,0.65);
+  --line:rgba(237,237,237,0.12);
+  --red:#c93535;
+  --serif:'Mulish', system-ui, sans-serif;
+  --body:'DM Sans', system-ui, sans-serif;
+  --mono:'DM Mono', ui-monospace, monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;background:#060a26;font-family:var(--body);color:var(--off);}
+.deck{width:100vw;height:100vh;position:relative;}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s;}
+.slide.active{opacity:1;pointer-events:all;}
+/* Brand stripe across the very top of every slide */
+.awning, .awning.thin{height:6px;flex-shrink:0;background:var(--yellow);position:relative;}
+.yellow-bar{height:6px;background:var(--yellow);flex-shrink:0;}
+
+.nav{position:fixed;bottom:22px;right:30px;display:flex;align-items:center;gap:16px;z-index:100;}
+.nav button{background:rgba(229,225,56,.18);border:2px solid rgba(229,225,56,.5);color:var(--yellow);width:46px;height:46px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.nav button:hover{background:var(--yellow);color:var(--navy);}
+.slide-counter{color:rgba(237,237,237,.4);font-family:var(--mono);font-size:14px;}
+.progress{position:fixed;bottom:0;left:0;right:0;height:5px;background:rgba(237,237,237,.08);z-index:100;}
+.progress-fill{height:100%;background:var(--yellow);transition:width .3s;}
+
+/* HEADER — scallop hangs below the header into the body */
+.hdr{background:var(--navy2);padding:3vh 4vw 2.3vh;display:flex;align-items:center;justify-content:space-between;border-bottom:5px solid var(--yellow);flex-shrink:0;position:relative;}
+.hdr::after{content:'';position:absolute;left:0;right:0;top:100%;height:18px;background:var(--yellow);pointer-events:none;z-index:5;
+  -webkit-mask-image:radial-gradient(circle 12px at 12px 0, #000 11px, transparent 12px);
+  -webkit-mask-size:24px 18px;-webkit-mask-repeat:repeat-x;-webkit-mask-position:0 0;
+  mask-image:radial-gradient(circle 12px at 12px 0, #000 11px, transparent 12px);
+  mask-size:24px 18px;mask-repeat:repeat-x;mask-position:0 0;}
+.hdr h2{font-family:var(--serif);font-weight:900;font-size:3.6vw;color:var(--off);line-height:1;letter-spacing:-.01em;}
+.hdr .eyebrow{font-family:var(--mono);font-size:1vw;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);margin-bottom:.4vh;}
+.logo{height:95px;width:auto;}
+.body{flex:1;padding:5.2vh 5vw 4vh;overflow:hidden;background:var(--navy);display:flex;flex-direction:column;justify-content:center;}
+
+/* WTC marks */
+.wtc-inline{display:inline-flex;align-items:center;gap:.5vw;background:var(--navy-deep);border:1.5px solid rgba(229,225,56,.4);padding:.2vh .8vw .2vh .5vw;border-radius:5px;vertical-align:baseline;}
+.wtc-inline img{height:1.5em;width:auto;display:block;}
+.wtc-chip{display:inline-block;height:1.4em;vertical-align:-.32em;margin:0 .15em;}
+
+/* WHO WE ARE — WtC logo on the left, bullets on the right */
+.who-layout{display:grid;grid-template-columns:auto 1fr;gap:5vw;flex:1;align-items:center;}
+.who-mark{display:flex;align-items:center;justify-content:center;}
+.wtc-hero{height:28vh;width:auto;display:block;filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));}
+.who-list li{font-size:1.85vw;}
+
+/* TITLE / CLOSE — light cream background, brand-cover style */
+.s-title{background:var(--off);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5vh 4vw 11vh;position:relative;color:var(--navy);}
+.s-title .lockup{height:24vh;width:auto;margin-bottom:3vh;filter:drop-shadow(0 10px 30px rgba(17,31,117,.18));}
+.s-title .eyebrow{font-family:var(--mono);font-size:1.1vw;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);font-weight:500;margin-bottom:1.6vh;opacity:.7;}
+.s-title h1{font-family:var(--serif);font-weight:900;font-size:6.4vw;color:var(--navy);line-height:.98;margin-bottom:1.6vh;letter-spacing:-.02em;}
+.s-title h1 em{color:var(--navy);font-style:normal;background:var(--yellow);padding:0 .3em;}
+.s-title .sub{color:var(--navy);font-size:1.7vw;font-weight:400;margin-bottom:2vh;max-width:62vw;line-height:1.4;opacity:.75;}
+.s-title .tagline{font-family:var(--serif);font-weight:900;font-size:1.5vw;color:var(--navy);letter-spacing:0;margin-top:.5vh;background:var(--yellow);padding:.5vh 1.4vw;border-radius:6px;}
+.meta-row{display:flex;gap:4.5vw;border-top:2px solid var(--navy);padding-top:2vh;margin-top:2.5vh;}
+.meta-item strong{display:block;color:var(--navy);font-size:1.4vw;font-weight:900;font-family:var(--serif);}
+.meta-item span{color:var(--navy);opacity:.6;font-size:.95vw;letter-spacing:.05em;text-transform:uppercase;font-family:var(--mono);}
+.poweredby{position:absolute;bottom:4vh;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:1vw;color:var(--navy);font-size:.9vw;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);opacity:.85;}
+.poweredby img{height:4vh;width:auto;}
+
+/* HOLDING — same light treatment */
+.s-hold{background:var(--off);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4vw;position:relative;color:var(--navy);}
+.s-hold .lockup{height:30vh;width:auto;margin-bottom:3vh;filter:drop-shadow(0 10px 30px rgba(17,31,117,.18));}
+.s-hold h1{font-family:var(--serif);font-weight:900;font-size:5.8vw;color:var(--navy);line-height:1;margin-bottom:2vh;letter-spacing:-.02em;}
+.s-hold h1 em{color:var(--navy);font-style:normal;background:var(--yellow);padding:0 .3em;}
+.s-hold .start{color:var(--navy);font-size:2.2vw;font-family:var(--mono);margin-bottom:3.5vh;letter-spacing:.04em;font-weight:500;opacity:.7;}
+.s-hold .chat-prompt{background:var(--navy);border-radius:14px;padding:3vh 3.5vw;max-width:65vw;font-size:1.85vw;color:var(--off);line-height:1.55;}
+.s-hold .chat-prompt strong{color:var(--yellow);font-weight:900;}
+
+/* SIMPLE BULLET LIST */
+.bullets{display:flex;flex-direction:column;gap:2.4vh;}
+.bullets li{list-style:none;font-size:2.05vw;color:rgba(237,237,237,.92);line-height:1.5;padding-left:3vw;position:relative;}
+.bullets li::before{content:'';position:absolute;left:0;top:1vw;width:1.8vw;height:4px;background:var(--yellow);}
+.bullets li strong{color:var(--yellow);font-weight:700;}
+.bullets.tight li{font-size:1.85vw;padding-left:2.6vw;}
+
+/* INTRO STAT (slide 3) */
+.stat-layout{display:grid;grid-template-columns:.95fr 1.3fr;gap:4vw;flex:1;align-items:center;}
+.big-stat{font-family:var(--serif);font-weight:900;font-size:11vw;color:var(--yellow);line-height:.9;letter-spacing:-.04em;}
+.big-stat .pct{font-size:5.5vw;vertical-align:top;line-height:1;}
+.big-stat .label{display:block;font-family:var(--body);font-size:1.55vw;color:rgba(237,237,237,.75);font-weight:400;margin-top:2vh;line-height:1.5;max-width:28vw;letter-spacing:0;}
+.stat-side h3{font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--off);margin-bottom:2vh;line-height:1.1;letter-spacing:-.01em;}
+.stat-side p{font-size:1.85vw;color:rgba(237,237,237,.82);line-height:1.5;margin-bottom:1.4vh;}
+.stat-side .pull{color:var(--yellow);font-weight:700;}
+
+/* TWO COLUMN (IS / IS NOT) — slide 5 */
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:3vw;flex:1;align-items:stretch;}
+.ws-card{border-radius:14px;padding:3vh 2.5vw;display:flex;flex-direction:column;gap:1.5vh;}
+.ws-card.is{background:rgba(229,225,56,.1);border:3px solid var(--yellow);}
+.ws-card.isnot{background:rgba(237,237,237,.05);border:3px solid rgba(237,237,237,.18);}
+.ws-label{font-family:var(--serif);font-weight:900;font-size:1.3vw;letter-spacing:.1em;text-transform:uppercase;padding:.6vh 1.4vw;border-radius:5px;display:inline-block;width:fit-content;}
+.is .ws-label{background:var(--yellow);color:var(--navy);}
+.isnot .ws-label{background:rgba(237,237,237,.12);color:rgba(237,237,237,.65);}
+.ws-list{list-style:none;display:flex;flex-direction:column;gap:2vh;margin-top:1vh;}
+.ws-list li{font-size:1.75vw;line-height:1.45;color:rgba(237,237,237,.92);padding-left:2vw;position:relative;}
+.ws-list li::before{content:'';position:absolute;left:0;top:.9vw;width:1.2vw;height:3px;}
+.is .ws-list li::before{background:var(--yellow);}
+.isnot .ws-list li::before{background:rgba(237,237,237,.4);}
+
+/* TYPES OF TOOLS — slide 6 */
+.types-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw;flex:1;align-content:center;}
+.type-card{background:rgba(237,237,237,.04);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.4vh 2.2vw;}
+.type-card.start{border-color:var(--yellow);background:rgba(229,225,56,.1);}
+.type-title{font-family:var(--serif);font-weight:900;font-size:1.8vw;color:var(--off);margin-bottom:.8vh;}
+.type-title .tag{display:inline-block;font-size:.95vw;font-family:var(--mono);background:var(--yellow);color:var(--navy);padding:.25vh .9vw;border-radius:4px;margin-left:1vw;letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;font-weight:700;}
+.type-desc{font-size:1.4vw;color:rgba(237,237,237,.85);line-height:1.5;}
+
+/* PITA — slide 7 */
+.pita-layout{display:grid;grid-template-columns:1.25fr 1fr;gap:3vw;flex:1;align-items:center;}
+.pita-lead h3{font-family:var(--serif);font-weight:900;font-size:3.6vw;color:var(--off);line-height:1.05;margin-bottom:2vh;letter-spacing:-.01em;}
+.pita-lead h3 em{color:var(--yellow);font-style:normal;}
+.pita-lead p{font-size:1.85vw;color:rgba(237,237,237,.82);line-height:1.5;margin-bottom:1.5vh;}
+.pita-examples{background:rgba(237,237,237,.04);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.2vh 2.2vw;margin-top:1.5vh;}
+.pita-examples .label{font-size:1.05vw;text-transform:uppercase;letter-spacing:.12em;color:rgba(237,237,237,.6);margin-bottom:1vh;font-family:var(--mono);}
+.pita-examples ul{list-style:none;display:flex;flex-direction:column;gap:.8vh;}
+.pita-examples li{font-size:1.55vw;color:rgba(237,237,237,.92);}
+.pita-chat{background:var(--yellow);border-radius:14px;padding:3.5vh 2.8vw;color:var(--navy);text-align:center;border:4px solid var(--navy-deep);}
+.pita-chat .badge{display:inline-block;background:var(--navy);color:var(--yellow);font-size:1.05vw;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;padding:.5vh 1.3vw;border-radius:4px;margin-bottom:1.8vh;font-weight:700;}
+.pita-chat h4{font-family:var(--serif);font-weight:900;font-size:2.7vw;line-height:1.1;margin-bottom:1.3vh;}
+.pita-chat p{font-size:1.5vw;line-height:1.5;color:rgba(17,31,117,.85);}
+
+/* THREE FILTERS — slide 8 */
+.filter-cards{display:flex;flex-direction:column;gap:1.8vh;flex:1;justify-content:center;}
+.filter-card{border:3px solid rgba(229,225,56,.35);border-radius:10px;padding:2.4vh 2.5vw;background:rgba(229,225,56,.05);}
+.filter-num{float:left;font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--yellow);line-height:1;margin-right:1.6vw;margin-top:-.3vh;}
+.filter-title{font-family:var(--serif);font-weight:900;font-size:1.85vw;color:var(--off);text-transform:uppercase;letter-spacing:.04em;}
+.filter-sub{font-size:1.5vw;color:rgba(237,237,237,.8);margin-top:.5vh;line-height:1.4;}
+.filter-pass{font-size:1.25vw;margin-top:.7vh;display:flex;gap:2vw;flex-wrap:wrap;}
+.filter-pass .yes{color:var(--yellow);}
+.filter-pass .no{color:rgba(237,237,237,.55);}
+.filter-pass span strong{font-family:var(--mono);letter-spacing:.05em;margin-right:.4vw;font-weight:700;}
+.filter-footer{background:rgba(229,225,56,.14);border:3px solid var(--yellow);border-radius:10px;padding:2vh 2.2vw;font-size:1.65vw;color:var(--off);text-align:center;margin-top:1.5vh;font-family:var(--serif);font-weight:700;}
+.filter-footer strong{color:var(--yellow);font-weight:900;}
+
+/* SECTION DIVIDER — slide 9 */
+.section-inner{flex:1;display:flex;align-items:center;padding:4vw 6vw;gap:4vw;background:radial-gradient(ellipse at 30% 50%, var(--navy2) 0%, var(--navy-deep) 70%);}
+.sec-num{font-family:var(--serif);font-weight:900;font-size:20vw;color:rgba(229,225,56,.16);line-height:.9;flex-shrink:0;letter-spacing:-.04em;}
+.sec-text .badge{background:var(--yellow);color:var(--navy);font-size:1.1vw;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:.5vh 1.4vw;border-radius:4px;display:inline-block;margin-bottom:2.5vh;font-family:var(--mono);}
+.sec-text h2{font-family:var(--serif);font-weight:900;font-size:6vw;color:var(--off);line-height:1;margin-bottom:2.5vh;letter-spacing:-.02em;}
+.sec-text p{font-size:1.85vw;color:rgba(237,237,237,.78);font-weight:400;line-height:1.5;max-width:45vw;margin-bottom:1.5vh;}
+.sec-text .jobs-pills{display:flex;gap:.9vw;flex-wrap:wrap;margin-top:2.5vh;}
+.sec-text .jobs-pills span{background:rgba(229,225,56,.14);border:2px solid var(--yellow);color:var(--yellow);font-family:var(--serif);font-weight:700;font-size:1.2vw;padding:.7vh 1.3vw;border-radius:20px;}
+
+/* DEMO FRAME — slides 10/11/12 */
+.demo-frame{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.5vh;}
+.demo-tag{display:inline-block;background:var(--yellow);color:var(--navy);font-family:var(--mono);font-size:1.1vw;letter-spacing:.14em;text-transform:uppercase;padding:.5vh 1.4vw;border-radius:4px;width:fit-content;font-weight:700;}
+.demo-frame h3{font-family:var(--serif);font-weight:900;font-size:4.4vw;color:var(--off);line-height:1;letter-spacing:-.02em;}
+.demo-frame h3 em{color:var(--yellow);font-style:normal;}
+.demo-bullets{display:flex;flex-direction:column;gap:1.7vh;margin-top:1vh;}
+.demo-bullets li{list-style:none;font-size:1.85vw;color:rgba(237,237,237,.92);line-height:1.45;padding-left:2.6vw;position:relative;}
+.demo-bullets li::before{content:'';position:absolute;left:0;top:.9vw;width:1.5vw;height:4px;background:var(--yellow);}
+.demo-bullets li strong{color:var(--yellow);font-weight:700;}
+.demo-bullets li.catch{color:rgba(237,237,237,.75);}
+.demo-bullets li.catch::before{background:rgba(237,237,237,.45);}
+.demo-bullets li.catch strong{color:rgba(237,237,237,.95);}
+.demo-share-hint{font-family:var(--mono);font-size:1.1vw;color:rgba(237,237,237,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:2.5vh;padding-top:1.5vh;border-top:1px solid var(--line);}
+
+/* SAFETY — slide 16 */
+.safety-grid{display:flex;flex-direction:column;gap:1.6vh;flex:1;justify-content:center;}
+.safety-row{display:flex;gap:1.8vw;align-items:flex-start;background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:1.9vh 2.2vw;}
+.safety-row.lead{background:rgba(229,225,56,.12);border-color:var(--yellow);}
+.safety-num{font-family:var(--serif);font-weight:900;color:var(--yellow);font-size:1.7vw;min-width:3vw;line-height:1;padding-top:.3vh;}
+.safety-text{font-size:1.6vw;color:rgba(237,237,237,.92);line-height:1.45;}
+.safety-text strong{color:var(--yellow);font-weight:700;}
+.safety-foot{font-size:1.2vw;color:rgba(237,237,237,.6);font-style:italic;text-align:center;margin-top:1vh;}
+
+/* SOCIAL PROOF — slide 17 */
+.proof-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:3vw;flex:1;align-items:center;}
+.proof-stats{display:flex;flex-direction:column;gap:2vh;}
+.proof-stat{background:rgba(229,225,56,.1);border:3px solid var(--yellow);border-radius:14px;padding:2.4vh 2.2vw;}
+.proof-stat .num{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--yellow);line-height:.95;letter-spacing:-.03em;}
+.proof-stat .lbl{font-size:1.55vw;color:rgba(237,237,237,.88);line-height:1.4;margin-top:.8vh;}
+.proof-stat .placeholder{font-family:var(--mono);font-size:.95vw;color:rgba(237,237,237,.5);margin-top:.7vh;letter-spacing:.06em;text-transform:uppercase;}
+.proof-side h3{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--off);line-height:1.1;margin-bottom:2vh;letter-spacing:-.01em;}
+.proof-side h3 em{color:var(--yellow);font-style:normal;}
+.proof-side p{font-size:1.7vw;color:rgba(237,237,237,.82);line-height:1.45;}
+
+/* CASE STUDY — slides 18/19 */
+.ss-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:3vw;flex:1;align-items:center;}
+.ss-context{display:flex;flex-direction:column;gap:1.4vh;}
+.ss-person{display:flex;align-items:center;gap:1.2vw;margin-bottom:1vh;}
+.ss-photo{width:7.5vw;height:7.5vw;min-width:90px;min-height:90px;border-radius:50%;background:rgba(237,237,237,.1);border:3px solid var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--yellow);overflow:hidden;flex-shrink:0;}
+.ss-photo img{width:100%;height:100%;object-fit:contain;object-position:center 18%;}
+.ss-person-text h3{font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--off);line-height:1.05;letter-spacing:-.01em;}
+.ss-person-text .who{font-family:var(--mono);font-size:1.1vw;color:var(--yellow);letter-spacing:.04em;text-transform:uppercase;margin-top:.3vh;}
+.ss-context .problem{font-size:1.55vw;color:rgba(237,237,237,.85);line-height:1.45;}
+.ss-context .problem strong{color:var(--off);font-weight:700;}
+.ss-stats{display:flex;flex-direction:column;gap:1.1vh;margin-top:1.2vh;}
+.ss-stat{background:rgba(229,225,56,.1);border:2px solid var(--yellow);border-radius:8px;padding:1.5vh 1.8vw;font-size:1.45vw;color:rgba(237,237,237,.92);line-height:1.4;}
+.ss-stat strong{color:var(--yellow);font-weight:700;}
+.ss-screen{border-radius:12px;border:3px solid var(--yellow);background:#fff;overflow:hidden;height:auto;max-height:60vh;display:flex;align-items:center;justify-content:center;}
+.ss-screen img{max-width:100%;max-height:60vh;width:auto;height:auto;object-fit:contain;display:block;}
+.ss-screen.empty{background:rgba(237,237,237,.04);border:3px dashed rgba(237,237,237,.18);color:rgba(237,237,237,.45);font-family:var(--mono);font-size:1.1vw;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:2vw;}
+.ss-screen.small{max-height:44vh;} .ss-screen.small img{max-height:44vh;}
+
+/* JASON two-up dashboard grid (slide 18b) */
+.jason-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;flex:1;align-items:start;}
+.jason-cell{display:flex;flex-direction:column;gap:1vh;}
+.jason-label{font-family:var(--mono);font-size:1.05vw;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);font-weight:700;}
+.jason-caption{font-size:1.3vw;color:rgba(237,237,237,.82);line-height:1.4;}
+.jason-foot{margin-top:2vh;padding:1.4vh 2vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-family:var(--serif);font-weight:700;font-size:1.55vw;color:var(--off);}
+
+/* PROBLEM FIRST — slide 20 */
+.pf-inner{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 6vw;gap:2.5vh;}
+.pf-inner h3{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--off);line-height:1.02;letter-spacing:-.02em;}
+.pf-inner h3 em{color:var(--yellow);font-style:normal;}
+.pf-inner p{font-size:1.9vw;color:rgba(237,237,237,.78);line-height:1.5;max-width:60vw;}
+.pf-inner .punch{font-family:var(--serif);font-weight:900;font-size:3.4vw;color:var(--yellow);margin-top:2.5vh;letter-spacing:-.01em;}
+
+/* PROMPT TABLE — slide 21 */
+.pt{width:100%;border-collapse:collapse;}
+.pt thead tr{background:var(--yellow);}
+.pt thead th{color:var(--navy);font-size:1.4vw;font-weight:900;padding:1.6vh 1.8vw;text-align:left;letter-spacing:.06em;text-transform:uppercase;font-family:var(--serif);}
+.pt tbody tr{border-bottom:2px solid rgba(237,237,237,.1);}
+.pt tbody tr:nth-child(even){background:rgba(229,225,56,.06);}
+.pt tbody td{padding:1.8vh 1.8vw;font-size:1.55vw;vertical-align:top;line-height:1.5;color:rgba(237,237,237,.92);}
+.pt tbody td:first-child{font-weight:900;color:var(--yellow);font-size:1.7vw;white-space:nowrap;width:14vw;font-family:var(--serif);}
+.pt tbody td:nth-child(2){width:24vw;}
+.pt tbody td:last-child{font-family:var(--mono);font-size:1.25vw;color:rgba(237,237,237,.82);}
+
+/* START THIS WEEK — slide 22 */
+.start-grid{display:flex;flex-direction:column;gap:1.8vh;flex:1;justify-content:center;}
+.start-step{display:flex;gap:2.2vw;align-items:center;background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.12);border-radius:10px;padding:2.3vh 2.4vw;}
+.start-num{background:var(--yellow);color:var(--navy);font-family:var(--serif);font-weight:900;font-size:2.2vw;width:4.5vw;height:4.5vw;min-width:55px;min-height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.start-text{font-size:1.85vw;color:rgba(237,237,237,.92);line-height:1.4;}
+
+/* OFFERS / PILLARS (slide 23 redesigned to match BuiltSmall Method) */
+.pillars-top{margin-bottom:2.5vh;}
+.pillars-top h3{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--off);line-height:1.1;letter-spacing:-.01em;}
+.pillars-top h3 em{color:var(--yellow);font-style:normal;}
+.pillars-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8vw;flex:1;align-items:stretch;}
+.pillar{background:rgba(237,237,237,.04);border:2.5px solid var(--yellow);border-radius:14px;padding:2.4vh 1.8vw;display:flex;flex-direction:column;gap:1.2vh;}
+.pillar-icon{font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--yellow);line-height:1;}
+.pillar-t{font-family:var(--serif);font-weight:900;font-size:1.55vw;color:var(--off);line-height:1.1;}
+.pillar-d{font-size:1.2vw;color:rgba(237,237,237,.78);line-height:1.45;}
+
+.qr-block{background:var(--off);border:3px solid var(--yellow);border-radius:14px;padding:2.5vh 1.8vw;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2vh;color:var(--navy);}
+.qr-block .qr-img{width:14vw;height:14vw;max-width:220px;max-height:220px;display:block;border-radius:6px;background:var(--off);}
+.qr-block .qr-eyebrow{font-family:var(--mono);font-size:.95vw;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);opacity:.6;font-weight:700;}
+.qr-block .qr-label{font-family:var(--serif);font-weight:900;font-size:1.3vw;color:var(--navy);letter-spacing:0;}
+.qr-block .qr-sub{font-size:1vw;color:var(--navy);opacity:.65;font-family:var(--mono);letter-spacing:.04em;}
+.qr-block.small{padding:2vh 1.4vw;gap:.8vh;}
+.qr-block.small .qr-img{width:10vw;height:10vw;max-width:160px;max-height:160px;}
+.qr-block.small .qr-eyebrow{font-size:.85vw;}
+.qr-block.small .qr-sub{font-size:.9vw;}
+.qr-stack{display:flex;flex-direction:column;gap:1.5vh;}
+
+/* OFFERS list (slide 23) */
+.offers-2col{display:grid;grid-template-columns:1.6fr 1fr;gap:3vw;flex:1;align-items:center;}
+.offers-side h3{font-family:var(--serif);font-weight:900;font-size:2.6vw;color:var(--off);line-height:1.1;margin-bottom:2vh;letter-spacing:-.01em;}
+.offers-side h3 em{color:var(--yellow);font-style:normal;}
+.offers-list{display:flex;flex-direction:column;gap:1.2vh;}
+.offer{display:flex;gap:1.5vw;align-items:flex-start;background:rgba(237,237,237,.05);border-left:5px solid var(--yellow);padding:1.5vh 1.8vw;border-radius:0 8px 8px 0;font-size:1.4vw;color:rgba(237,237,237,.92);line-height:1.4;}
+.offer.highlight{background:rgba(229,225,56,.12);border-left-width:7px;}
+.offer strong{color:var(--yellow);font-weight:900;}
+.offer-n{font-family:var(--serif);font-weight:900;font-size:1.4vw;color:var(--yellow);min-width:2.5vw;}
+
+/* WtC tag — used wherever Powered by WtC appears */
+.wtc-tag{display:inline-flex;align-items:center;gap:1vw;background:var(--off);border:2px solid var(--yellow);border-radius:8px;padding:1vh 1.4vw;font-family:var(--mono);font-size:1vw;color:var(--navy);letter-spacing:.05em;margin-top:1.5vh;width:fit-content;}
+.wtc-tag img{height:5vh;width:auto;display:block;}
+
+/* CLOSE — slide 24 */
+.close-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:3vw;flex:1;align-items:center;padding:0 2vw;}
+.close-left h3{font-family:var(--serif);font-weight:900;font-size:5vw;color:var(--off);line-height:1;margin-bottom:2.5vh;letter-spacing:-.02em;}
+.close-left h3 em{color:var(--yellow);font-style:normal;}
+.close-left p{font-size:1.75vw;color:rgba(237,237,237,.82);line-height:1.45;margin-bottom:1.5vh;}
+.close-meta{margin-top:3vh;display:flex;flex-direction:column;gap:1.2vh;}
+.close-meta .row{font-size:1.45vw;color:rgba(237,237,237,.85);display:flex;gap:1.5vw;align-items:baseline;}
+.close-meta .row strong{color:var(--yellow);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;font-size:1.05vw;display:inline-block;min-width:9vw;font-weight:700;}
+
+/* footer powered — appears at bottom of brand-heavy slides */
+.footer-power{position:absolute;bottom:3vh;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:1.2vw;color:var(--navy);font-size:1vw;letter-spacing:.14em;text-transform:uppercase;font-family:var(--mono);opacity:.85;}
+.footer-power img{height:5vh;width:auto;}
+
+
+/* ===== Morning (train the trainer) additions ===== */
+.eyebrow.trainer{color:var(--yellow);}
+/* Big centered statement */
+.bigstate{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3vh;text-align:center;align-items:center;}
+.bigstate .lead{font-family:var(--serif);font-weight:900;font-size:4.4vw;color:var(--off);line-height:1.05;letter-spacing:-.02em;max-width:82vw;}
+.bigstate .lead em{color:var(--yellow);font-style:normal;}
+.bigstate .lines{display:flex;flex-direction:column;gap:1.6vh;max-width:74vw;}
+.bigstate .lines li{list-style:none;font-size:1.7vw;color:rgba(237,237,237,.9);line-height:1.45;}
+.bigstate .lines li strong{color:var(--yellow);}
+.bigstate .cap{font-family:var(--mono);font-size:1.15vw;color:rgba(237,237,237,.6);letter-spacing:.03em;max-width:66vw;line-height:1.5;}
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:1.4vh;flex:1;justify-content:center;}
+.tl-row{display:grid;grid-template-columns:8vw 1fr;gap:1.5vw;align-items:baseline;}
+.tl-year{font-family:var(--mono);font-weight:500;font-size:1.7vw;color:var(--yellow);}
+.tl-body{border-left:3px solid rgba(229,225,56,.4);padding-left:1.8vw;}
+.tl-event{font-family:var(--serif);font-weight:900;font-size:1.65vw;color:var(--off);}
+.tl-desc{font-size:1.35vw;color:rgba(237,237,237,.8);line-height:1.4;margin-top:.2vh;}
+.tl-cap{font-family:var(--mono);font-size:1.1vw;color:rgba(237,237,237,.6);margin-top:1.6vh;line-height:1.5;max-width:74vw;}
+/* Matrix */
+.matrix{width:100%;border-collapse:collapse;}
+.matrix thead th{background:var(--yellow);color:var(--navy);font-family:var(--serif);font-weight:900;font-size:1.2vw;padding:1.3vh 1.2vw;text-align:left;letter-spacing:.03em;text-transform:uppercase;}
+.matrix thead th:first-child{width:20vw;}
+.matrix tbody tr{border-bottom:2px solid rgba(237,237,237,.1);}
+.matrix tbody tr:nth-child(even){background:rgba(229,225,56,.05);}
+.matrix td{padding:1.5vh 1.2vw;font-size:1.35vw;vertical-align:top;line-height:1.4;color:rgba(237,237,237,.9);}
+.matrix td:first-child{font-family:var(--serif);font-weight:900;color:var(--yellow);}
+.matrix-cap{margin-top:1.8vh;padding:1.5vh 2vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-size:1.45vw;color:var(--off);line-height:1.45;}
+.matrix-cap strong{color:var(--yellow);}
+/* Three word cards */
+.word-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2vw;flex:1;align-items:stretch;}
+.word-card{background:rgba(237,237,237,.04);border:2px solid rgba(229,225,56,.3);border-radius:12px;padding:2.6vh 1.9vw;display:flex;flex-direction:column;gap:1.1vh;}
+.word-term{font-family:var(--serif);font-weight:900;font-size:2vw;color:var(--yellow);line-height:1.05;}
+.word-term span{display:block;font-family:var(--mono);font-size:.85vw;color:rgba(237,237,237,.6);text-transform:uppercase;letter-spacing:.08em;margin-top:.4vh;font-weight:400;}
+.word-q{font-size:1.4vw;color:var(--off);font-style:italic;line-height:1.4;}
+.word-a{font-size:1.28vw;color:rgba(237,237,237,.82);line-height:1.45;}
+.word-foot{margin-top:1.8vh;font-family:var(--serif);font-weight:700;font-size:1.5vw;color:var(--off);text-align:center;}
+/* Context window bar */
+.ctx-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;flex:1;align-items:center;}
+.ctx-anchor{grid-column:1/-1;font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--off);line-height:1.15;}
+.ctx-anchor em{color:var(--yellow);font-style:normal;}
+.ctx-label{font-family:var(--mono);font-size:1.05vw;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,237,237,.6);margin-bottom:1vh;}
+.ctx-bar{display:flex;height:10vh;border-radius:8px;overflow:hidden;border:2px solid rgba(237,237,237,.2);}
+.ctx-seg{display:flex;align-items:center;justify-content:center;text-align:center;font-size:.8vw;color:var(--navy);font-weight:700;padding:.3vw;line-height:1.15;}
+.ctx-lines{display:flex;flex-direction:column;gap:1.4vh;}
+.ctx-lines .ln{font-size:1.3vw;color:rgba(237,237,237,.85);line-height:1.4;}
+.ctx-lines .ln strong{color:var(--yellow);}
+.ctx-cap{grid-column:1/-1;font-family:var(--mono);font-size:1.05vw;color:rgba(237,237,237,.6);line-height:1.5;}
+/* State / probability bars */
+.state-layout{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;flex:1;align-items:center;}
+.state-quote{grid-column:1/-1;border-left:5px solid var(--yellow);padding:1.2vh 2vw;font-family:var(--serif);font-weight:700;font-size:1.5vw;color:var(--yellow);line-height:1.4;}
+.state-quote span{display:block;font-family:var(--mono);font-weight:400;font-size:1vw;color:rgba(237,237,237,.6);margin-top:.6vh;}
+.prob-bars{display:flex;flex-direction:column;gap:1vh;}
+.prob-row{display:flex;align-items:center;gap:1vw;}
+.prob-fill{height:3.4vh;border-radius:5px;display:flex;align-items:center;padding:0 .8vw;font-size:.95vw;color:var(--navy);font-weight:700;flex-shrink:0;}
+.prob-txt{font-size:1.05vw;color:rgba(237,237,237,.85);line-height:1.3;}
+.prob-cap{font-family:var(--mono);font-size:.95vw;color:rgba(237,237,237,.55);margin-top:1vh;}
+.state-lines{display:flex;flex-direction:column;gap:1.3vh;}
+.state-lines .ln{font-size:1.25vw;color:rgba(237,237,237,.85);line-height:1.4;}
+.state-lines .ln strong{color:var(--yellow);}
+.state-foot{grid-column:1/-1;font-family:var(--serif);font-weight:700;font-size:1.4vw;color:var(--off);}
+/* Table variants */
+.pt.compact td{padding:.55vh 1.1vw;font-size:1.15vw;}
+.pt.compact td:first-child{font-size:1.2vw;}
+.pt .grp td{background:var(--navy-deep);color:var(--yellow);font-family:var(--serif);font-weight:900;font-size:1.18vw;text-transform:none;letter-spacing:0;white-space:normal;width:auto;padding:.9vh 1.3vw;}
+.pt.wrapfirst td:first-child{white-space:normal;width:17vw;}
+/* Exit note */
+.exit-inner{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:3vh;padding:0 8vw;}
+.exit-inner h3{font-family:var(--serif);font-weight:900;font-size:3.8vw;color:var(--off);line-height:1.12;letter-spacing:-.01em;}
+.exit-inner .ref{font-family:var(--mono);font-size:1.3vw;color:rgba(237,237,237,.6);letter-spacing:.03em;}
+
+
+/* trainer badge under the logo */
+.logo-wrap{display:flex;flex-direction:column;align-items:center;gap:.5vh;}
+.trainer-badge{font-family:var(--serif);font-weight:900;font-size:.9vw;letter-spacing:.18em;text-transform:uppercase;color:#fff;}
+.matrix-note{margin-bottom:1.6vh;padding:1.3vh 1.8vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-size:1.4vw;color:var(--off);line-height:1.45;}
+.matrix-note strong{color:var(--yellow);}
+.llm-lead{font-family:var(--serif);font-weight:900;font-size:2.4vw;color:var(--off);margin-bottom:2vh;line-height:1.12;}
+.llm-lead em{color:var(--yellow);font-style:normal;}
+
+/* single definition box (LLM) */
+.def-single{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.8vh;}
+.def-box{background:rgba(229,225,56,.1);border:3px solid var(--yellow);border-radius:16px;padding:3.5vh 3.5vw;}
+.def-term{font-family:var(--serif);font-weight:900;font-size:3vw;color:var(--yellow);margin-bottom:1.4vh;line-height:1;}
+.def-text{font-size:1.95vw;color:var(--off);line-height:1.5;}
+.def-text strong{color:var(--yellow);}
+.def-sub{font-size:1.55vw;color:rgba(237,237,237,.85);line-height:1.5;}
+.def-sub strong{color:var(--yellow);}
+/* six-term vocabulary grid */
+.word-grid.six{grid-template-columns:1fr 1fr 1fr;grid-auto-rows:1fr;gap:1.6vw;}
+.word-grid.six .word-card{padding:2vh 1.7vw;gap:.9vh;}
+.word-grid.six .word-term{font-size:1.9vw;}
+.word-grid.six .word-a{font-size:1.42vw;line-height:1.45;}
+.matrix-focus{margin-top:1.5vh;padding:1.3vh 1.8vw;background:rgba(229,225,56,.14);border:2px solid var(--yellow);border-radius:8px;font-size:1.4vw;color:var(--off);text-align:center;font-family:var(--serif);font-weight:700;}
+.matrix-focus strong{color:var(--yellow);}
+
+/* ===== Section-3 vibe-coding slides, copied verbatim (scoped .b3) ===== */
+.b3 .hdr{background:var(--navy2);padding:2.5vh 4vw 2vh;display:flex;align-items:center;justify-content:space-between;border-bottom:4px solid var(--gold);flex-shrink:0;}
+.b3 .hdr::after{content:none;}
+.b3 .hdr h2{font-family:'Mulish',sans-serif;font-weight:900;letter-spacing:-0.01em;font-size:3.4vw;color:white;line-height:1;}
+.b3 .hdr .tag{font-family:'DM Mono',monospace;font-size:1vw;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+.b3 .body{flex:1;padding:3vh 4vw;overflow:hidden;background:var(--navy);display:flex;flex-direction:column;justify-content:center;}
+.b3 .gold-bar{height:5px;background:var(--gold);flex-shrink:0;}
+.b3 .big-stmt{font-family:'Mulish',sans-serif;font-weight:900;letter-spacing:-0.01em;font-size:3.6vw;color:white;line-height:1.12;}
+.b3 .big-stmt em{color:var(--gold);font-style:normal;}
+.b3 .big-sub{font-size:1.75vw;color:var(--muted);line-height:1.55;margin-top:2.5vh;max-width:66vw;}
+.b3 .modes-grid{display:grid;grid-template-columns:1fr 1fr;gap:2vw;}
+.b3 .mode-card{border:2px solid rgba(229,225,56,.25);border-radius:10px;padding:2.3vh 2.5vw;}
+.b3 .mode-card.today{border-color:rgba(229,225,56,.6);background:rgba(229,225,56,.07);}
+.b3 .mode-icon{font-size:2.6vw;margin-bottom:1vh;}
+.b3 .mode-title{font-size:2vw;font-weight:700;color:white;margin-bottom:.7vh;}
+.b3 .mode-desc{font-size:1.4vw;color:var(--muted);line-height:1.45;}
+.b3 .mode-tag{display:inline-block;font-size:1.05vw;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-top:1vh;padding:.4vh 1vw;border-radius:3px;}
+.b3 .tag-today{background:var(--gold);color:var(--navy);}
+.b3 .tag-adv{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);}
+.b3 .tag-rare{background:rgba(201,53,53,.2);color:#e07070;}
+.b3 .md-intro{background:rgba(255,255,255,.04);border:2px solid rgba(229,225,56,.2);border-radius:10px;padding:2vh 2.5vw;margin-bottom:2vh;display:flex;align-items:center;gap:2vw;}
+.b3 .md-intro-icon{font-size:3.4vw;flex-shrink:0;}
+.b3 .md-intro strong{font-size:2vw;color:white;display:block;margin-bottom:.4vh;}
+.b3 .md-intro p{font-size:1.45vw;color:var(--muted);line-height:1.5;}
+.b3 .md-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5vw;}
+.b3 .md-col{border-radius:10px;padding:2.2vh 2vw;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);}
+.b3 .md-col-t{font-family:'Mulish',sans-serif;font-weight:900;font-size:2vw;color:white;margin-bottom:.2vh;}
+.b3 .md-col-s{font-size:1.05vw;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1.2vh;}
+.b3 .md-list{list-style:none;}
+.b3 .md-list li{font-size:1.4vw;color:rgba(255,255,255,.75);padding:.35vh 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.b3 .md-list li::before{content:'\2192 ';color:var(--gold);}
+.b3 .portal-shot{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.b3 .portal-shot img{max-width:80%;max-height:64vh;border-radius:8px;border:2px solid rgba(255,255,255,.12);box-shadow:0 10px 44px rgba(0,0,0,.55);}
+.b3 .portal-missing{border:2px dashed rgba(229,225,56,.4);border-radius:10px;padding:6vh 6vw;color:var(--muted);font-size:1.6vw;text-align:center;}
+
+/* ---- extra rules from Section 1 deck ---- */
+
+/* ---- Build 101 additions ---- */
+.pita-chat{background:rgba(229,225,56,.05);border:2px solid var(--yellow);color:var(--off);}
+.pita-chat p{color:rgba(237,237,237,.85);}
+.pita-chat .badge{border:1.5px solid var(--yellow);}
+.pt thead tr{background:transparent;border-bottom:3px solid var(--yellow);}
+.pt thead th{color:var(--yellow);}
+.b1-two{display:grid;grid-template-columns:1fr 1fr;gap:2.4vw;align-items:stretch;}
+.b1-three{display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;align-items:stretch;}
+.b1-four{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3vw;align-items:stretch;}
+.b1-grid2x2{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw;}
+.b1-card{background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.14);border-radius:14px;padding:2.4vh 1.7vw;display:flex;flex-direction:column;gap:1vh;}
+.b1-card.y{background:rgba(229,225,56,.05);border-color:var(--yellow);}
+.b1-k{font-family:var(--mono);font-size:.95vw;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);}
+.b1-card.y .b1-k{color:var(--yellow);}
+.b1-h{font-family:var(--serif);font-weight:900;font-size:2.35vw;line-height:1.1;}
+.b1-p{font-size:1.75vw;line-height:1.45;color:rgba(237,237,237,.9);}
+
+.b1-p code,.b1-steps code,.b1-note code{font-family:var(--mono);background:var(--navy-deep);color:var(--yellow);padding:.1em .45em;border-radius:5px;font-size:.9em;}
+
+.b1-big{font-family:var(--serif);font-weight:900;font-size:2.6vw;line-height:1.15;}
+.b1-big em{font-style:normal;color:var(--yellow);}
+.b1-sub{font-size:1.8vw;line-height:1.45;color:rgba(237,237,237,.85);}
+.b1-code{background:var(--navy-deep);border:2px solid rgba(229,225,56,.5);border-radius:12px;padding:2vh 1.5vw;font-family:var(--mono);font-size:1.22vw;line-height:1.5;color:rgba(237,237,237,.95);white-space:pre-wrap;text-align:left;}
+.b1-code .lbl{display:block;font-size:.85vw;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:.8vh;}
+.b1-code em{font-style:normal;color:var(--yellow);}
+.b1-code.lg{font-size:1.45vw;}
+.b1-code.sm{font-size:.94vw;line-height:1.38;padding:1.3vh 1.2vw;}
+.ws-label{background:transparent!important;color:var(--yellow)!important;border:1.5px solid var(--yellow);}
+.b1-steps{display:flex;flex-direction:column;gap:2vh;counter-reset:s;}
+.b1-steps li{list-style:none;counter-increment:s;position:relative;padding-left:4vw;font-size:1.95vw;line-height:1.4;color:rgba(237,237,237,.92);}
+.b1-steps li::before{content:counter(s);position:absolute;left:0;top:-.1vw;width:2.7vw;height:2.7vw;border-radius:50%;background:var(--yellow);color:var(--navy);font-family:var(--serif);font-weight:900;font-size:1.5vw;display:flex;align-items:center;justify-content:center;}
+.b1-steps li strong{color:var(--yellow);}
+.b1-note{margin-top:2.2vh;padding:1.5vh 1.8vw;background:rgba(229,225,56,.1);border-left:5px solid var(--yellow);border-radius:0 8px 8px 0;font-size:1.7vw;line-height:1.45;color:var(--off);}
+.b1-note strong{color:var(--yellow);}
+.b1-list{display:flex;flex-direction:column;gap:1.6vh;}
+.b1-list li{list-style:none;position:relative;padding-left:2.8vw;font-size:1.85vw;line-height:1.4;color:rgba(237,237,237,.92);}
+.b1-list li::before{content:'';position:absolute;left:0;top:.9vw;width:1.5vw;height:4px;background:var(--yellow);}
+.b1-list li strong{color:var(--yellow);}
+.b1-list.no li::before{background:rgba(237,237,237,.45);}
+.b1-agenda{width:100%;border-collapse:collapse;}
+.b1-agenda td{text-align:center;padding:1.2vh 1vw;font-size:1.85vw;border-bottom:1px solid var(--line);color:rgba(237,237,237,.92);}
+.b1-agenda td:first-child{font-family:var(--mono);color:var(--yellow);width:12vw;white-space:nowrap;}
+.b1-agenda.full td{text-align:left;font-size:2.15vw;padding:1.3vh 1.4vw;}
+.b1-agenda.full td:first-child{width:15vw;}
+.b1-agenda tr.hl td{background:rgba(229,225,56,.1);font-weight:700;}
+.b1-agenda td small{color:var(--muted);font-size:1.1vw;}
+.b1-flow{display:flex;align-items:stretch;justify-content:center;gap:1vw;}
+.b1-node{flex:1;background:rgba(237,237,237,.05);border:2px solid rgba(237,237,237,.16);border-radius:14px;padding:2.6vh 1.2vw;text-align:center;display:flex;flex-direction:column;gap:1vh;align-items:center;justify-content:center;}
+.b1-node.y{background:rgba(229,225,56,.05);border-color:var(--yellow);}
+.b1-node .ic{font-size:3.4vw;line-height:1;}
+.b1-node .t{font-family:var(--serif);font-weight:900;font-size:1.9vw;}
+.b1-node .s{font-size:1.2vw;line-height:1.35;opacity:.85;}
+.b1-arrow{align-self:center;font-size:2.6vw;color:var(--yellow);font-weight:900;}
+.b1-loop{margin-top:2.6vh;text-align:center;font-family:var(--serif);font-weight:900;font-size:1.8vw;color:var(--yellow);}
+.b1-timerlayout{display:grid;grid-template-columns:1.25fr 1fr;gap:3vw;align-items:center;}
+.b1-timerbox{background:var(--navy-deep);border:2px solid rgba(229,225,56,.45);border-radius:16px;padding:3.4vh 2vw;text-align:center;}
+.tm{font-family:var(--mono);font-weight:500;font-size:6.6vw;line-height:1;letter-spacing:.02em;color:var(--yellow);margin:1vh 0;}
+.tm.warn{color:#ff6b6b;}
+.timer-btns{display:flex;gap:1vw;margin-top:1.6vh;justify-content:center;}
+.timer-btn{font-family:var(--mono);font-size:1.05vw;text-transform:uppercase;letter-spacing:.08em;font-weight:700;background:var(--yellow);color:var(--navy);border:2px solid var(--navy);border-radius:8px;padding:1vh 1.9vw;cursor:pointer;}
+.timer-btn.ghost{background:transparent;color:var(--off);border-color:rgba(237,237,237,.3);}
+.b1-check{display:flex;flex-direction:column;gap:1.5vh;}
+.b1-check li{list-style:none;position:relative;padding-left:3.2vw;font-size:1.85vw;line-height:1.35;color:rgba(237,237,237,.92);}
+.b1-check li::before{content:'';position:absolute;left:0;top:.2vw;width:1.7vw;height:1.7vw;border:3px solid var(--yellow);border-radius:5px;}
+.b1-mock{background:#f7f7f2;border-radius:14px;border:3px solid var(--yellow);padding:1.8vh 1.4vw;color:var(--navy);box-shadow:0 10px 30px rgba(0,0,0,.35);}
+.b1-mock .bar{height:1.2vh;background:var(--navy);border-radius:4px;width:42%;margin-bottom:1.4vh;}
+.b1-mock .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:.7vw;margin-bottom:1.6vh;}
+.b1-mock .kpi{background:#fff;border:1px solid rgba(17,31,117,.15);border-radius:7px;padding:.8vh .6vw;}
+.b1-mock .kpi i{display:block;font-style:normal;font-size:.7vw;opacity:.6;font-family:var(--mono);}
+.b1-mock .kpi b{font-family:var(--serif);font-size:1.5vw;}
+.b1-mock .charts{display:grid;grid-template-columns:1fr 1fr;gap:.8vw;}
+.b1-mock .ch{background:#fff;border:1px solid rgba(17,31,117,.15);border-radius:7px;height:17vh;display:flex;align-items:flex-end;gap:.5vw;padding:1vh .8vw;}
+.b1-mock .ch span{flex:1;background:var(--navy);border-radius:3px 3px 0 0;}
+.b1-mock .ch.line{align-items:center;}
+.b1-mock .ch.line svg{width:100%;height:100%;}
+.b1-qr{display:flex;gap:3vw;justify-content:center;align-items:flex-start;margin-top:1vh;}
+.b1-qr div{text-align:center;font-size:1.25vw;line-height:1.35;color:var(--navy);}
+.b1-qr img{height:19vh;width:auto;display:block;margin:0 auto 1vh;background:#fff;padding:.6vh;border-radius:8px;}
+.b1-qr strong{display:block;font-family:var(--serif);font-weight:900;font-size:1.5vw;}
+.b1-photo{max-width:100%;max-height:56vh;border-radius:12px;border:3px solid var(--yellow);box-shadow:0 10px 30px rgba(0,0,0,.35);display:block;}
+.b1-cap{font-size:1.15vw;color:var(--muted);margin-top:1vh;text-align:center;line-height:1.35;}
+.ph{background:#fdf8c2;color:var(--navy);padding:0 .35em;border-radius:4px;font-weight:700;}
+.ag-row{display:grid;grid-template-columns:14vw 1fr;align-items:baseline;gap:2vw;border-bottom:1px solid rgba(237,237,237,.12);padding-bottom:1.8vh;}
+.ag-tag{font-family:var(--mono);font-size:1.15vw;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);}
+.ag-txt{font-family:var(--serif);font-weight:800;font-size:2.4vw;color:var(--off);line-height:1.1;}
+
+
+/* ---- Decoded Futures co-brand ---- */
+:root{--df-navy:#16205b;--df-gold:#f1cd69;--df-cream:#fcfaf3;--df-sky:#a7e4ff;--df-orange:#ff700b;}
+.s-cobrand{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:2.2vh;padding:0 7vw;}
+.cobrand-logos{display:flex;align-items:center;justify-content:center;gap:2.4vw;margin-bottom:1.4vh;}
+.cobrand-logos img{width:auto;object-fit:contain;display:block;}
+.cobrand-logos img.bs{height:8.4vh;}
+.cobrand-logos img.df{height:6.6vh;}
+.cobrand-logos img.tb{height:5.4vh;}
+.cobrand-logos img.bgc{height:7.6vh;}
+.cobrand-logos .cdiv{width:2px;height:6vh;background:rgba(15,24,54,.14);}
+/* running-header co-brand lockup */
+.hdr-txt{min-width:0;}
+.cobrand-head{display:flex;align-items:center;gap:1.3vw;flex-shrink:0;}
+.cobrand-head img{width:auto;object-fit:contain;display:block;}
+.cobrand-head .bs{height:4.6vh;}
+.cobrand-head .df{height:3.4vh;}
+.cobrand-head .tb{height:2.7vh;}
+.cobrand-head .hdiv{width:1px;height:3.8vh;background:rgba(15,24,54,.16);}
+.cobrand-meta{font-family:var(--mono);font-size:1.15vw;letter-spacing:.2em;text-transform:uppercase;color:var(--df-sky);margin-top:1vh;}
+.df-note{margin-top:2vh;padding:1.3vh 1.6vw;background:rgba(167,228,255,.08);border-left:5px solid var(--df-sky);border-radius:0 8px 8px 0;font-size:1.5vw;line-height:1.45;color:rgba(237,237,237,.9);}
+.df-note strong{color:var(--df-sky);}
+/* DF-flavored section divider */
+.section-inner.df .badge{background:transparent;color:var(--df-sky);border:1.5px solid var(--df-sky);}
+.section-inner.df .sec-num{color:var(--df-gold);}
+/* pixel-square motif (DF signature) */
+.pix{position:absolute;width:1.1vw;height:1.1vw;background:var(--df-sky);opacity:.5;}
+/* data table (ethics, vocab, tests) */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{font-family:var(--mono);font-size:1.0vw;letter-spacing:.1em;text-transform:uppercase;color:var(--yellow);text-align:left;padding:1.1vh 1.4vw;border-bottom:3px solid var(--yellow);}
+.dtable td{font-size:1.65vw;line-height:1.4;color:rgba(237,237,237,.92);padding:1.5vh 1.4vw;border-bottom:1px solid var(--line);vertical-align:top;}
+.dtable td.term{font-family:var(--serif);font-weight:800;color:var(--off);width:26%;}
+.dtable td.num{font-family:var(--serif);font-weight:900;color:var(--yellow);width:5%;}
+/* supporters / partners logo strip (co-brand slides, light bg) */
+.support-strip{margin-top:1.4vh;display:flex;flex-direction:column;align-items:center;gap:1.6vh;padding-top:2.6vh;border-top:1px solid rgba(20,28,58,.14);width:min(62vw,880px);}
+.support-strip .slbl{font-family:var(--mono);font-size:1.02vw;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,28,58,.5);}
+.support-strip .slogos{display:flex;align-items:center;justify-content:center;gap:3vw;}
+.support-strip .slogos img{width:auto;object-fit:contain;display:block;}
+.support-strip .slogos .goog{height:4.4vh;}
+.support-strip .slogos .bgray{height:8.8vh;}
+.support-strip .sdiv{width:1px;height:6.2vh;background:rgba(20,28,58,.16);}
+/* cover supported-by line (compact) */
+.cover-support{display:flex;align-items:center;justify-content:center;gap:1vw;margin-top:1.6vh;}
+.cover-support .cs-lbl{font-family:var(--mono);font-size:.92vw;letter-spacing:.2em;text-transform:uppercase;color:rgba(20,28,58,.5);}
+.cover-support img{height:2.9vh;width:auto;}
+/* QR placeholder box */
+.qr-row{display:flex;gap:1.6vw;justify-content:center;align-items:flex-start;margin-top:2vh;flex-wrap:wrap;}
+.qr-cell{display:flex;flex-direction:column;align-items:center;gap:.7vh;}
+.qr-ph{width:8.4vh;height:8.4vh;border:2px dashed rgba(20,28,58,.32);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.9vw;letter-spacing:.12em;color:rgba(20,28,58,.45);text-transform:uppercase;background:rgba(20,28,58,.03);}
+.qr-cap{font-family:var(--mono);font-size:.92vw;letter-spacing:.08em;text-transform:uppercase;color:rgba(20,28,58,.55);}
+
+/* ===== light co-brand theme: cream + navy/blue, no awning ===== */
+:root{--cream:#fbf9f2;--paper:#ffffff;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line-l:rgba(22,32,91,.12);
+  --blue:#16205b;--blue2:#16205b;--sky:#a7e4ff;--sky-soft:#eaf5ff;--wash:rgba(22,32,91,.055);}
+body{background:var(--cream)!important;color:var(--ink)!important;}
+.slide{background:var(--cream);}
+.body{background:var(--cream)!important;color:var(--ink)!important;border-left:none!important;padding-left:5vw!important;}
+/* kill the awning / scallop entirely */
+.awning,.awning::after,.awning.thin{display:none!important;}
+.hdr::after{content:none!important;display:none!important;background:none!important;}
+/* header: thin navy rule, no scallop */
+.hdr{background:var(--cream)!important;border-bottom:3px solid var(--blue)!important;}
+.hdr .eyebrow{color:var(--blue)!important;opacity:.8;}
+.hdr h2{color:var(--blue)!important;}
+/* cover / section text */
+.s-cobrand{color:var(--ink);}
+.s-cobrand .eyebrow{color:var(--blue);opacity:.85;}
+.s-cobrand h1{color:var(--blue);}
+.sub{color:var(--ink-soft)!important;}
+.cobrand-meta{color:var(--blue)!important;opacity:.8;}
+/* highlight treatment: navy chip, light type */
+.s-cobrand h1 em,.b1-big em{background:var(--blue);color:#fff;padding:0 .18em;border-radius:5px;font-style:normal;}
+.b1-sub em,.b1-p em,.b1-steps em,.b1-note em,.b1-list em{color:var(--blue);font-style:normal;font-weight:800;}
+/* cards */
+.b1-card{background:var(--paper);border:1.5px solid var(--line-l);box-shadow:0 10px 30px rgba(20,28,58,.07);}
+.b1-card.y{background:var(--wash);border-color:var(--blue);}
+.b1-card.y .b1-k{color:var(--blue);}
+.b1-k{color:var(--blue2);}
+.b1-h{color:var(--blue);}
+.b1-p{color:var(--ink-soft);}
+.b1-big{color:var(--blue);}
+.b1-sub{color:var(--ink-soft);}
+/* steps + lists: navy markers */
+.b1-steps li{color:var(--ink);}
+.b1-steps li::before{background:var(--blue);color:#fff;}
+.b1-steps li strong{color:var(--blue);}
+.b1-list li{color:var(--ink);}
+.b1-list li strong{color:var(--blue);}
+.b1-list li::before{background:var(--blue);}
+/* notes */
+.b1-note{background:var(--wash);color:var(--ink);border-left-color:var(--blue);}
+.b1-note strong{color:var(--blue);}
+.df-note{background:rgba(22,32,91,.06);color:var(--ink-soft);border-left-color:var(--blue);}
+.df-note strong{color:var(--blue);}
+/* table */
+.dtable th{color:var(--blue2);border-bottom-color:var(--blue);}
+.dtable td{color:var(--ink-soft);border-bottom-color:var(--line-l);}
+.dtable td.term{color:var(--blue);}
+.dtable td.num{color:var(--blue);}
+/* dividers */
+.section-inner{background:var(--cream);}
+.section-inner .sec-num{color:rgba(22,32,91,.14);}
+.section-inner.df{background:var(--cream);}
+.section-inner h2{color:var(--blue);}
+.section-inner p{color:var(--ink-soft);}
+.badge{background:var(--blue);color:#fff;}
+.section-inner.df .badge{background:transparent;color:var(--blue);border:1.5px solid var(--blue);}
+/* timer box: navy with clean white digits */
+.b1-timerbox{background:var(--blue);border-color:rgba(255,255,255,.22);}
+.b1-timerbox .b1-k{color:#fdfdf7;}
+.tm{color:#fdfdf7;}
+.timer-btn{background:#fdfdf7;color:var(--blue);border-color:#fdfdf7;}
+.timer-btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
+/* nav + progress -> blue */
+.nav button{border-color:var(--blue)!important;color:var(--blue)!important;background:transparent!important;}
+.slide-counter{color:var(--ink-soft)!important;}
+.progress{background:rgba(22,32,91,.1)!important;}
+.progress-fill{background:var(--blue)!important;}
+/* ===== readability: larger type so it reads from the back ===== */
+.hdr .eyebrow,.s-cobrand .eyebrow{font-size:1.3vw!important;}
+.hdr h2{font-size:3.1vw!important;}
+.b1-k{font-size:1.25vw;}
+.b1-h{font-size:2.6vw;}
+.b1-p{font-size:2.1vw;}
+.b1-big{font-size:3.1vw;}
+.b1-sub{font-size:2.2vw;}
+.b1-steps li{font-size:2.3vw;}
+.b1-steps li::before{width:3vw;height:3vw;font-size:1.7vw;}
+.b1-list li{font-size:2.2vw;}
+.b1-note{font-size:2.05vw;}
+.df-note{font-size:1.95vw;}
+.dtable th{font-size:1.3vw;}
+.dtable td{font-size:2.05vw;}
+.b1-code{font-size:1.65vw;line-height:1.55;}
+.b1-code .lbl{font-size:1.15vw;}
+.cobrand-meta{font-size:1.55vw;}
+.b1-node .t{font-size:2.1vw;}
+.b1-node .s{font-size:1.45vw;}
+
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<div class="slide active"><div class="s-cobrand"><div class="cobrand-logos"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="cdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="cdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"><span class="cdiv"></span><img class="bgc" src="bg_logo.png" alt="The Exchange at Beverly Gray"></div><div class="eyebrow">BuiltSmall &middot; Decoded Futures &middot; TechBuffalo &middot; The Exchange at Beverly Gray</div><h1 style="font-size:6vw;line-height:1.02;">Build <em>Day</em></h1><div class="sub">Find a real task. Build a working AI tool. Walk out with something you will actually use.</div><div class="cobrand-meta">Golisano Institute &middot; Buffalo &middot; Nov 10, 2026</div><div class="cover-support"><span class="cs-lbl">Supported by</span><img src="google_org_logo.svg" alt="Google.org"></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Getting ready</div><h2>Before we start</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><ul class="b1-steps"><li>Find your table and sit with your <strong>organization partner.</strong></li><li>Open <strong>ChatGPT, Claude, or Gemini</strong> and sign in.</li><li>Say hi to the <strong>technologist</strong> at your table. They are here to help.</li><li>Hit a login wall? Flag a technologist <strong>now,</strong> before we start.</li></ul><div class="b1-note">Wi-Fi is on the screen. Scan the code for today's resources. We start at 9.</div><div class="qr-row"><div class="qr-cell"><div class="qr-ph">QR</div><div class="qr-cap">Wi-Fi + resources</div></div></div></div></div>
+
+<div class="slide "><div class="s-cobrand"><div class="cobrand-logos"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="cdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="cdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"><span class="cdiv"></span><img class="bgc" src="bg_logo.png" alt="The Exchange at Beverly Gray"></div><div class="eyebrow">Welcome</div><h1 style="font-size:4.4vw;line-height:1.05;">Built <em>together.</em></h1><div class="sub">BuiltSmall, Decoded Futures, TechBuffalo, and The Exchange at Beverly Gray brought this to Buffalo.</div><div class="support-strip"><div class="slbl">Supported by</div><div class="slogos"><img class="goog" src="google_org_logo.svg" alt="Google.org"></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Welcome</div><h2>Who you'll hear from this morning</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-four"><div class="b1-card"><div class="b1-k">Welcome to Chinatown / BuiltSmall</div><div class="b1-h">Bryan Lozano</div><div class="b1-p">Your MC for the day. Practical AI for small business.</div></div><div class="b1-card y"><div class="b1-k">Decoded Futures</div><div class="b1-h">Jenni Warren</div><div class="b1-p">AI for nonprofit leaders, done responsibly.</div></div><div class="b1-card"><div class="b1-k">Google.org</div><div class="b1-h">Reggie Thomas</div><div class="b1-p">Why Google.org backs this work.</div></div><div class="b1-card"><div class="b1-k">TechBuffalo</div><div class="b1-h">Jeffrey Botteron</div><div class="b1-p">President &amp; CEO. Growing Buffalo's tech community.</div></div></div><div class="b1-note"><strong>The Exchange at Beverly Gray</strong> is our partner in bringing the day to Buffalo.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Who we are</div><h2>BuiltSmall</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">BuiltSmall is <em>practical</em> AI help for small businesses.</div><div class="b1-three" style="margin-top:2.6vh;"><div class="b1-card"><div class="b1-k">What we do</div><div class="b1-h">Build, don't lecture</div><div class="b1-p">We sit with owners and build one real thing that saves time.</div></div><div class="b1-card y"><div class="b1-k">How we teach</div><div class="b1-h">Your work, your tools</div><div class="b1-p">You bring a task from your week. You leave with a prototype.</div></div><div class="b1-card"><div class="b1-k">Who it's for</div><div class="b1-h">Main Street</div><div class="b1-p">Shops, services, and the people who run them.</div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Who we are</div><h2>Decoded Futures</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">Decoded Futures helps nonprofit leaders use AI <em>responsibly and well.</em></div><div class="b1-three" style="margin-top:2.6vh;"><div class="b1-card"><div class="b1-k">Alumni built</div><div class="b1-h">Policy at scale</div><div class="b1-p">One alum wrote the AI policy for a <strong>600-person organization.</strong></div></div><div class="b1-card y"><div class="b1-k">Alumni funded</div><div class="b1-h">Real money followed</div><div class="b1-p">Another raised <strong>$500K</strong> in follow-on funding for AI tools.</div></div><div class="b1-card"><div class="b1-k">Alumni teach</div><div class="b1-h">Statewide reach</div><div class="b1-p">DF alumni are shaping AI curriculum for <strong>New York State's Entrepreneur Assistance Centers.</strong></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Today's promise</div><h2>By 5 PM, you will have</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">Found it</div><div class="b1-h">One real task</div><div class="b1-p">Picked one task from your week that is worth fixing.</div></div><div class="b1-card y"><div class="b1-k">Built it</div><div class="b1-h">A working prompt</div><div class="b1-p">Written and tested a prompt that does that task.</div></div><div class="b1-card"><div class="b1-k">Saved it</div><div class="b1-h">A reusable prototype</div><div class="b1-p">Saved it as a Project you can use again next week.</div></div></div><div class="b1-note">You work with your own organization. You run your own laptop. Tables share what they find.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">How today works</div><h2>Three things to keep in mind</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">01</div><div class="b1-h">Fluency takes reps</div><div class="b1-p">You get good by using it, not by watching. Today is reps.</div></div><div class="b1-card y"><div class="b1-k">02</div><div class="b1-h">You learn by doing</div><div class="b1-p">We keep the talking short. Most of the day, you are building.</div></div><div class="b1-card"><div class="b1-k">03</div><div class="b1-h">The fun is in iterating</div><div class="b1-p">The first answer is a draft. Making it better is the skill.</div></div></div><div class="b1-note">Your first result is a <strong>starting point,</strong> not the final answer.</div></div></div>
+
+<div class="slide "><div class="section-inner df"><div class="sec-num">01</div><div class="sec-text"><div class="badge">Start here</div><h2>Responsible AI, then prompting</h2><p>The ground rules, the words you will hear, and how to ask AI for what you want.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Responsible AI</div><h2>You're in control</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;gap:2vh;"><div class="b1-big">Adopt AI in the way that is <em>right for you.</em></div><div class="b1-sub" style="max-width:40vw;">These guardrails keep you safe. Do not let them stop you from starting.</div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Responsible AI</div><h2>Three ground rules</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th></th><th>Rule</th><th>What it means</th></tr></thead><tbody><tr><td class="num">01</td><td class="term">Protect private info</td><td>Don't paste customer, client, employee, or financial details into a tool your organization hasn't approved.</td></tr><tr><td class="num">02</td><td class="term">Keep a human in the loop</td><td>Read what AI gives you before you send it, share it, or act on it.</td></tr><tr><td class="num">03</td><td class="term">Make it fit your people</td><td>Check that the result reflects the community you serve. Adjust it until it does.</td></tr></tbody></table><div class="b1-note">Today, use <strong>fake or sample information only.</strong> Never real private data.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Responsible AI</div><h2>Before you paste or upload</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">Ask yourself: <em>would I be okay sending this to an outside company?</em></div><ul class="b1-list"><li>Check your privacy settings and your organization's policy.</li><li>Keep confidential info out of unapproved tools.</li><li>Use fake, sample, or approved info for today.</li></ul><div class="b1-note">Private settings alone don't make a tool safe. Approval and the provider's data practices matter too.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Good to know</div><h2>A few words you'll hear</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>Term</th><th>What it means</th></tr></thead><tbody><tr><td class="term">Prompt</td><td>The instructions or question you give AI.</td></tr><tr><td class="term">Context window</td><td>How much AI can hold in mind at one time.</td></tr><tr><td class="term">RAG</td><td>Pulling answers from your own documents instead of guessing.</td></tr><tr><td class="term">Project</td><td>A saved workspace: your instructions, files, and chats in one place.</td></tr></tbody></table></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Prompting</div><h2>What makes a good prompt</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-four"><div class="b1-card"><div class="b1-k">01</div><div class="b1-h">Role and goal</div><div class="b1-p">Who should AI be, and what are you trying to get done?</div></div><div class="b1-card y"><div class="b1-k">02</div><div class="b1-h">Context and steps</div><div class="b1-p">What does it need to know, and what should it do?</div></div><div class="b1-card"><div class="b1-k">03</div><div class="b1-h">Output</div><div class="b1-p">What should the result look like?</div></div><div class="b1-card"><div class="b1-k">04</div><div class="b1-h">Evaluation</div><div class="b1-p">How will you know it is any good?</div></div></div><div class="b1-note">Same four parts all day. Miss one and the answer gets vague.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Challenge &middot; 8 minutes</div><h2>Build something useful: a checklist</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Turn a task you know by heart into an <em>interactive checklist.</em></div><ul class="b1-steps"><li>Pick a process you run often: onboarding, opening up, a weekly report.</li><li>Open your AI tool.</li><li>Ask it to build an <strong>interactive checklist</strong> for that process.</li><li>Run the checklist. See what it does.</li><li>Save this first version so you can compare it later.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm1" data-sec="480">8:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm1')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm1')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Make it better &middot; 8 minutes</div><h2>Improve your checklist</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Run it through the <em>four parts.</em></div><ul class="b1-steps"><li>Say who it's for and what done looks like <strong>(role and goal).</strong></li><li>Tell it what it's missing about your process <strong>(context).</strong></li><li>Say how it should look and work <strong>(output).</strong></li><li>Decide what would make it actually useful <strong>(evaluation).</strong></li><li>Compare the two versions. Name one win and one gap.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm2" data-sec="480">8:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm2')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm2')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Talk it over</div><h2>What changed?</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">Right away</div><div class="b1-h">What did AI get right?</div><div class="b1-p">Even a rough prompt gets you something.</div></div><div class="b1-card y"><div class="b1-k">With context</div><div class="b1-h">What got better when you said more?</div><div class="b1-p">This is the whole game.</div></div><div class="b1-card"><div class="b1-k">Still human</div><div class="b1-h">What still needs you?</div><div class="b1-p">AI drafts. You decide.</div></div></div><div class="b1-note">More context, better output. You just used the <strong>core skill</strong> for the whole day.</div></div></div>
+
+<div class="slide "><div class="section-inner"><div class="sec-num">02</div><div class="sec-text"><div class="badge">Session 2</div><h2>Find the task worth building</h2><p>A quick warm-up, then you pick the one task you will build today.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Warm-up &middot; 8 minutes</div><h2>First, let's make toast</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Draw how you make <em>toast.</em></div><ul class="b1-steps"><li>Draw every step, start to finish.</li><li>Pretend you are explaining it to a robot that has never seen bread.</li><li>Compare with someone at your table.</li><li>Circle anything you left out or assumed.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm3" data-sec="480">8:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm3')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm3')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Workflows and nodes</div><h2>A task is just steps in a row</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-flow"><div class="b1-node"><div class="t">Email lands</div><div class="s">the trigger</div></div><div class="b1-arrow">&rarr;</div><div class="b1-node"><div class="t">Read it</div></div><div class="b1-arrow">&rarr;</div><div class="b1-node y"><div class="t">Draft a reply</div><div class="s">build this one</div></div><div class="b1-arrow">&rarr;</div><div class="b1-node"><div class="t">Send</div></div></div><div class="b1-note">Each box is a <strong>node.</strong> Today you zoom in on one node and build just that.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Zoom in</div><h2>One node, five parts</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>Part</th><th>What it is</th></tr></thead><tbody><tr><td class="term">Trigger</td><td>What starts this step.</td></tr><tr><td class="term">Actor</td><td>Who, or what, does it.</td></tr><tr><td class="term">Inputs</td><td>What they need to do it.</td></tr><tr><td class="term">Action</td><td>What actually happens.</td></tr><tr><td class="term">Success</td><td>What a good result looks like.</td></tr></tbody></table><div class="b1-note">Pin down these five and you can hand the <strong>Action</strong> to AI.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Human to AI</div><h2>The same five parts, for AI</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>Node part</th><th>For an AI step</th></tr></thead><tbody><tr><td class="term">Trigger</td><td>What kicks it off. You open the tool, or a new item lands.</td></tr><tr><td class="term">Actor</td><td>The AI.</td></tr><tr><td class="term">Inputs</td><td>The context and data it needs. Your role and goal.</td></tr><tr><td class="term">Action</td><td>The steps you write into your prompt.</td></tr><tr><td class="term">Success</td><td>The output, and how you know it is good enough.</td></tr></tbody></table><div class="b1-note">The node map <strong>is</strong> your prompt plan. You still review before anything goes out.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Find it</div><h2>Start with a PITA</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">What is the task that keeps <em>eating your week?</em></div><div class="b1-sub" style="margin:1.4vh 0 2.4vh;">PITA = Pain In The Ass. A task you repeat that drains time, focus, or energy.</div><div class="b1-two"><div class="b1-card"><div class="b1-k">If you run a nonprofit</div><div class="b1-h">Sound familiar?</div><div class="b1-p">Intake forms. Funder reports. The same client questions. Tracking volunteers.</div></div><div class="b1-card y"><div class="b1-k">If you run a business</div><div class="b1-h">Sound familiar?</div><div class="b1-p">Customer inquiries. Reconciling sales. Repeat questions. Staff schedules.</div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Find it</div><h2>Is it a good task for AI?</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">01</div><div class="b1-h">Repetitive</div><div class="b1-p">Does it happen again and again?</div></div><div class="b1-card y"><div class="b1-k">02</div><div class="b1-h">Text or data</div><div class="b1-p">Is it about words or information?</div></div><div class="b1-card"><div class="b1-k">03</div><div class="b1-h">Describable</div><div class="b1-p">Can you explain the steps and what good looks like?</div></div></div><div class="b1-note">Three yeses means a strong first task. You do not have to automate the whole thing today.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Find it</div><h2>From a big idea to a buildable task</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-two"><div class="b1-card"><div class="b1-k">Too vague</div><div class="b1-h">Hard to build</div><div class="b1-p">"I want a tool that shows me all my sales and finances across my six stores."</div></div><div class="b1-card y"><div class="b1-k">Buildable</div><div class="b1-h">One task, one win</div><div class="b1-p">"I spend six hours a month reconciling tip wages across six stores. If a dashboard did it, I would get that time back and see sales live."</div></div></div><div class="b1-note">A buildable task names <strong>the work, the pain, and what good looks like.</strong></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Find it</div><h2>A nonprofit example</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">From a broad challenge to one <em>workflow.</em></div><div class="b1-two" style="margin-top:2vh;"><div class="b1-card"><div class="b1-k">The challenge</div><div class="b1-h">Managing packages</div><div class="b1-p">NY Sun Works wanted a better way to track and manage incoming packages.</div></div><div class="b1-card y"><div class="b1-k">The one workflow</div><div class="b1-h">Track deliveries</div><div class="b1-p">They focused on logging each package and the info needed to manage it.</div></div></div><div class="b1-note">The result: a task that used to take much of a day now takes about <span class="ph">[~15 min &mdash; confirm with DF]</span>.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Your turn &middot; 25 minutes</div><h2>Find your PITA</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Pick one task you can <em>build on today.</em></div><ul class="b1-steps"><li><strong>3 min, solo.</strong> Write two or three tasks that bug you.</li><li><strong>6 min, in pairs.</strong> One is the owner, one the detective. Ask, do not solve.</li><li><strong>6 min.</strong> Switch roles.</li><li><strong>5 min.</strong> Pick one task. Choose the one node to build.</li><li><strong>5 min.</strong> Write the problem statement and fill in the node map.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm4" data-sec="1500">25:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm4')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm4')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Your turn</div><h2>What to write down</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-two"><div class="b1-card"><div class="b1-k">Problem statement</div><div class="b1-h">Fill in the blanks</div><div class="b1-p">"My pain point is ______. If I had ______, I would ______."</div></div><div class="b1-card y"><div class="b1-k">One node to build</div><div class="b1-h">The five parts</div><div class="b1-p">Trigger. Actor. Inputs. Action. Success.</div></div></div><div class="b1-note"><strong>Detective questions:</strong> What do you do, step by step? What is slow or annoying? What info do you use? What would success look like?</div></div></div>
+
+<div class="slide "><div class="section-inner"><div class="sec-num">03</div><div class="sec-text"><div class="badge">Session 3</div><h2>Build it</h2><p>Turn the task you found into a working AI tool.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build it</div><h2>Turn your task into a tool</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">Build the <em>node</em> you picked.</div><ul class="b1-steps"><li>Open your AI tool.</li><li>Use your task and your node map.</li><li>Write a prompt with the four parts.</li><li>Run it. Read what you got.</li><li>Keep improving until it does the job.</li></ul></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build it</div><h2>Your four-part prompt</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-code "><span class="lbl">Copy this shape</span>Role &amp; goal: You are helping me <em>[do a specific task]</em> for <em>[your org or business].</em>
+
+Context &amp; steps: Here is what you need to know: [context].
+Do these steps:
+1. [first step]
+2. [second step]
+3. [third step]
+
+Output: Return it as [format], with [what matters].
+
+Eval: Check that [criteria] are met. Flag anything missing or that needs a human.</div><div class="b1-note">Fill it in from your <strong>PITA Canvas</strong> and node map. The handout has a copy to paste.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build Lab 1 &middot; 35 minutes</div><h2>Build, run, improve</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Make it <em>work.</em></div><ul class="b1-steps"><li>Write your first prompt.</li><li>Run it and read the result.</li><li>Spot what it got wrong or missed.</li><li>Change your instructions and run again.</li><li>Repeat until it does the task.</li></ul><div class="b1-note">Stuck? Grab a technologist. One change at a time works best.</div></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm5" data-sec="2100">35:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm5')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm5')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build it</div><h2>Stuck? Have AI interview you</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-code "><span class="lbl">Paste this</span>I want to use AI for a task at my organization. Ask me five questions, one at a time, to understand what I am trying to do, the steps involved, and what a good result looks like. Then help me write a strong prompt.</div><ul class="b1-list"><li>Ask the AI what information it needs.</li><li>Break a big task into smaller steps.</li><li>Give it a fake example of the output you want.</li><li>Ask it to point out its own assumptions.</li></ul></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build Lab 1 &middot; 20 minutes</div><h2>Save it as a Project</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Save your work so you can <em>use it again.</em></div><ul class="b1-steps"><li>Make a Project, or a saved workspace, in your tool.</li><li>Give it a clear name.</li><li>Paste your best prompt as the instructions.</li><li>Add reference files only if they are approved to share.</li><li>Test it with a fresh example.</li></ul><div class="b1-note">No Project feature on your plan? Save the prompt in a doc. Do not upload private files.</div></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm6" data-sec="1200">20:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm6')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm6')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Finished early?</div><h2>Extra challenge: a follow-up</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-two"><div class="b1-card"><div class="b1-k">Small business</div><div class="b1-h">Chase an overdue invoice</div><div class="b1-p">A caterer needs to nudge a client on a bill three weeks late.</div></div><div class="b1-card y"><div class="b1-k">Nonprofit</div><div class="b1-h">Follow up on a pledge</div><div class="b1-p">A nonprofit needs to follow up on an unpaid pledge.</div></div></div><div class="b1-note">Build a reusable follow-up prompt. Firm, friendly, with the details and the ask. Use fake info.</div></div></div>
+
+<div class="slide "><div class="section-inner df"><div class="sec-num">04</div><div class="sec-text"><div class="badge">Session 4</div><h2>Test it</h2><p>A polished answer can still be wrong. Here is how you check.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>AI can fail, in two ways</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-two"><div class="b1-card"><div class="b1-k">01</div><div class="b1-h">Unclear success</div><div class="b1-p">You never said what a good result looks like.</div></div><div class="b1-card y"><div class="b1-k">02</div><div class="b1-h">Poor oversight</div><div class="b1-p">You have no way to catch a mistake.</div></div></div><div class="b1-note">Picture an AI reply that looks polished but quotes the <strong>wrong price or deadline.</strong> Would you catch it?</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Exercise &middot; 10 minutes</div><h2>The teacher's assistant</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">You just hired a <em>human</em> assistant to grade essays.</div><ul class="b1-steps"><li>With your table: how do you make sure they do it right?</li><li>List what you would actually do.</li><li>Be ready to share one idea.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm7" data-sec="600">10:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm7')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm7')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>You already know how to do this</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>What you said about the assistant</th><th>What it means for AI</th></tr></thead><tbody><tr><td class="term">"Show them examples of good work"</td><td>Put examples in your prompt.</td></tr><tr><td class="term">"Check their first few"</td><td>Test the output before you rely on it.</td></tr><tr><td class="term">"Tell them to ask if unsure"</td><td>Build in a human review step.</td></tr><tr><td class="term">"Make it easy to flag problems"</td><td>Create a way to catch and fix mistakes.</td></tr></tbody></table></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>Four questions before you rely on it</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-four"><div class="b1-card"><div class="b1-k">01</div><div class="b1-h">Success</div><div class="b1-p">What does a good result look like, for everyone it touches?</div></div><div class="b1-card y"><div class="b1-k">02</div><div class="b1-h">Failure</div><div class="b1-p">How will you know if it is going wrong?</div></div><div class="b1-card"><div class="b1-k">03</div><div class="b1-h">Voice</div><div class="b1-p">Who can raise a problem, and what happens next?</div></div><div class="b1-card"><div class="b1-k">04</div><div class="b1-h">Off switch</div><div class="b1-p">Who can change it or turn it off?</div></div></div><div class="b1-note">Answer these and you are ahead of almost everyone using AI in the social sector.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>Testing takes time</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">Test at home</div><div class="b1-h">Try it yourself</div><div class="b1-p">Run it and find the errors. About 2 weeks.</div></div><div class="b1-card y"><div class="b1-k">Test in the field</div><div class="b1-h">Pilot for real</div><div class="b1-p">Small, real cases. About 1 to 3 months.</div></div><div class="b1-card"><div class="b1-k">Maintain</div><div class="b1-h">Keep improving</div><div class="b1-p">Collect feedback and fix. 3 to 12 months to production.</div></div></div><div class="b1-note">Today you build a <strong>prototype.</strong> Real use comes after real testing.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>The tradeoffs you are making</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>You gain</th><th>You might give up</th></tr></thead><tbody><tr><td class="term">Speed</td><td>Flexibility</td></tr><tr><td class="term">Serving more people</td><td>A personal touch</td></tr><tr><td class="term">Consistency</td><td>Case-by-case judgment</td></tr><tr><td class="term">Staff time saved</td><td>A little accuracy</td></tr></tbody></table><div class="b1-note">There is no right answer. Pick what your <strong>organization cares about most.</strong></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Test it</div><h2>Design three tests</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><table class="dtable"><thead><tr><th>Test</th><th>What to try</th></tr></thead><tbody><tr><td class="term">Normal</td><td>A typical example of the task.</td></tr><tr><td class="term">Hard</td><td>Missing info, odd formatting, or something unclear.</td></tr><tr><td class="term">Failure</td><td>A case where AI should stop and ask for a human.</td></tr></tbody></table><div class="b1-note">Write one example of each. Use fake or sample info. You will run them next.</div></div></div>
+
+<div class="slide "><div class="section-inner"><div class="sec-num">05</div><div class="sec-text"><div class="badge">Build Lab 2</div><h2>Refine it</h2><p>Run your tests, find the cracks, and make it better.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build Lab 2 &middot; 20 minutes</div><h2>Try to break it</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Run your <em>three tests.</em></div><ul class="b1-steps"><li>Run the normal test.</li><li>Run the hard test.</li><li>Run the failure test.</li><li>Compare each to your success criteria.</li><li>Write down what worked and what did not.</li></ul></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm8" data-sec="1200">20:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm8')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm8')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Build Lab 2 &middot; 25 minutes</div><h2>Fix one thing, run again</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-timerlayout"><div class="b1-timerleft"><div class="b1-big">Improve the <em>instructions.</em></div><ul class="b1-steps"><li>Pick one problem from your tests.</li><li>Add missing context, or an example.</li><li>Say when a human must review.</li><li>Run the same test again.</li><li>Save the better version.</li></ul><div class="b1-note">One change at a time, so you know what helped.</div></div><div class="b1-timerbox"><div class="b1-k">Time</div><div class="tm" id="tm9" data-sec="1500">25:00</div><div class="timer-btns"><button class="timer-btn" onclick="tmStart('tm9')">Start</button><button class="timer-btn ghost" onclick="tmReset('tm9')">Reset</button></div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Refine it</div><h2>Write down what you learned</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><ul class="b1-list"><li>Our prototype: ______</li><li>It works well when: ______</li><li>It still struggles with: ______</li><li>Before we use it for real, we need to: ______</li><li>Our next step: ______</li></ul><div class="b1-note">Save your prompt or Project, your test notes, and your open questions.</div></div></div>
+
+<div class="slide "><div class="section-inner"><div class="sec-num">06</div><div class="sec-text"><div class="badge">Show &amp; tell</div><h2>Show us what you built</h2><p>A few teams walk the room through what they made.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Show &amp; tell</div><h2>Show us what you built</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">A few teams, <em>three minutes</em> each.</div><ul class="b1-steps"><li>Say who you are and what you do.</li><li>What challenge did you pick?</li><li>What did you build?</li><li>What did you learn or change when you tested it?</li></ul><div class="b1-note">Up to six quick demos. Keep each to two or three minutes so everyone gets a turn.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Show &amp; tell</div><h2>Talk it over</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div style="display:flex;align-items:center;justify-content:center;height:100%;text-align:center;"><div class="b1-big">What did someone else build that made you <em>rethink</em> what AI could do for you?</div></div></div></div>
+
+<div class="slide "><div class="section-inner"><div class="sec-num">07</div><div class="sec-text"><div class="badge">Wrap up</div><h2>What you take with you</h2><p>The process you used today works on your next problem too.</p></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Wrap up</div><h2>What you did today</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-four"><div class="b1-card"><div class="b1-k">Found it</div><div class="b1-h">A real task</div><div class="b1-p">You picked a task worth fixing.</div></div><div class="b1-card y"><div class="b1-k">Shaped it</div><div class="b1-h">A clear prompt</div><div class="b1-p">You wrote a prompt that works.</div></div><div class="b1-card"><div class="b1-k">Tested it</div><div class="b1-h">Checked it</div><div class="b1-p">You found where it breaks and fixed it.</div></div><div class="b1-card"><div class="b1-k">Saved it</div><div class="b1-h">A reusable tool</div><div class="b1-p">You saved a Project to use again.</div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Keep going</div><h2>Where this goes next</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-three"><div class="b1-card"><div class="b1-k">Across Western New York</div><div class="b1-h">The EACs are next</div><div class="b1-p">The Entrepreneur Assistance Centers we are training are launching their own AI programs for the businesses they serve. <span class="ph">[which EACs + programs &mdash; confirm]</span></div></div><div class="b1-card y"><div class="b1-k">Decoded Futures</div><div class="b1-h">Prompt Cookbook v2</div><div class="b1-p">More prompts to try, plus DF on Substack and LinkedIn.</div></div><div class="b1-card"><div class="b1-k">BuiltSmall</div><div class="b1-h">Your take-home guide</div><div class="b1-p">Your prompting guide and next steps. builtsmall.ai</div></div></div><div class="qr-row"><div class="qr-cell"><div class="qr-ph">QR</div><div class="qr-cap">Cookbook v2</div></div><div class="qr-cell"><div class="qr-ph">QR</div><div class="qr-cap">BuiltSmall</div></div></div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Before you go</div><h2>Tell us how it went</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="b1-big">Two minutes. It <em>shapes the next one.</em></div><ul class="b1-list"><li>How confident do you feel using AI now?</li><li>Could you spot and build a useful AI task?</li><li>Did you build a working prototype?</li><li>What was the most useful thing today?</li><li>What would help you keep going?</li></ul><div class="b1-note">Scan to open the survey. Two minutes, and it shapes the next one.</div><div class="qr-row"><div class="qr-cell"><div class="qr-ph">QR</div><div class="qr-cap">Survey</div></div></div></div></div>
+
+<div class="slide "><div class="s-cobrand"><div class="cobrand-logos"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="cdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="cdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"><span class="cdiv"></span><img class="bgc" src="bg_logo.png" alt="The Exchange at Beverly Gray"></div><div class="eyebrow">Thank you</div><h1 style="font-size:4.6vw;line-height:1.05;">You built something <em>real.</em></h1><div class="sub">Thank you to our participants, our technologist volunteers, and our partners and funders. Now let's take a picture.</div><div class="cover-support"><span class="cs-lbl">Supported by</span><img src="google_org_logo.svg" alt="Google.org"></div></div></div>
+</div>
+
+<div class="nav">
+  <button onclick="prev()" aria-label="Previous">&larr;</button>
+  <div class="slide-counter" id="ctr">1 / 37</div>
+  <button onclick="next()" aria-label="Next">&rarr;</button>
+</div>
+<div class="progress"><div class="progress-fill" id="prog" style="width:4%"></div></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let cur=0;
+function show(n){
+  slides[cur].classList.remove('active');
+  cur=(n+total)%total;
+  slides[cur].classList.add('active');
+  document.getElementById('ctr').textContent=(cur+1)+' / '+total;
+  document.getElementById('prog').style.width=((cur+1)/total*100)+'%';
+}
+function next(){show(cur+1);}
+function prev(){show(cur-1);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+  if(e.key==='Home'){e.preventDefault();show(0);}
+  if(e.key==='End'){e.preventDefault();show(total-1);}
+});
+show(0);
+var tmState={};
+function tmFmt(s){var m=Math.floor(s/60),x=s%60;return m+':'+(x<10?'0':'')+x;}
+function tmStart(id){
+  var e=document.getElementById(id); if(!e) return;
+  var st=tmState[id]=tmState[id]||{rem:+e.dataset.sec,iv:null};
+  if(st.iv) return;
+  st.iv=setInterval(function(){
+    st.rem--;
+    if(st.rem<=0){clearInterval(st.iv);st.iv=null;e.textContent='Time!';e.classList.add('warn');return;}
+    e.textContent=tmFmt(st.rem); if(st.rem<=60) e.classList.add('warn');
+  },1000);
+}
+function tmReset(id){
+  var e=document.getElementById(id); if(!e) return;
+  var st=tmState[id]; if(st&&st.iv) clearInterval(st.iv);
+  tmState[id]=null; e.textContent=tmFmt(+e.dataset.sec); e.classList.remove('warn');
+}
+</script>
+</body>
+</html>
