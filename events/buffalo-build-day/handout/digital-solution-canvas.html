@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Digital Solution Canvas</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#111f75;--gold:#e5e138;--ink:#1f2333;--mut:#5b6178;--line:#c4c8d4;--soft:#f5f6fa;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',system-ui,Arial,sans-serif;color:var(--ink);background:#e9eaee;}
+  @page{size:11in 8.5in;margin:0.4in;}
+  .page{width:11in;min-height:8.5in;background:#fff;margin:0 auto 24px;padding:0.4in 0.5in;position:relative;}
+  h1,h2,h3,.eyebrow{font-family:'Mulish',sans-serif;}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid var(--navy);padding-bottom:8px;margin-bottom:10px;}
+  .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800;background:var(--navy);padding:3px 8px;border-radius:3px;display:inline-block;}
+  h1{font-size:30px;font-weight:900;color:var(--navy);line-height:1.05;margin-top:5px;}
+  .top img{height:48px;width:auto;}
+  /* triage strip */
+  .triage{border:2px solid var(--navy);border-radius:8px;padding:12px 16px;margin-bottom:11px;display:grid;grid-template-columns:1.5fr 1fr;gap:16px;align-items:center;}
+  .triage .t1 .h{font-size:16px;font-weight:800;color:var(--navy);}
+  .triage .t1 .s{font-size:13px;color:var(--mut);font-style:italic;margin-bottom:7px;}
+  .triage .t1 .ln{border-bottom:1.5px solid var(--line);height:32px;}
+  .triage .t2 .h{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700;margin-bottom:3px;}
+  .chips{font-size:13px;color:var(--ink);line-height:1.95;}
+  .chips span{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:3px 11px;margin:0 5px 5px 0;}
+  /* canvas grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .box{border:2px solid var(--navy);border-radius:8px;padding:11px 13px;min-height:1.75in;display:flex;flex-direction:column;}
+  .box.tall{min-height:1.75in;}
+  .box h3{font-size:17px;font-weight:900;color:var(--navy);}
+  .box .p{font-size:13px;color:var(--mut);line-height:1.5;margin-top:4px;}
+  .box .p b{color:var(--ink);}
+  .box .grow{flex:1;}
+  .krow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:10px;}
+  .kbox{background:var(--soft);border-radius:8px;padding:10px 13px;min-height:1.05in;}
+  .kbox .kl{font-family:'Mulish';font-weight:900;font-size:15px;letter-spacing:.06em;}
+  .kbox.keep .kl{color:#2c7a3f;} .kbox.change .kl{color:#b8860b;} .kbox.remove .kl{color:#b23b3b;}
+  .kbox .kq{font-size:13px;color:var(--mut);}
+  .pfoot{position:absolute;bottom:.22in;right:.5in;font-size:11px;color:var(--mut);letter-spacing:.05em;}
+  @media print{body{background:#fff;}.page{margin:0;box-shadow:none;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top">
+    <div><span class="eyebrow">Day 1 &middot; Build Session 2 &middot; Before you build</span><h1>Digital Solution Canvas</h1></div>
+    <img src="lockup_lite.png" alt="BuiltSmall">
+  </div>
+
+  <div class="triage">
+    <div class="t1">
+      <div class="h">Your PITA, in one sentence</div>
+      <div class="s">Not every problem needs AI. Aim for the most value with the least complexity.</div>
+      <div class="ln"></div>
+    </div>
+    <div class="t2">
+      <div class="h">What kind of solution helps most? Circle one.</div>
+      <div class="chips"><span>Organize</span><span>Communicate</span><span>Find information</span><span>Automate</span><span>Create content</span><span>Collect data</span><span>Decision support</span></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="box"><h3>What problem are you solving?</h3><div class="p">The biggest pain point. What outcome should it create?</div><div class="grow"></div></div>
+    <div class="box"><h3>Who will use this?</h3><div class="p">Your primary user. Who else is affected? Who benefits?</div><div class="grow"></div></div>
+    <div class="box"><h3>What should it do?</h3><div class="p">The three most important jobs, start to finish. What manual work does it replace?</div><div class="grow"></div></div>
+    <div class="box"><h3>What does Version 1 need?</h3><div class="p">Essential features only. What can wait until later?</div><div class="grow"></div></div>
+    <div class="box"><h3>What will you build it with?</h3><div class="p">Which AI or tools. What data or documents does it need?</div><div class="grow"></div></div>
+    <div class="box"><h3>How will you know it worked?</h3><div class="p">Who tests it, on what task, and how you will know it actually helped.</div><div class="grow"></div></div>
+  </div>
+
+  <div class="krow">
+    <div class="kbox keep"><div class="kl">KEEP</div><div class="kq">What worked well?</div></div>
+    <div class="kbox change"><div class="kl">CHANGE</div><div class="kq">What should be improved?</div></div>
+    <div class="kbox remove"><div class="kl">REMOVE</div><div class="kq">What was unnecessary or did not work?</div></div>
+  </div>
+  <div class="pfoot">BuiltSmall, for All &middot; Welcome to Chinatown &nbsp;|&nbsp; Fill after you build and test</div>
+</div>
+</body>
+</html>

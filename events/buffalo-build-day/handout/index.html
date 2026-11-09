@@ -74,8 +74,8 @@ td:first-child{font-weight:800}
 
 <div class="wrap">
   <div class="eyebrow">Choose your own adventure</div>
-  <h1>Build a real dashboard with AI</h1>
-  <p class="lead">This is for you if you move fast and want to go further than today's session. You'll turn one of the sample datasets into a <b>real, working dashboard</b> on your computer, built with an AI coding agent, and save it to GitHub so you can keep improving it. <b>No one will walk you through this</b> &mdash; work at your own pace, and wave a technologist over if you get stuck. Most of the room should focus on their prototype; this is the self-paced track.</p>
+  <h1>Launch your first vibe-coded project</h1>
+  <p class="lead">This is for you if you move fast and want to go further than today's session. The goal is to give you <b>everything you need to launch your first vibe-coded project</b> &mdash; the same approach you'll later point at your own <b>PITA</b> (the task that drains your week). Today you'll turn a sample dataset into a <b>real, working dashboard</b> on your computer with an AI coding agent, and save it to GitHub. <b>You won't walk out with a finished business tool</b> &mdash; you'll walk out knowing how to build one. <b>No one will walk you through this</b> step by step: work at your own pace, and wave a technologist over if you get stuck.</p>
 
   <section id="idea">
     <div class="eyebrow">The one idea</div>
@@ -90,34 +90,23 @@ td:first-child{font-weight:800}
       </div>
       <p>This is <b>product thinking</b>: decide the <b>what, why, and how</b> before you build. That's where your effort really goes &mdash; the coding is the easy part once the brain is clear.</p>
       <p>The file is named for your tool: <code>CLAUDE.md</code> (Claude Code), <code>AGENTS.md</code> (Codex, Cursor, Copilot, most others), or <code>GEMINI.md</code> (Gemini). You don't write it by hand &mdash; <b>you get an AI to write it for you</b> from your what/why/how (that's the <em>write your <code>.md</code></em> step below).</p>
-      <p style="margin-bottom:0"><a href="pita-canvas.html" target="_blank" rel="noopener">&rarr; Go deeper: the product development handout</a> &mdash; pin down your what, why, and how first.</p>
+      <p style="margin-bottom:0"><a href="digital-solution-canvas.html" target="_blank" rel="noopener">&rarr; Go deeper: the Digital Solution Canvas</a> &mdash; a one-pager to pin down your what, why, and how first.</p>
     </div>
   </section>
 
   <section id="setup">
     <div class="eyebrow">Setup &middot; part 1 &middot; your AI coding app</div>
     <h2>First, download your AI coding app</h2>
-    <p>Everything starts here: an AI coding tool on your computer. <b>Pick one</b> and download it now &mdash; it's the tool that reads your <code>.md</code> brain and writes the code.</p>
+    <p>Everything starts here: an AI coding tool on your computer. <b>Pick one</b> and download it &mdash; it's the tool that reads your <code>.md</code> brain and writes the code.</p>
     <div class="cards three">
-      <div class="card key"><h3>Claude</h3><p>Download from <code>claude.ai/download</code>, sign in, open the <b>Code</b> tab (needs a paid plan). Writes <code>CLAUDE.md</code>.</p></div>
+      <div class="card key"><h3>Claude</h3><p>Download the <b>Claude desktop app</b> at <code>claude.ai/download</code>, sign in, open the <b>Code</b> tab (needs a paid plan). Writes <code>CLAUDE.md</code>.</p></div>
       <div class="card"><h3>ChatGPT</h3><p>Download the <b>ChatGPT desktop app</b> and sign in &mdash; it includes <b>Codex</b>. Writes <code>AGENTS.md</code>.</p></div>
-      <div class="card"><h3>Gemini</h3><p>Use the <b>Gemini CLI</b>: after Node (below), run <code>npm i -g @google/gemini-cli</code>, then <code>gemini</code>. Writes <code>GEMINI.md</code>.</p></div>
+      <div class="card"><h3>Gemini</h3><p>Best option is the free <b>Gemini CLI</b> (runs in Terminal): <code>npm i -g @google/gemini-cli</code>, then <code>gemini</code>. Writes <code>GEMINI.md</code>.</p></div>
     </div>
-    <div class="note">After installing anything, <b>close and reopen the app and Terminal.</b></div>
+    <div class="note"><b>Don't over-install.</b> Modern coding apps bundle a lot already. You'll also need <b>Node.js</b>, <b>Git</b>, and the <b>GitHub CLI</b> &mdash; but don't chase them down now. Your AI can check what's missing and help you install each one as you go (next step).</div>
 
-    <div class="eyebrow" style="margin-top:1.8rem">Setup &middot; part 2 &middot; three more tools</div>
-    <h2>Then three tools your computer needs</h2>
-    <p><b>Terminal</b> is the app where you type commands.
-      <span class="mac">Press <code>Cmd + Space</code>, type <code>Terminal</code>, Enter.</span>
-      <span class="win">Press <code>Win + X</code>, choose <b>Terminal</b> (or PowerShell, not the x86 one).</span></p>
-    <div class="cards three">
-      <div class="card"><h3><span class="n">1</span>Node.js</h3><p><code>nodejs.org</code> &rarr; the <b>LTS</b> download. <span class="check"><b>Check:</b> <code>node --version</code> shows a number.</span></p></div>
-      <div class="card"><h3><span class="n">2</span>Git</h3><p class="mac"><b>Mac:</b> usually installed; if it offers developer tools, click Install.</p><p class="win"><b>Windows:</b> <code>git-scm.com</code>, install with defaults.</p><span class="check"><b>Check:</b> <code>git --version</code>.</span></p></div>
-      <div class="card"><h3><span class="n">3</span>GitHub CLI</h3><p><code>cli.github.com</code> &rarr; download. Reopen Terminal, run <code>gh auth login</code> &rarr; GitHub.com, HTTPS, Yes, login with a browser.</p><span class="check"><b>Check:</b> <code>gh auth status</code>.</span></div>
-    </div>
-
-    <div class="eyebrow" style="margin-top:1.8rem">Setup &middot; part 3 &middot; an account to store your code</div>
-    <h2>And a GitHub account</h2>
+    <div class="eyebrow" style="margin-top:1.8rem">Setup &middot; part 2 &middot; a place to store your code</div>
+    <h2>Make a free GitHub account</h2>
     <div class="cards">
       <div class="card"><h3><span class="n">1</span>GitHub</h3><p>Sign up free at <code>github.com/signup</code>. Use an email you can open right now; it sends a verification code. This is where your code lives.</p></div>
       <div class="card key"><h3><span class="n">!</span>Same email everywhere</h3><p>Your GitHub email and your computer's git email must match, or publishing won't work later. If it ever "does nothing," <b>check this first.</b></p></div>
@@ -125,14 +114,15 @@ td:first-child{font-weight:800}
   </section>
 
   <section id="data">
-    <div class="eyebrow">Step 1 &middot; your project folder</div>
-    <h2>Set up the folder</h2>
+    <div class="eyebrow">Step 1 &middot; your folder, data &amp; tools</div>
+    <h2>Set up the folder (and let AI install the rest)</h2>
     <ol class="steps">
       <li>Make a folder called <b>my-dashboard</b> on your Desktop.</li>
-      <li>Download one of the sample datasets and drop it inside.</li>
+      <li><b>Get your data.</b> Download a sample dataset &mdash; the same ones from today's session &mdash; and drop it in the folder. <a href="../data/" target="_blank" rel="noopener">Open the data downloads &rarr;</a></li>
+      <li>Open your coding tool on that folder and paste: <em>&ldquo;Check whether I have Node.js, Git, and the GitHub CLI installed, walk me through installing anything I'm missing, and help me sign in to GitHub with <code>gh auth login</code>.&rdquo;</em> It handles the setup with you.</li>
     </ol>
     <a class="dl" href="../data/" target="_blank" rel="noopener">&#8681; Get your data</a>
-    <span class="check" style="margin-top:.8rem"><b>Worked when</b> you open <code>my-dashboard</code> and see your <code>.csv</code> inside. (We'll use the cafe file below; any works.)</span>
+    <span class="check" style="margin-top:.8rem"><b>Worked when</b> your <code>.csv</code> is in <code>my-dashboard</code>, and <code>node --version</code>, <code>git --version</code>, and <code>gh auth status</code> all respond. (We'll use the cafe file below; any works.)</span>
   </section>
 
   <section id="md">

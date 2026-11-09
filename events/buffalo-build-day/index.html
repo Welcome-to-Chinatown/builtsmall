@@ -90,24 +90,34 @@ a.plink .pu{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
     </a>
   </div>
 
-  <a class="cta" href="https://technyc.typeform.com/to/yzFnbHaC" target="_blank" rel="noopener">
-    <div class="ct-l">
-      <span class="tag">2 minutes &middot; before you go</span>
-      <h2>Feedback survey</h2>
-      <p>Tell us how today went. It shapes the next one.</p>
+  <!-- ===== STAGE 1: feedback survey (opens first). TO MAKE LIVE: delete the word "locked" from class="gated locked" on #gate-survey. ===== -->
+  <div class="gated locked" id="gate-survey">
+    <div class="gated-overlay"><div class="lk">&#128274; Opens at the end<span>We&rsquo;ll bring up the feedback survey together before you go.</span></div></div>
+    <div class="gated-inner">
+      <a class="cta" href="https://technyc.typeform.com/to/yzFnbHaC" target="_blank" rel="noopener">
+        <div class="ct-l">
+          <span class="tag">2 minutes &middot; before you go</span>
+          <h2>Feedback survey</h2>
+          <p>Tell us how today went. It shapes the next one.</p>
+        </div>
+        <span class="ct-go">Take the survey &rarr;</span>
+      </a>
     </div>
-    <span class="ct-go">Take the survey &rarr;</span>
-  </a>
+  </div>
 
-  <!-- ===== GATED: blurred until we unlock it live. TO MAKE LIVE: delete the word "locked" from class="gated locked" below. ===== -->
-  <div class="gated locked" id="gated">
-    <div class="gated-overlay"><div class="lk">&#128274; Revealed later today<span>We&rsquo;ll open your next steps and the prompt cookbook together.</span></div></div>
+  <!-- ===== STAGE 2: keep going (opens after the survey). TO MAKE LIVE: delete the word "locked" from class="gated locked" on #gate-next. ===== -->
+  <div class="gated locked" id="gate-next">
+    <div class="gated-overlay"><div class="lk">&#128274; Unlocks after the survey<span>Once everyone&rsquo;s done the feedback survey, we&rsquo;ll open these up.</span></div></div>
     <div class="gated-inner">
       <div class="sec">Keep going</div>
       <div class="grid">
         <a class="card" href="https://www.decodedfutures.nyc/prompt-cookbook-v2" target="_blank" rel="noopener">
           <span class="tag">Decoded Futures</span><h2>Prompt Cookbook v2</h2>
           <p>A library of prompts to try next.</p><span class="go">Open &rarr;</span>
+        </a>
+        <a class="card" href="../../foundations/handout.html" target="_blank" rel="noopener">
+          <span class="tag">BuiltSmall &middot; Foundations</span><h2>Prompting guide</h2>
+          <p>The BuiltSmall prompt handout from Foundations &mdash; your everyday prompting cheat sheet.</p><span class="go">Open &rarr;</span>
         </a>
       </div>
 
