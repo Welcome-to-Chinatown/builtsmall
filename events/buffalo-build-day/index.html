@@ -6,67 +6,120 @@
 <title>Build Day — Buffalo — Resources</title>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#fbf9f2;--paper:#fff;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);
+:root{--cream:#fbf9f2;--paper:#fff;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);--gold:#f1cd69;
   --serif:'Mulish',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',ui-monospace,monospace;}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.5;padding:3.4rem 1.2rem 5rem}
-.wrap{max-width:58rem;margin:0 auto}
-.logos{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.6rem;flex-wrap:wrap}
-.logos img{height:2.3rem;width:auto}
-.logos .div{width:1px;height:2rem;background:var(--line)}
+body{font-family:var(--body);background:var(--cream);color:var(--ink);line-height:1.5;padding:3rem 1.2rem 5rem}
+.wrap{max-width:60rem;margin:0 auto}
+/* logos */
+.logos{display:flex;align-items:center;gap:1.1rem;margin-bottom:.9rem;flex-wrap:wrap}
+.logos img{width:auto;object-fit:contain;display:block}
+.logos .bs{height:2.5rem}
+.logos .df{height:2rem}
+.logos .tb{height:1.7rem}
+.logos .bg{height:2.4rem}
+.logos .div{width:1px;height:1.9rem;background:var(--line)}
+.support{display:flex;align-items:center;gap:.55rem;margin-bottom:1.8rem}
+.support .lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.support img{height:1.4rem;width:auto}
 .eyebrow{font-family:var(--mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.5rem}
 h1{font-family:var(--serif);font-weight:900;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.03;margin-bottom:.6rem}
 h1 em{font-style:normal;background:var(--ink);color:var(--cream);padding:0 .18em;border-radius:6px}
-.lead{font-size:1.2rem;color:var(--ink-soft);max-width:42rem;margin-bottom:2.4rem}
-.grid{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
-a.card{background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.5rem 1.6rem;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:.4rem;box-shadow:0 10px 30px rgba(22,32,91,.06);transition:transform .12s,border-color .12s}
+.lead{font-size:1.2rem;color:var(--ink-soft);max-width:42rem;margin-bottom:2.6rem}
+/* section headers */
+.sec{font-family:var(--mono);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);margin:2.4rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--ink);font-weight:500}
+.sec:first-of-type{margin-top:0}
+.grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+a.card{background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.4rem 1.5rem;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:.35rem;box-shadow:0 10px 30px rgba(22,32,91,.06);transition:transform .12s,border-color .12s}
 a.card:hover{transform:translateY(-3px);border-color:var(--ink)}
-a.card .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
-a.card h2{font-family:var(--serif);font-weight:900;font-size:1.4rem}
-a.card p{font-size:1rem;color:var(--ink-soft)}
-a.card .go{margin-top:.6rem;font-family:var(--serif);font-weight:800}
+a.card .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+a.card h2{font-family:var(--serif);font-weight:900;font-size:1.3rem}
+a.card p{font-size:.98rem;color:var(--ink-soft)}
+a.card .go{margin-top:.5rem;font-family:var(--serif);font-weight:800}
+/* CTA survey box */
+a.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;background:var(--ink);color:var(--cream);text-decoration:none;border-radius:1.1rem;padding:1.5rem 1.8rem;margin-top:1.1rem;box-shadow:0 12px 34px rgba(22,32,91,.18)}
+a.cta:hover{opacity:.96}
+a.cta .ct-l .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+a.cta .ct-l h2{font-family:var(--serif);font-weight:900;font-size:1.4rem;margin-top:.1rem}
+a.cta .ct-l p{font-size:.98rem;color:rgba(252,250,243,.85)}
+a.cta .ct-go{font-family:var(--serif);font-weight:800;font-size:1.05rem;background:var(--gold);color:var(--ink);padding:.6rem 1.1rem;border-radius:.6rem;white-space:nowrap}
+/* partners */
+.partners{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr))}
+a.plink{background:var(--paper);border:1.5px solid var(--line);border-radius:.9rem;padding:1rem 1.2rem;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:.15rem}
+a.plink:hover{border-color:var(--ink)}
+a.plink .pn{font-family:var(--serif);font-weight:800;font-size:1.05rem}
+a.plink .pu{font-family:var(--mono);font-size:.78rem;color:var(--ink-soft)}
 .foot{margin-top:2.6rem;font-size:.9rem;color:var(--ink-soft)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="logos">
-    <img src="lockup_lite.png" alt="BuiltSmall">
-    <span class="div"></span><img src="df_logo.png" alt="Decoded Futures">
-    <span class="div"></span><img src="tb_logo.png" alt="TechBuffalo">
+    <img class="bs" src="lockup_lite.png" alt="BuiltSmall">
+    <span class="div"></span><img class="df" src="df_logo.png" alt="Decoded Futures">
+    <span class="div"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo">
+    <span class="div"></span><img class="bg" src="bg_logo.png" alt="The Exchange at Beverly Gray">
   </div>
+  <div class="support"><span class="lbl">Supported by</span><img src="google_org_logo.svg" alt="Google.org"></div>
+
   <div class="eyebrow">Buffalo &middot; Nov 10, 2026 &middot; Golisano Institute</div>
   <h1>Build Day <em>resources</em></h1>
-  <p class="lead">Everything from today in one place. Grab what you need.</p>
+  <p class="lead">Everything from today, in one place. Grab what you need.</p>
 
+  <div class="sec">Today&rsquo;s session resources</div>
   <div class="grid">
     <a class="card" href="deck/Buffalo_BuildDay_Deck.html">
-      <span class="tag">The session</span><h2>Today's slides</h2>
+      <span class="tag">The session</span><h2>Today&rsquo;s slides</h2>
       <p>The full deck, start to finish.</p><span class="go">Open &rarr;</span>
     </a>
     <a class="card" href="data/">
       <span class="tag">Exercise</span><h2>Get your data</h2>
-      <p>Sample finance data to build your dashboard &mdash; nonprofit, retail, or services.</p><span class="go">Download &rarr;</span>
+      <p>Sample finance data &mdash; nonprofit, retail, or services.</p><span class="go">Download &rarr;</span>
     </a>
-    <a class="card" href="handout/">
-      <span class="tag">Advanced track</span><h2>Coding handout</h2>
-      <p>Go further: build a live dashboard and put it on the internet.</p><span class="go">Open &rarr;</span>
-    </a>
-    <a class="card" href="https://www.decodedfutures.nyc/prompt-cookbook-v2" target="_blank" rel="noopener">
-      <span class="tag">Keep going</span><h2>Prompt Cookbook v2</h2>
-      <p>Decoded Futures' library of prompts to try next.</p><span class="go">Open &rarr;</span>
-    </a>
-    <a class="card" href="https://technyc.typeform.com/to/yzFnbHaC" target="_blank" rel="noopener">
-      <span class="tag">2 minutes</span><h2>Feedback survey</h2>
-      <p>Tell us how it went. It shapes the next one.</p><span class="go">Open &rarr;</span>
-    </a>
-    <a class="card" href="https://builtsmall.ai" target="_blank" rel="noopener">
-      <span class="tag">Free, ongoing</span><h2>BuiltSmall</h2>
-      <p>Free AI training and tools for small businesses across New York.</p><span class="go">Open &rarr;</span>
+    <a class="card" href="data/#pbox">
+      <span class="tag">Copy &amp; paste</span><h2>Starter prompt</h2>
+      <p>The four-part framework, ready to paste into your AI tool.</p><span class="go">Open &rarr;</span>
     </a>
   </div>
 
-  <p class="foot">Hosted by BuiltSmall (Welcome to Chinatown), Decoded Futures (Tech:NYC), and TechBuffalo. Supported by Google.org.</p>
+  <a class="cta" href="https://technyc.typeform.com/to/yzFnbHaC" target="_blank" rel="noopener">
+    <div class="ct-l">
+      <span class="tag">2 minutes &middot; before you go</span>
+      <h2>Feedback survey</h2>
+      <p>Tell us how today went. It shapes the next one.</p>
+    </div>
+    <span class="ct-go">Take the survey &rarr;</span>
+  </a>
+
+  <div class="sec">Keep going</div>
+  <div class="grid">
+    <a class="card" href="https://www.decodedfutures.nyc/prompt-cookbook-v2" target="_blank" rel="noopener">
+      <span class="tag">Decoded Futures</span><h2>Prompt Cookbook v2</h2>
+      <p>A library of prompts to try next.</p><span class="go">Open &rarr;</span>
+    </a>
+    <a class="card" href="handout/">
+      <span class="tag">Go further</span><h2>Intro to Vibe Coding handout</h2>
+      <p>Build a live dashboard and put it on the internet.</p><span class="go">Open &rarr;</span>
+    </a>
+  </div>
+
+  <div class="sec">What&rsquo;s next for small business support</div>
+  <div class="grid">
+    <a class="card" href="https://thewomensbusinesscenter.com/" target="_blank" rel="noopener">
+      <span class="tag">Western New York &middot; Buffalo</span><h2>Canisius Women&rsquo;s Business Center</h2>
+      <p>Buffalo&rsquo;s Entrepreneurship Assistance Center, serving eight WNY counties &mdash; one of the centers we&rsquo;re helping launch AI programs for small businesses.</p><span class="go">Open &rarr;</span>
+    </a>
+  </div>
+
+  <div class="sec">Our partners</div>
+  <div class="partners">
+    <a class="plink" href="https://builtsmall.ai" target="_blank" rel="noopener"><span class="pn">BuiltSmall</span><span class="pu">builtsmall.ai</span></a>
+    <a class="plink" href="https://www.decodedfutures.nyc" target="_blank" rel="noopener"><span class="pn">Decoded Futures</span><span class="pu">decodedfutures.nyc</span></a>
+    <a class="plink" href="https://techbuffalo.org" target="_blank" rel="noopener"><span class="pn">TechBuffalo</span><span class="pu">techbuffalo.org</span></a>
+    <a class="plink" href="https://theexchangeatbeverlygray.org" target="_blank" rel="noopener"><span class="pn">The Exchange at Beverly Gray</span><span class="pu">theexchangeatbeverlygray.org</span></a>
+  </div>
+
+  <p class="foot">Hosted by BuiltSmall (Welcome to Chinatown), Decoded Futures (Tech:NYC), and TechBuffalo, with The Exchange at Beverly Gray. Supported by Google.org.</p>
 </div>
 </body>
 </html>

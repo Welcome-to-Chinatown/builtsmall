@@ -26,7 +26,15 @@ h1{font-family:var(--serif);font-weight:900;font-size:clamp(2rem,5vw,3rem);line-
 .dl{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--ink);color:var(--cream);text-decoration:none;font-family:var(--serif);font-weight:800;font-size:1.05rem;padding:.8rem 1.2rem;border-radius:.7rem}
 .dl:hover{opacity:.92}
 .goal{font-size:.95rem;color:var(--ink-soft);margin:0 0 1.1rem;padding-left:.8rem;border-left:3px solid var(--line)}
-.how{margin-top:2.6rem;background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.6rem 1.8rem}
+.prompt-wrap{margin-top:2.6rem;background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.6rem 1.8rem}
+.prompt-wrap h3{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin-bottom:.3rem}
+.prompt-wrap .ph{font-size:.98rem;color:var(--ink-soft);margin-bottom:1rem}
+.prompt-box{position:relative;background:var(--ink);color:#fdfdf7;border-radius:.8rem;padding:1.2rem 1.3rem;font-family:var(--mono);font-size:.92rem;line-height:1.6;white-space:pre-wrap}
+.prompt-box .tag{display:block;color:#f1cd69;font-weight:500;margin-top:.9rem}
+.prompt-box .tag:first-child{margin-top:0}
+.copybtn{position:absolute;top:.9rem;right:.9rem;background:#fdfdf7;color:var(--ink);border:none;border-radius:.5rem;font-family:var(--serif);font-weight:800;font-size:.82rem;padding:.45rem .8rem;cursor:pointer}
+.copybtn:hover{opacity:.9}
+.how{margin-top:1.6rem;background:var(--paper);border:2px solid var(--line);border-radius:1.1rem;padding:1.6rem 1.8rem}
 .how h3{font-family:var(--serif);font-weight:900;font-size:1.3rem;margin-bottom:.8rem}
 .how ol{margin-left:1.2rem;font-size:1.05rem}
 .how li{margin-bottom:.5rem}
@@ -81,6 +89,21 @@ code{font-family:var(--mono);background:var(--ink);color:#fdfdf7;padding:.08em .
     </div>
   </div>
 
+  <div class="prompt-wrap">
+    <h3>Your starter prompt</h3>
+    <p class="ph">The four-part framework from the session &mdash; copy it, paste it into your AI tool with your file attached, and fill in the blanks.</p>
+    <div class="prompt-box" id="pbox"><button class="copybtn" onclick="copyPrompt()">Copy</button><span class="tag">Role &amp; goal</span>You are a data analyst helping me understand my organization's finances.
+
+<span class="tag">Context &amp; steps</span>Here is my data (attached). Do these steps:
+1. Add up the totals that matter most to me.
+2. Break them down by category.
+3. Show how it changes over time.
+
+<span class="tag">Output</span>Build it as an interactive dashboard — an HTML page I can open in my browser, with charts and totals. Not a spreadsheet.
+
+<span class="tag">Evaluation</span>It's good if I can see my key numbers at a glance. Flag anything that looks off.</div>
+  </div>
+
   <div class="how">
     <h3>What to do with it</h3>
     <ol>
@@ -93,5 +116,21 @@ code{font-family:var(--mono);background:var(--ink);color:#fdfdf7;padding:.08em .
 
   <p class="foot">Sample data only. Never upload real customer, client, or financial records into a public AI tool.</p>
 </div>
+<script>
+function copyPrompt(){
+  var t = "You are a data analyst helping me understand my organization's finances.\n\n"
+    + "Here is my data (attached). Do these steps:\n"
+    + "1. Add up the totals that matter most to me.\n"
+    + "2. Break them down by category.\n"
+    + "3. Show how it changes over time.\n\n"
+    + "Build it as an interactive dashboard — an HTML page I can open in my browser, with charts and totals. Not a spreadsheet.\n\n"
+    + "It's good if I can see my key numbers at a glance. Flag anything that looks off.";
+  var btn = document.querySelector('.copybtn');
+  navigator.clipboard.writeText(t).then(function(){
+    var o = btn.textContent; btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = o; }, 1600);
+  }).catch(function(){ btn.textContent = 'Press Ctrl+C'; });
+}
+</script>
 </body>
 </html>
