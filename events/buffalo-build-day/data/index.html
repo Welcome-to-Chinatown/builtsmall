@@ -99,7 +99,7 @@ code{font-family:var(--mono);background:var(--ink);color:#fdfdf7;padding:.08em .
 2. Break them down by category.
 3. Show how it changes over time.
 
-<span class="tag">Output</span>Build it as an interactive dashboard — an HTML page I can open in my browser, with charts and totals. Not a spreadsheet.
+<span class="tag">Output</span>Build it as an interactive dashboard I can open in my browser — charts and totals. Not a spreadsheet.
 
 <span class="tag">Evaluation</span>It's good if I can see my key numbers at a glance. Flag anything that looks off.</div>
   </div>
@@ -109,7 +109,7 @@ code{font-family:var(--mono);background:var(--ink);color:#fdfdf7;padding:.08em .
     <ol>
       <li>Open <b>Gemini, ChatGPT, or Claude.</b></li>
       <li>Start a new chat and <b>attach your CSV</b> (the paperclip button).</li>
-      <li>Use the four-part prompt from the session. Tell it: <b>&ldquo;Build an interactive dashboard as an HTML artifact I can open in my browser &mdash; charts and totals, not a spreadsheet.&rdquo;</b></li>
+      <li>Use the four-part prompt from the session. Tell it: <b>&ldquo;Build it as an interactive dashboard I can open in my browser &mdash; charts and totals, not a spreadsheet.&rdquo;</b></li>
       <li>Open what it builds. Change one thing, run it again.</li>
     </ol>
   </div>
@@ -123,7 +123,7 @@ function copyPrompt(){
     + "1. Add up the totals that matter most to me.\n"
     + "2. Break them down by category.\n"
     + "3. Show how it changes over time.\n\n"
-    + "Build it as an interactive dashboard — an HTML page I can open in my browser, with charts and totals. Not a spreadsheet.\n\n"
+    + "Build it as an interactive dashboard I can open in my browser — charts and totals. Not a spreadsheet.\n\n"
     + "It's good if I can see my key numbers at a glance. Flag anything that looks off.";
   var btn = document.querySelector('.copybtn');
   navigator.clipboard.writeText(t).then(function(){
