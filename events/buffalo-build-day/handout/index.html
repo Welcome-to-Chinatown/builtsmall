@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Build Day — Coding Handout: build &amp; host a dashboard</title>
+<title>Build Day — Intro to Vibe Coding</title>
 <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--cream:#fbf9f2;--paper:#fff;--deep:#101a4a;--ink:#16205b;--ink-soft:rgba(22,32,91,.74);--line:rgba(22,32,91,.14);--wash:rgba(22,32,91,.05);
@@ -68,49 +68,60 @@ td:first-child{font-weight:800}
 
 <header class="top">
   <img src="lockup_lite.png" alt="BuiltSmall">
-  <div class="ttl"><small>Build Day &middot; Advanced track</small><b>Coding Handout</b></div>
+  <div class="ttl"><small>Build Day &middot; Advanced building &middot; self-paced</small><b>Intro to Vibe Coding</b></div>
   <div class="os" role="group" aria-label="Your computer"><button id="osmac" class="on" onclick="setOS('mac')">Mac</button><button id="oswin" onclick="setOS('win')">Windows</button></div>
 </header>
 
 <div class="wrap">
   <div class="eyebrow">Choose your own adventure</div>
-  <h1>Build a dashboard, then put it on the internet</h1>
-  <p class="lead">This is for you if you move fast and want to go further than today's session. You'll turn one of the sample datasets into a <b>real, live dashboard</b> with its own web link. <b>No one will walk you through this</b> &mdash; work at your own pace, and wave a technologist over if you get stuck. Most of the room should focus on their prototype; this is the bonus round.</p>
+  <h1>Build a real dashboard with AI</h1>
+  <p class="lead">This is for you if you move fast and want to go further than today's session. You'll turn one of the sample datasets into a <b>real, working dashboard</b> on your computer, built with an AI coding agent, and save it to GitHub so you can keep improving it. <b>No one will walk you through this</b> &mdash; work at your own pace, and wave a technologist over if you get stuck. Most of the room should focus on their prototype; this is the self-paced track.</p>
 
   <section id="idea">
     <div class="eyebrow">The one idea</div>
-    <h2>What a markdown (<code>.md</code>) file is</h2>
+    <h2>Your <code>.md</code> file is the project's brain</h2>
     <div class="big-idea">
       <p>A <b>markdown file</b> is a plain-text instruction sheet &mdash; just words, no formatting menus. The <code>.md</code> on the end is all that makes it special.</p>
-      <p>When you build software with an AI coding tool, that tool reads <b>one special <code>.md</code> file first</b>, every time, to understand your project. It's the project's <b>brain</b>:</p>
-      <ul style="margin:.4rem 0 .8rem 1.2rem;font-size:1.05rem">
-        <li><code>CLAUDE.md</code> &mdash; for Claude Code</li>
-        <li><code>AGENTS.md</code> &mdash; for Codex, Cursor, Copilot, and most others</li>
-        <li><code>GEMINI.md</code> &mdash; for Gemini</li>
-      </ul>
-      <p style="margin-bottom:0">You don't write it by hand. <b>You get an AI to write it for you</b> &mdash; that's step 3 below. Think of it as the four-part prompt from this morning, saved to a file so your coding tool never forgets it.</p>
+      <p>When you build with an AI coding tool, it reads <b>one special <code>.md</code> file first</b>, every time, to understand your project. It's the project's <b>brain</b> &mdash; and a good brain answers three questions:</p>
+      <div class="cards three" style="margin:1.1rem 0 .8rem">
+        <div class="card"><h3>What</h3><p>What are you building, in one line? <em>&ldquo;A dashboard for my cafe's sales.&rdquo;</em></p></div>
+        <div class="card"><h3>Why</h3><p>Who's it for and what does it make easier? <em>&ldquo;So I can see best sellers and busy days at a glance.&rdquo;</em></p></div>
+        <div class="card"><h3>How</h3><p>How should it work &mdash; the features, rules, and look? <em>&ldquo;Upload a CSV, show charts and totals, navy and cream.&rdquo;</em></p></div>
+      </div>
+      <p>This is <b>product thinking</b>: decide the <b>what, why, and how</b> before you build. That's where your effort really goes &mdash; the coding is the easy part once the brain is clear.</p>
+      <p>The file is named for your tool: <code>CLAUDE.md</code> (Claude Code), <code>AGENTS.md</code> (Codex, Cursor, Copilot, most others), or <code>GEMINI.md</code> (Gemini). You don't write it by hand &mdash; <b>you get an AI to write it for you</b> from your what/why/how (that's the <em>write your <code>.md</code></em> step below).</p>
+      <p style="margin-bottom:0"><a href="#" data-link="product-dev-handout">&rarr; Go deeper: the product development handout</a></p>
     </div>
   </section>
 
   <section id="setup">
-    <div class="eyebrow">Setup &middot; about 10 minutes</div>
-    <h2>Two accounts, four tools</h2>
-    <p>One account stores your code, one puts it online. They share <b>one login.</b></p>
-    <div class="cards">
-      <div class="card"><h3><span class="n">1</span>GitHub</h3><p>Sign up free at <code>github.com/signup</code>. Use an email you can open right now; it sends a verification code.</p></div>
-      <div class="card"><h3><span class="n">2</span>Vercel</h3><p>At <code>vercel.com/signup</code> click <b>Continue with GitHub</b>, pick the free <b>Hobby</b> plan.</p></div>
-      <div class="card key"><h3><span class="n">!</span>Same email everywhere</h3><p>Your GitHub email and your computer's git email must match, or your live site won't update. If it ever "does nothing" later, <b>check this first.</b></p></div>
+    <div class="eyebrow">Setup &middot; part 1 &middot; your AI coding app</div>
+    <h2>First, download your AI coding app</h2>
+    <p>Everything starts here: an AI coding tool on your computer. <b>Pick one</b> and download it now &mdash; it's the tool that reads your <code>.md</code> brain and writes the code.</p>
+    <div class="cards three">
+      <div class="card key"><h3>Claude</h3><p>Download from <code>claude.ai/download</code>, sign in, open the <b>Code</b> tab (needs a paid plan). Writes <code>CLAUDE.md</code>.</p></div>
+      <div class="card"><h3>ChatGPT</h3><p>Download the <b>ChatGPT desktop app</b> and sign in &mdash; it includes <b>Codex</b>. Writes <code>AGENTS.md</code>.</p></div>
+      <div class="card"><h3>Gemini</h3><p>Use the <b>Gemini CLI</b>: after Node (below), run <code>npm i -g @google/gemini-cli</code>, then <code>gemini</code>. Writes <code>GEMINI.md</code>.</p></div>
     </div>
-    <p style="margin-top:.6rem"><b>Terminal</b> is the app where you type commands.
+    <div class="note">After installing anything, <b>close and reopen the app and Terminal.</b></div>
+
+    <div class="eyebrow" style="margin-top:1.8rem">Setup &middot; part 2 &middot; three more tools</div>
+    <h2>Then three tools your computer needs</h2>
+    <p><b>Terminal</b> is the app where you type commands.
       <span class="mac">Press <code>Cmd + Space</code>, type <code>Terminal</code>, Enter.</span>
       <span class="win">Press <code>Win + X</code>, choose <b>Terminal</b> (or PowerShell, not the x86 one).</span></p>
-    <div class="cards">
-      <div class="card"><h3><span class="n">1</span>A coding tool</h3><p><b>Claude:</b> <code>claude.ai/download</code>, then the <b>Code</b> tab (needs a paid plan). <b>ChatGPT:</b> the desktop app includes Codex.</p></div>
-      <div class="card"><h3><span class="n">2</span>Node.js</h3><p><code>nodejs.org</code> &rarr; the <b>LTS</b> download. <span class="check"><b>Check:</b> <code>node --version</code> shows a number.</span></p></div>
-      <div class="card"><h3><span class="n">3</span>Git</h3><p class="mac"><b>Mac:</b> usually installed; if it offers developer tools, click Install.</p><p class="win"><b>Windows:</b> <code>git-scm.com</code>, install with defaults.</p><span class="check"><b>Check:</b> <code>git --version</code>.</span></p></div>
-      <div class="card"><h3><span class="n">4</span>GitHub CLI</h3><p><code>cli.github.com</code> &rarr; download. Reopen Terminal, run <code>gh auth login</code> &rarr; GitHub.com, HTTPS, Yes, login with a browser.</p><span class="check"><b>Check:</b> <code>gh auth status</code>.</span></div>
+    <div class="cards three">
+      <div class="card"><h3><span class="n">1</span>Node.js</h3><p><code>nodejs.org</code> &rarr; the <b>LTS</b> download. <span class="check"><b>Check:</b> <code>node --version</code> shows a number.</span></p></div>
+      <div class="card"><h3><span class="n">2</span>Git</h3><p class="mac"><b>Mac:</b> usually installed; if it offers developer tools, click Install.</p><p class="win"><b>Windows:</b> <code>git-scm.com</code>, install with defaults.</p><span class="check"><b>Check:</b> <code>git --version</code>.</span></p></div>
+      <div class="card"><h3><span class="n">3</span>GitHub CLI</h3><p><code>cli.github.com</code> &rarr; download. Reopen Terminal, run <code>gh auth login</code> &rarr; GitHub.com, HTTPS, Yes, login with a browser.</p><span class="check"><b>Check:</b> <code>gh auth status</code>.</span></div>
     </div>
-    <div class="note">After installing anything, <b>close and reopen Terminal and your coding app.</b></div>
+
+    <div class="eyebrow" style="margin-top:1.8rem">Setup &middot; part 3 &middot; an account to store your code</div>
+    <h2>And a GitHub account</h2>
+    <div class="cards">
+      <div class="card"><h3><span class="n">1</span>GitHub</h3><p>Sign up free at <code>github.com/signup</code>. Use an email you can open right now; it sends a verification code. This is where your code lives.</p></div>
+      <div class="card key"><h3><span class="n">!</span>Same email everywhere</h3><p>Your GitHub email and your computer's git email must match, or publishing won't work later. If it ever "does nothing," <b>check this first.</b></p></div>
+    </div>
   </section>
 
   <section id="data">
@@ -138,7 +149,7 @@ td:first-child{font-weight:800}
 Project: Finance Dashboard
 Purpose: A dashboard for a small organization. I upload my data (CSV, attached) and it shows my key numbers and charts at a glance.
 Tech stack: Next.js, React, Chart.js, no database. Everything runs in the browser. No login. Nothing is stored.
-Rules: Must run locally and be ready to publish on Vercel. Use the latest versions.
+Rules: Must run locally in my browser. Use the latest versions.
 
 Features:
 - Upload a CSV file (my sample file is attached)
@@ -190,37 +201,31 @@ Keep it 40-60 lines. Confirm it covers every feature when done.</pre></div>
   </section>
 
   <section id="ship">
-    <div class="eyebrow">Step 5 &middot; ship it</div>
-    <h2>GitHub, then Vercel</h2>
-    <p><b>GitHub</b> stores your code and every past version. Your agent does it for you:</p>
-    <div class="prompt"><span class="lbl">Coding agent &middot; GitHub</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+    <div class="eyebrow">Step 5 &middot; save it</div>
+    <h2>Save it to GitHub</h2>
+    <p><b>GitHub</b> stores your code and keeps every past version, so you can change things without fear and pick the project back up anytime. Your agent does it for you:</p>
+    <div class="prompt"><span class="lbl">Coding agent &middot; save to GitHub</span><button class="copy" onclick="copyBlock(this)">Copy</button>
 <pre>Create a new private GitHub repository called my-dashboard under my GitHub account and push this project. Make sure my commits use my GitHub account's email. Make sure node_modules is not uploaded.</pre></div>
-    <p><b>Vercel</b> turns that code into a real website &mdash; all clicks, in the browser:</p>
-    <ol class="steps">
-      <li>Go to <code>vercel.com/new</code>, sign in with GitHub.</li>
-      <li>Find <b>my-dashboard</b>, click <b>Import.</b> Not listed? Adjust GitHub permissions to allow it, come back.</li>
-      <li><b>Leave every setting as-is</b> (it should detect <b>Next.js</b>). Click <b>Deploy</b>, wait ~1 minute.</li>
-      <li>Copy your <b>short link</b> &mdash; the one like <code>something.vercel.app</code>.</li>
-    </ol>
-    <span class="check"><b>Worked when</b> the short link opens in a private window or on your phone, no login. It's live.</span>
+    <span class="check"><b>Worked when</b> you open <code>github.com</code>, see your <b>my-dashboard</b> repo with your files, and no <code>node_modules</code> folder.</span>
+    <div class="note"><b>Private</b> means only you can see it. When you're ready to put it on the web for others, a host like <b>Vercel</b> or <b>Netlify</b> can publish straight from this repo &mdash; that's a next step, not today.</div>
   </section>
 
   <section id="fix">
-    <div class="eyebrow">Step 6 &middot; fix it live</div>
-    <h2>Change it, push it, watch it update</h2>
-    <div class="prompt"><span class="lbl">Coding agent &middot; fix it live</span><button class="copy" onclick="copyBlock(this)">Copy</button>
-<pre><span class="ph">[Make one small change, e.g. show the date range next to the title.]</span> Check it still runs locally, then commit and push.</pre></div>
-    <p>Your agent commits and pushes; Vercel rebuilds in about a minute; refresh your live link and your change is on the internet.</p>
-    <div class="note warn"><b>Nothing new in Vercel after two minutes?</b> Your git email probably doesn't match your GitHub email. Ask your agent: <code>Check my git email against my GitHub account, fix it, and push again.</code></div>
+    <div class="eyebrow">Step 6 &middot; keep improving</div>
+    <h2>Change it, then save a new version</h2>
+    <div class="prompt"><span class="lbl">Coding agent &middot; change and save</span><button class="copy" onclick="copyBlock(this)">Copy</button>
+<pre><span class="ph">[Make one small change, e.g. show the date range next to the title.]</span> Check it still runs locally, then commit and push to GitHub.</pre></div>
+    <p>Your agent makes the change, saves it (&ldquo;commits&rdquo;), and uploads it to GitHub (&ldquo;pushes&rdquo;). Your history is safe &mdash; you can always roll back a version.</p>
+    <div class="note"><b>One change at a time.</b> Run it locally, confirm it works, then save. That's the whole loop.</div>
   </section>
 
   <section id="honest">
     <div class="eyebrow">Three honest things</div>
-    <h2>Before you share it</h2>
+    <h2>Before you go further</h2>
     <div class="cards three">
-      <div class="card"><h3>It's public</h3><p>Anyone with the link can open it. <b>Never upload real customer or financial data.</b></p></div>
-      <div class="card"><h3>Free is for practice</h3><p>Vercel's free plan is non-commercial. For a real business site, use a paid plan or another host.</p></div>
-      <div class="card"><h3>Nothing is stored</h3><p>Each visitor uploads a file; it stays in their browser. The site keeps nothing.</p></div>
+      <div class="card"><h3>It&rsquo;s on your computer</h3><p>Your dashboard runs at <code>localhost:3000</code>, just for you, until you choose to host it.</p></div>
+      <div class="card"><h3>Keep the data fake</h3><p>Use sample data. <b>Never upload real customer or financial records</b> into a practice project.</p></div>
+      <div class="card"><h3>Nothing is stored</h3><p>The app keeps no data &mdash; a file you upload stays in your browser.</p></div>
     </div>
     <div class="note">Hit an error? Don't retype it &mdash; copy the exact message, paste it to your agent, and ask it to fix it. That's the whole loop.</div>
   </section>
