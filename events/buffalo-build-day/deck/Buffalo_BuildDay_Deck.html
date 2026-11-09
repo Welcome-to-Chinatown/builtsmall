@@ -704,26 +704,35 @@ body{background:var(--cream)!important;color:var(--ink)!important;}
 .slide-counter{color:var(--ink-soft)!important;}
 .progress{background:rgba(22,32,91,.1)!important;}
 .progress-fill{background:var(--blue)!important;}
-/* ===== readability: larger type so it reads from the back ===== */
-.hdr .eyebrow,.s-cobrand .eyebrow{font-size:1.3vw!important;}
-.hdr h2{font-size:3.1vw!important;}
-.b1-k{font-size:1.25vw;}
-.b1-h{font-size:2.6vw;}
-.b1-p{font-size:2.1vw;}
-.b1-big{font-size:3.1vw;}
-.b1-sub{font-size:2.2vw;}
-.b1-steps li{font-size:2.3vw;}
-.b1-steps li::before{width:3vw;height:3vw;font-size:1.7vw;}
-.b1-list li{font-size:2.2vw;}
-.b1-note{font-size:2.05vw;}
-.df-note{font-size:1.95vw;}
-.dtable th{font-size:1.3vw;}
-.dtable td{font-size:2.05vw;}
-.b1-code{font-size:1.65vw;line-height:1.55;}
-.b1-code .lbl{font-size:1.15vw;}
-.cobrand-meta{font-size:1.55vw;}
-.b1-node .t{font-size:2.1vw;}
-.b1-node .s{font-size:1.45vw;}
+/* ===== readability: large type for a 150-seat room on big monitors ===== */
+.hdr .eyebrow,.s-cobrand .eyebrow{font-size:1.6vw!important;}
+.hdr h2{font-size:3.5vw!important;}
+.b1-k{font-size:1.55vw;}
+.b1-h{font-size:3vw;}
+.b1-p{font-size:2.5vw;}
+.b1-big{font-size:3.7vw;}
+.b1-sub{font-size:2.7vw;}
+.b1-steps li{font-size:2.7vw;}
+.b1-steps li::before{width:3.4vw;height:3.4vw;font-size:2vw;}
+.b1-list li{font-size:2.6vw;}
+.b1-note{font-size:2.5vw;}
+.df-note{font-size:2.4vw;}
+.dtable th{font-size:1.6vw;}
+.dtable td{font-size:2.5vw;}
+.b1-code{font-size:1.95vw;line-height:1.5;}
+.b1-code .lbl{font-size:1.4vw;}
+.cobrand-meta{font-size:1.95vw;}
+.b1-node .t{font-size:2.4vw;}
+.b1-node .s{font-size:1.6vw;}
+/* cover + meta + captions */
+.s-cobrand .sub{font-size:2.9vw!important;line-height:1.3;max-width:82vw;}
+.cover-support .cs-lbl{font-size:1.25vw;}
+.support-strip .slbl{font-size:1.35vw;}
+.wwa-support .lbl{font-size:1.3vw;}
+.qr-cap{font-size:1.45vw;}
+.qr-hero .qh-right .qr-cap{font-size:1.6vw;max-width:46vh;letter-spacing:.02em;white-space:nowrap;}
+.eac-hero .sub{font-size:2vw;}
+.eac-chip .cl{font-size:1.3vw;}
 
 </style>
 </head>
@@ -731,7 +740,9 @@ body{background:var(--cream)!important;color:var(--ink)!important;}
 <div class="deck" id="deck">
 <div class="slide active"><div class="s-cobrand"><div class="cobrand-logos"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="cdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="cdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"><span class="cdiv"></span><img class="bgc" src="bg_logo.png" alt="The Exchange at Beverly Gray"></div><div class="eyebrow">BuiltSmall &middot; Decoded Futures &middot; TechBuffalo &middot; The Exchange at Beverly Gray</div><h1 style="font-size:6vw;line-height:1.02;">Build <em>Day</em></h1><div class="sub">Find a real task. Build a working AI tool. Walk out with something you will actually use.</div><div class="cobrand-meta">Golisano Institute &middot; Buffalo &middot; Nov 10, 2026</div><div class="cover-support"><span class="cs-lbl">Powered by</span><img src="google_org_logo.svg" alt="Google.org"></div></div></div>
 
-<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Getting ready</div><h2>Before we start</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div class="qr-hero"><div class="qh-left"><ul class="b1-steps"><li>Find your table and sit with your <strong>organization partner.</strong></li><li>Open <strong>Gemini, ChatGPT, or Claude</strong> and sign in.</li><li>Open a <strong>text editor</strong> too &mdash; Google Docs, Word, or Notes.</li><li>Say hi to the <strong>technologist</strong> at your table.</li><li>Hit a login wall? Flag a technologist <strong>now.</strong></li></ul><div class="b1-note">Wi-Fi is on the screen. Scan for <strong>everything today</strong> &mdash; slides, data, handouts. We start at 9.</div></div><div class="qh-right"><img src="qr_buffalobuild.png" alt="Resources QR" style="width:36vh;height:36vh;"><div class="qr-cap" style="font-size:1.5vw;margin-top:1vh;">builtsmall.ai/buffalobuild</div></div></div></div></div>
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Getting ready</div><h2>Before we start</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><ul class="b1-steps"><li>Find your table and sit with your <strong>organization partner.</strong></li><li>Open <strong>Gemini, ChatGPT, or Claude</strong> and sign in.</li><li>Open a <strong>text editor</strong> too &mdash; Google Docs, Word, or Notes.</li><li>Say hi to the <strong>technologist</strong> at your table.</li><li>Hit a login wall? Flag a technologist <strong>now.</strong></li></ul><div class="b1-note">Wi-Fi is on the screen. We start at 9 &mdash; scan the next slide for everything today.</div></div></div>
+
+<div class="slide "><div class="hdr"><div class="hdr-txt"><div class="eyebrow">Scan to follow along</div><h2>Everything, in one place</h2></div><div class="cobrand-head"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="hdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="hdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"></div></div><div class="body" style=""><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:2vh;text-align:center;"><div class="b1-big">Slides, data, and handouts &mdash; all day.</div><img src="qr_buffalobuild.png" alt="Resources QR" style="width:44vh;height:44vh;border-radius:16px;background:#fff;padding:1.3vh;box-sizing:border-box;box-shadow:0 14px 36px rgba(22,32,91,.18);display:block;"><div class="b1-big" style="font-size:3.6vw;letter-spacing:.01em;">builtsmall.ai/buffalobuild</div></div></div></div>
 
 <div class="slide "><div class="s-cobrand"><div class="cobrand-logos"><img class="bs" src="lockup_lite.png" alt="BuiltSmall"><span class="cdiv"></span><img class="df" src="df_logo.png" alt="Decoded Futures"><span class="cdiv"></span><img class="tb" src="tb_logo.png" alt="TechBuffalo"><span class="cdiv"></span><img class="bgc" src="bg_logo.png" alt="The Exchange at Beverly Gray"></div><div class="eyebrow">Welcome</div><h1 style="font-size:4.4vw;line-height:1.05;">Built <em>together.</em></h1><div class="sub">BuiltSmall, Decoded Futures, TechBuffalo, and The Exchange at Beverly Gray brought this to Buffalo.</div><div class="support-strip"><div class="slbl">Powered by</div><div class="slogos"><img class="goog" src="google_org_logo.svg" alt="Google.org"></div></div></div></div>
 
