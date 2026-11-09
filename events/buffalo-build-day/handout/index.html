@@ -90,7 +90,7 @@ td:first-child{font-weight:800}
       </div>
       <p>This is <b>product thinking</b>: decide the <b>what, why, and how</b> before you build. That's where your effort really goes &mdash; the coding is the easy part once the brain is clear.</p>
       <p>The file is named for your tool: <code>CLAUDE.md</code> (Claude Code), <code>AGENTS.md</code> (Codex, Cursor, Copilot, most others), or <code>GEMINI.md</code> (Gemini). You don't write it by hand &mdash; <b>you get an AI to write it for you</b> from your what/why/how (that's the <em>write your <code>.md</code></em> step below).</p>
-      <p style="margin-bottom:0"><a href="#" data-link="product-dev-handout">&rarr; Go deeper: the product development handout</a></p>
+      <p style="margin-bottom:0"><a href="pita-canvas.html" target="_blank" rel="noopener">&rarr; Go deeper: the product development handout</a> &mdash; pin down your what, why, and how first.</p>
     </div>
   </section>
 
@@ -228,6 +228,19 @@ Keep it 40-60 lines. Confirm it covers every feature when done.</pre></div>
       <div class="card"><h3>Nothing is stored</h3><p>The app keeps no data &mdash; a file you upload stays in your browser.</p></div>
     </div>
     <div class="note">Hit an error? Don't retype it &mdash; copy the exact message, paste it to your agent, and ask it to fix it. That's the whole loop.</div>
+  </section>
+
+  <section id="next">
+    <div class="eyebrow">Optional next step &middot; after today</div>
+    <h2>Put it on the internet with Vercel</h2>
+    <p>Want a real web link to share? <b>Vercel</b> publishes straight from your GitHub repo &mdash; all clicks, in the browser. Free for practice (non-commercial).</p>
+    <ol class="steps">
+      <li>Make a free account at <code>vercel.com/signup</code> &mdash; click <b>Continue with GitHub</b>, pick the <b>Hobby</b> plan.</li>
+      <li>Go to <code>vercel.com/new</code>, find <b>my-dashboard</b>, click <b>Import.</b> Not listed? Adjust GitHub permissions to allow it, then come back.</li>
+      <li><b>Leave every setting as-is</b> (it should detect <b>Next.js</b>). Click <b>Deploy</b> and wait about a minute.</li>
+      <li>Open your <b>short link</b> (like <code>something.vercel.app</code>) in a private window &mdash; it's live.</li>
+    </ol>
+    <div class="note"><b>Nothing new after a later push?</b> Your git email probably doesn't match your GitHub email. Ask your agent: <code>Check my git email against my GitHub account, fix it, and push again.</code> Free hosting is for practice &mdash; use a paid plan and a login before any real data.</div>
   </section>
 </div>
 
